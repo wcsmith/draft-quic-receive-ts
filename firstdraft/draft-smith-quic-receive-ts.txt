@@ -1,0 +1,221 @@
+
+
+
+
+TODO Working Group                                              C. Smith
+Internet-Draft                                                  I. Swett
+Intended status: Informational                                Google LLC
+Expires: 2 April 2022                                  29 September 2021
+
+
+         QUIC Extension for Reporting Packet Receive Timestamps
+                   draft-smith-quic-receive-ts-latest
+
+Abstract
+
+   This document defines an extension to the QUIC transport protocol
+   which adds support for reporting packet receive timestamps in QUIC
+   ACK frames.
+
+Discussion Venues
+
+   This note is to be removed before publishing as an RFC.
+
+   Discussion of this document takes place on the QUIC Working Group
+   mailing list (quic@ietf.org), which is archived at
+   https://mailarchive.ietf.org/arch/browse/quic/.
+
+   Source for this draft and an issue tracker can be found at
+   https://github.com/wcsmith/quic-receive-ts.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on 2 April 2022.
+
+Copyright Notice
+
+   Copyright (c) 2021 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.  Code Components
+   extracted from this document must include Simplified BSD License text
+   as described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Simplified BSD License.
+
+Table of Contents
+
+   1.  Introduction
+   2.  Conventions and Definitions
+   3.  Specification
+     3.1.  Transport Parameters
+       3.1.1.  Enable Receive Timestamps
+       3.1.2.  Receive Timestamps Exponent
+     3.2.  ACK_RECEIVE_TIMESTAMP Frames
+       3.2.1.  Timestamp Ranges
+   4.  Security Considerations
+   5.  IANA Considerations
+   6.  Normative References
+   Acknowledgments
+   Authors' Addresses
+
+1.  Introduction
+
+   The QUIC Transport Protocol [I-D.ietf-quic-transport] provides a
+   secure, multiplexed connection for transmitting reliable streams of
+   application data.
+
+   TODO Describe motivation for receive timestamps
+
+2.  Conventions and Definitions
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in
+   BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
+
+3.  Specification
+
+3.1.  Transport Parameters
+
+   The use of the timestamp frame extension is negotiated using two
+   transport parameters:
+
+   *  enable_receive_timestamps (value=TBD)
+
+   *  receive_timestamps_exponent (value=TBD)
+
+3.1.1.  Enable Receive Timestamps
+
+   The enable_receive_timestamps (value=TBD) parameter is an varint
+   value indicating that the endpoint would like to receive, and/or is
+   able to send, ACK_RECEIVE_TIMESTAMP frames.  The value of the
+   parameter is one of the following:
+
+     +=======+======================================================+
+     | Value | Meaning                                              |
+     +=======+======================================================+
+     | 1     | I would like to receive ACK_RECEIVE_TIMESTAMP frames |
+     +-------+------------------------------------------------------+
+     | 2     | I am able to send ACK_RECEIVE_TIMESTAMP frames       |
+     +-------+------------------------------------------------------+
+     | 3     | I would like to receive ACK_RECEIVE_TIMESTAMP frames |
+     |       | and I am able to send them.                          |
+     +-------+------------------------------------------------------+
+
+                                 Table 1
+
+3.1.2.  Receive Timestamps Exponent
+
+   The receive_timestamps_exponent (value=TBD) parameter is an integer
+   value indicating the exponent to be used when decode the receive
+   timestamp delta fields in the ACK_RECEIVE_TIMESTAMP frame.  If this
+   value is absent, a default value of 0 is assumed (indicating
+   microsecond precision).  Values above 20 are invalid.
+
+3.2.  ACK_RECEIVE_TIMESTAMP Frames
+
+   Receivers send ACK_RECEIVE_TIMESTAMP frames in the place of QUIC ACK
+   frames as is described in [I-D.ietf-quic-transport], except
+   ACK_RECEIVE_TIMESTAMP frames contain additional fields to report
+   packet receive timestamps to the sender.
+
+   ACK frames are structured as shown in Figure 1:
+
+   ACK_RECEIVE_TIMESTAMP Frame {
+     Type (i) = TBD
+     Largest Acknowledged (i),
+     ACK Delay (i),
+     ACK Range Count (i),
+     First ACK Range (i),
+     ACK Range (..) ...,
+     Timestamp Range Count (i),
+     Timestamp Range (..) ...,
+   }
+
+                Figure 1: ACK_RECEIVE_TIMESTAMP Frame Format
+
+   The new fields contained in ACK_RECEIVE_TIMESTAMP frames relative to
+   ACK frames are:
+
+   TODO Describe
+
+3.2.1.  Timestamp Ranges
+
+   Each Timestamp Range consists of a gap indicating the first packet in
+   the range, and a list of timestamp deltas indicating the successive
+   difference between contiguous packet receive timestamps in the range.
+
+   Timestamp Ranges are structured as shown in Figure 2:
+
+   Timestamp Range {
+     Gap (i),
+     Timestamp Delta Count (i),
+     Timestamp Delta (i) ...,
+   }
+
+                      Figure 2: Timestamp Range Format
+
+   The fields that form each Timestamp Range are:
+
+   TODO Describe
+
+4.  Security Considerations
+
+   TODO Security
+
+5.  IANA Considerations
+
+   This document has no IANA actions.
+
+6.  Normative References
+
+   [I-D.ietf-quic-transport]
+              Iyengar, J. and M. Thomson, "QUIC: A UDP-Based Multiplexed
+              and Secure Transport", Work in Progress, Internet-Draft,
+              draft-ietf-quic-transport-34, 14 January 2021,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-quic-
+              transport-34>.
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://datatracker.ietf.org/doc/html/rfc2119>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://datatracker.ietf.org/doc/html/rfc8174>.
+
+Acknowledgments
+
+   TODO acknowledge.
+
+Authors' Addresses
+
+   Connor Smith
+   Google LLC
+
+   Email: connorsmith@google.com
+
+
+   Ian Swett
+   Google LLC
+
+   Email: ianswett@google.com
