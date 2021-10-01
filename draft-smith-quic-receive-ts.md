@@ -18,7 +18,7 @@ author:
     ins: C. Smith
     name: Connor Smith
     org: Google LLC
-    email: connorsmith@google.com
+    email: connorsmith.ietf@gmail.com
  -
     ins: I. Swett
     name: Ian Swett
