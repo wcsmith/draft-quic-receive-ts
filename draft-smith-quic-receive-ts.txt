@@ -5,7 +5,7 @@
 TODO Working Group                                              C. Smith
 Internet-Draft                                                  I. Swett
 Intended status: Informational                                Google LLC
-Expires: 1 April 2022                                  28 September 2021
+Expires: 4 April 2022                                     1 October 2021
 
 
          QUIC Extension for Reporting Packet Receive Timestamps
@@ -14,6 +14,17 @@ Expires: 1 April 2022                                  28 September 2021
 Abstract
 
    TODO Abstract
+
+Discussion Venues
+
+   This note is to be removed before publishing as an RFC.
+
+   Discussion of this document takes place on the QUIC Working Group
+   mailing list (quic@ietf.org), which is archived at
+   https://mailarchive.ietf.org/arch/browse/quic/.
+
+   Source for this draft and an issue tracker can be found at
+   https://github.com/wcsmith/quic-receive-ts.
 
 Status of This Memo
 
@@ -30,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 April 2022.
+   This Internet-Draft will expire on 4 April 2022.
 
 Copyright Notice
 
@@ -96,7 +107,7 @@ Authors' Addresses
    Connor Smith
    Google LLC
 
-   Email: connorsmith@google.com
+   Email: connorsmith.ietf@gmail.com
 
 
    Ian Swett
