@@ -1222,10 +1222,10 @@ assumed (indicating microsecond precision). Values above 20 are invalid.<a href=
         <h3 id="name-ack_receive_timestamp-frame">
 <a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-ack_receive_timestamp-frame" class="section-name selfRef">ACK_RECEIVE_TIMESTAMP Frames</a>
         </h3>
-<p id="section-3.2-1">Receivers send ACK_RECEIVE_TIMESTAMP (TBD) frames in the place of regular ACK frames
-described in <span>[<a href="#I-D.ietf-quic-transport" class="xref">I-D.ietf-quic-transport</a>]</span>. However, ACK_RECEIVE_TIMESTAMP frames
-contain additional fields to report packet receive timestamps to the peer that
-sent them.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.2-1">Receivers send ACK_RECEIVE_TIMESTAMP (TBD) frames in the place of regular ACK
+frames as described in <span>[<a href="#I-D.ietf-quic-transport" class="xref">I-D.ietf-quic-transport</a>]</span>. However,
+ACK_RECEIVE_TIMESTAMP frames contain additional fields to report packet receive
+timestamps to the peer that sent them.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
 <p id="section-3.2-2">ACK frames are structured as shown in <a href="#figframe" class="xref">Figure 1</a>:<a href="#section-3.2-2" class="pilcrow">¶</a></p>
 <span id="name-ack_receive_timestamp-frame-"></span><div id="figframe">
 <figure id="figure-1">
@@ -1252,6 +1252,13 @@ ACK_RECEIVE_TIMESTAMP Frame {
 <p id="section-3.2-4">The new fields contained in ACK_RECEIVE_TIMESTAMP frames relative to ACK frames
 are:<a href="#section-3.2-4" class="pilcrow">¶</a></p>
 <p id="section-3.2-5">TODO Describe<a href="#section-3.2-5" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.2-6.1">Timestamp Range Count: A variable-length integer specifying the number of
+Timestamp Range fields in the frame.<a href="#section-3.2-6.1" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-3.2-6.2">Timestamp Range: Ranges of receive timestamps for contiguous packets.<a href="#section-3.2-6.2" class="pilcrow">¶</a>
+</li>
+        </ul>
 <div id="timestamp-ranges">
 <section id="section-3.2.1">
           <h4 id="name-timestamp-ranges">
@@ -1277,7 +1284,26 @@ Timestamp Range {
             </figcaption></figure>
 </div>
 <p id="section-3.2.1-4">The fields that form each Timestamp Range are:<a href="#section-3.2.1-4" class="pilcrow">¶</a></p>
-<p id="section-3.2.1-5">TODO Describe<a href="#section-3.2.1-5" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.2.1-5.1">
+              <p id="section-3.2.1-5.1.1">Gap: A variable-length integer specifying the highest packet number in the
+Timestamp Range as follows:<a href="#section-3.2.1-5.1.1" class="pilcrow">¶</a></p>
+<p id="section-3.2.1-5.1.2">
+For the first Timestamp Range, the gap is the difference between the Largest
+Acknowledge packet in the frame and the largest packet for which a receive
+timestamp is being reported.<a href="#section-3.2.1-5.1.2" class="pilcrow">¶</a></p>
+<p id="section-3.2.1-5.1.3">
+For subsequent Timestamp Ranges, the gap is the difference between the
+smallest packet for which a receive timestamp was reported in the previous
+range, and the largest packet for hwich a timestamp is being reported in the
+current range.<a href="#section-3.2.1-5.1.3" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-3.2.1-5.2">Timestamp Delta Count: A variable-length integer specifying the number of
+receive timestamps reported in this Timestamp Range.<a href="#section-3.2.1-5.2" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-3.2.1-5.3">Timestamp Delta:<a href="#section-3.2.1-5.3" class="pilcrow">¶</a>
+</li>
+          </ul>
 </section>
 </div>
 </section>

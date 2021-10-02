@@ -117,9 +117,9 @@ Table of Contents
 3.2.  ACK_RECEIVE_TIMESTAMP Frames
 
    Receivers send ACK_RECEIVE_TIMESTAMP (TBD) frames in the place of
-   regular ACK frames described in [I-D.ietf-quic-transport].  However,
-   ACK_RECEIVE_TIMESTAMP frames contain additional fields to report
-   packet receive timestamps to the peer that sent them.
+   regular ACK frames as described in [I-D.ietf-quic-transport].
+   However, ACK_RECEIVE_TIMESTAMP frames contain additional fields to
+   report packet receive timestamps to the peer that sent them.
 
    ACK frames are structured as shown in Figure 1:
 
@@ -143,6 +143,12 @@ Table of Contents
 
    TODO Describe
 
+   *  Timestamp Range Count: A variable-length integer specifying the
+      number of Timestamp Range fields in the frame.
+
+   *  Timestamp Range: Ranges of receive timestamps for contiguous
+      packets.
+
 3.2.1.  Timestamp Ranges
 
    Each Timestamp Range consists of a gap indicating the first packet in
@@ -161,7 +167,22 @@ Table of Contents
 
    The fields that form each Timestamp Range are:
 
-   TODO Describe
+   *  Gap: A variable-length integer specifying the highest packet
+      number in the Timestamp Range as follows:
+
+      For the first Timestamp Range, the gap is the difference between
+      the Largest Acknowledge packet in the frame and the largest packet
+      for which a receive timestamp is being reported.
+
+      For subsequent Timestamp Ranges, the gap is the difference between
+      the smallest packet for which a receive timestamp was reported in
+      the previous range, and the largest packet for hwich a timestamp
+      is being reported in the current range.
+
+   *  Timestamp Delta Count: A variable-length integer specifying the
+      number of receive timestamps reported in this Timestamp Range.
+
+   *  Timestamp Delta:
 
 4.  Discussion
 
