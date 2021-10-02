@@ -112,8 +112,7 @@ Table of Contents
       indicating the exponent to be used when encoding and decoding
       timestamp delta? fields in each ACK_RECEIVE_TIMESTAMP frame.  If
       this value is absent, a default value of 0 is assumed (indicating
-      microsecond precision).  Values above 20 are invalid. >>>>>>>
-      95c6e37 (Add first draft of quic-receive-ts.)
+      microsecond precision).  Values above 20 are invalid.
 
 3.2.  ACK_RECEIVE_TIMESTAMP Frames
 
