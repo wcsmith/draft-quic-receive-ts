@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2021-09-30T01:05:15.760453+00:00",
+  "timestamp": "2021-10-03T01:06:23.852767+00:00",
   "repo": "wcsmith/draft-quic-receive-ts",
   "labels": [
     {
@@ -59,19 +59,17 @@
       "state": "OPEN",
       "author": "wcsmith",
       "authorAssociation": "OWNER",
-      "assignees": [
-        "ianswett"
-      ],
+      "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2021-09-29T18:17:01Z",
-      "updatedAt": "2021-09-29T21:19:17Z",
+      "updatedAt": "2021-10-02T00:28:14Z",
       "baseRepository": "wcsmith/draft-quic-receive-ts",
       "baseRefName": "main",
-      "baseRefOid": "1258d96527224b3fd1351a56f3a8b93e9964c375",
+      "baseRefOid": "93a9c8a447c0a1f6119bde3ee8b1df642d03dcab",
       "headRepository": "wcsmith/draft-quic-receive-ts",
       "headRefName": "firstdraft",
-      "headRefOid": "91b46ba63e007183c0ccceed2eda3d9d8a936faa",
+      "headRefOid": "7f8a4e452422de9e0e7b1e84260feba96313bd0f",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
