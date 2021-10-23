@@ -17,7 +17,7 @@ author:
  -
     ins: C. Smith
     name: Connor Smith
-    org: Google LLC
+    org: Magic Leap, Inc.
     email: connorsmith.ietf@gmail.com
  -
     ins: I. Swett
