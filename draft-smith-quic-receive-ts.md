@@ -174,9 +174,9 @@ Gap:
   Acknowledged packet number in the frame and (b) the largest packet in the
   current (first) Timestamp Range.
 
-  For subsequent Timestamp Ranges: Gap is the difference between (a) the
-  smallest packet in the previous Timestamp Range and (b) the largest packet in
-  the current Timestamp Range.
+  For subsequent Timestamp Ranges: Gap is the difference between (a) the packet
+  number two lower than the smallest packet number in the previous Timestamp
+  Range and (b) the largest packet in the current Timestamp Range.
 
 Timestamp Delta Count:
 
