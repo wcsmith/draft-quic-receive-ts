@@ -3,9 +3,10 @@
 
 
 TODO Working Group                                              C. Smith
-Internet-Draft                                                  I. Swett
-Intended status: Informational                                Google LLC
-Expires: 4 April 2022                                     1 October 2021
+Internet-Draft                                          Magic Leap, Inc.
+Intended status: Informational                                  I. Swett
+Expires: 26 April 2022                                        Google LLC
+                                                         23 October 2021
 
 
          QUIC Extension for Reporting Packet Receive Timestamps
@@ -41,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 April 2022.
+   This Internet-Draft will expire on 26 April 2022.
 
 Copyright Notice
 
@@ -105,7 +106,7 @@ Acknowledgments
 Authors' Addresses
 
    Connor Smith
-   Google LLC
+   Magic Leap, Inc.
 
    Email: connorsmith.ietf@gmail.com
 
