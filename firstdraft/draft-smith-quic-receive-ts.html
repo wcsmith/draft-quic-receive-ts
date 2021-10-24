@@ -1325,14 +1325,20 @@ number order; see <a href="#ts-ranges" class="xref">Section 5.1</a>.<a href="#se
         <h3 id="name-timestamp-ranges">
 <a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-timestamp-ranges" class="section-name selfRef">Timestamp Ranges</a>
         </h3>
-<p id="section-5.1-1">Each Timestamp Range consists of a Gap indicating the largest packet number in
-the Timestamp Range, followed by a list of Timestamp Deltas describing the
-receive timestamps for each contiguous packet in the Timestamp Range in
-descending packet number order.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
-<p id="section-5.1-2">Timestamp Ranges are structured as shown in <a href="#fig-ts-range" class="xref">Figure 2</a>.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
+<p id="section-5.1-1">Each Timestamp Range describes a series of contiguous packet receive timestamps
+in descending packet number (and descending timestamp) order. Timestamp Ranges
+consist of a Gap indicating the largest packet number in the range, followed by
+a list of Timestamp Deltas describing the relative receive timestamps for each
+contiguous packet in the Timestamp Range (descending).<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.1-2">Note that reporting receive timestamps for packets received out of order is not
+supported. Specifically: for any packet number P for which a receive timestamp T
+is reported, all reports for packet numbers less than P must have timestamps
+less than or equal to T; and all reports for packet numbers greater than P must
+have timestamps greater than or equal to T.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
+<p id="section-5.1-3">Timestamp Ranges are structured as shown in <a href="#fig-ts-range" class="xref">Figure 2</a>.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
 <span id="name-timestamp-range-format"></span><div id="fig-ts-range">
 <figure id="figure-2">
-          <div class="alignLeft art-text artwork" id="section-5.1-3.1">
+          <div class="alignLeft art-text artwork" id="section-5.1-4.1">
 <pre>
 Timestamp Range {
   Gap (i),
@@ -1345,45 +1351,45 @@ Timestamp Range {
 <a href="#name-timestamp-range-format" class="selfRef">Timestamp Range Format</a>
           </figcaption></figure>
 </div>
-<p id="section-5.1-4">The fields that form each Timestamp Range are:<a href="#section-5.1-4" class="pilcrow">¶</a></p>
-<span class="break"></span><dl class="dlParallel" id="section-5.1-5">
-          <dt id="section-5.1-5.1">
+<p id="section-5.1-5">The fields that form each Timestamp Range are:<a href="#section-5.1-5" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-5.1-6">
+          <dt id="section-5.1-6.1">
 Gap:  </dt>
-          <dd style="margin-left: 1.5em" id="section-5.1-5.2">
-            <p id="section-5.1-5.2.1">A variable-length integer indicating the largest packet number in the
-Timestamp Range as follows:<a href="#section-5.1-5.2.1" class="pilcrow">¶</a></p>
-<p id="section-5.1-5.2.2">For the first Timestamp Range: Gap is the difference between (a) the Largest
+          <dd style="margin-left: 1.5em" id="section-5.1-6.2">
+            <p id="section-5.1-6.2.1">A variable-length integer indicating the largest packet number in the
+Timestamp Range as follows:<a href="#section-5.1-6.2.1" class="pilcrow">¶</a></p>
+<p id="section-5.1-6.2.2">For the first Timestamp Range: Gap is the difference between (a) the Largest
 Acknowledged packet number in the frame and (b) the largest packet in the
-current (first) Timestamp Range.<a href="#section-5.1-5.2.2" class="pilcrow">¶</a></p>
-<p id="section-5.1-5.2.3">For subsequent Timestamp Ranges: Gap is the difference between (a) the packet
+current (first) Timestamp Range.<a href="#section-5.1-6.2.2" class="pilcrow">¶</a></p>
+<p id="section-5.1-6.2.3">For subsequent Timestamp Ranges: Gap is the difference between (a) the packet
 number two lower than the smallest packet number in the previous Timestamp
-Range and (b) the largest packet in the current Timestamp Range.<a href="#section-5.1-5.2.3" class="pilcrow">¶</a></p>
+Range and (b) the largest packet in the current Timestamp Range.<a href="#section-5.1-6.2.3" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-5.1-5.3">
+<dt id="section-5.1-6.3">
 Timestamp Delta Count:  </dt>
-          <dd style="margin-left: 1.5em" id="section-5.1-5.4">
-            <p id="section-5.1-5.4.1">A variable-length integer indicating the number of Timestamp Deltas in the
-current Timestamp Range.<a href="#section-5.1-5.4.1" class="pilcrow">¶</a></p>
+          <dd style="margin-left: 1.5em" id="section-5.1-6.4">
+            <p id="section-5.1-6.4.1">A variable-length integer indicating the number of Timestamp Deltas in the
+current Timestamp Range.<a href="#section-5.1-6.4.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-5.1-5.5">
+<dt id="section-5.1-6.5">
 Timestamp Deltas:  </dt>
-          <dd style="margin-left: 1.5em" id="section-5.1-5.6">
-            <p id="section-5.1-5.6.1">Variable-length integers encoding the receive timestamp for contiguous packets
-in the Timestamp Range in descending packet number order as follows:<a href="#section-5.1-5.6.1" class="pilcrow">¶</a></p>
-<p id="section-5.1-5.6.2">For the first Timestamp Delta of the first Timestamp Range in the frame: the
+          <dd style="margin-left: 1.5em" id="section-5.1-6.6">
+            <p id="section-5.1-6.6.1">Variable-length integers encoding the receive timestamp for contiguous packets
+in the Timestamp Range in descending packet number order as follows:<a href="#section-5.1-6.6.1" class="pilcrow">¶</a></p>
+<p id="section-5.1-6.6.2">For the first Timestamp Delta of the first Timestamp Range in the frame: the
 value is the difference between (a) the receive timestamp of the largest
 packet in the Timestamp Range (indicated by Gap) and (b) the session
-receive_timestamp_basis (see <a href="#ts-basis" class="xref">Section 4.1</a>), decoded as described below.<a href="#section-5.1-5.6.2" class="pilcrow">¶</a></p>
-<p id="section-5.1-5.6.3">For all other Timestamp Deltas: the value is the difference between (a) the
+receive_timestamp_basis (see <a href="#ts-basis" class="xref">Section 4.1</a>), decoded as described below.<a href="#section-5.1-6.6.2" class="pilcrow">¶</a></p>
+<p id="section-5.1-6.6.3">For all other Timestamp Deltas: the value is the difference between (a) the
 receive timestamp specified by the previous Timestamp Delta and (b) the
 receive timestamp of the current packet in the Timestamp Range, decoded as
-described below.<a href="#section-5.1-5.6.3" class="pilcrow">¶</a></p>
-<p id="section-5.1-5.6.4">All Timestamp Delta values are decoded by mulitplying the value in the field
+described below.<a href="#section-5.1-6.6.3" class="pilcrow">¶</a></p>
+<p id="section-5.1-6.6.4">All Timestamp Delta values are decoded by mulitplying the value in the field
 by 2 to the power of the receive_timestamps_exponent transport parameter
 received by the sender of the ACK_RECEIVE_TIMESTAMPS frame (see
-<a href="#negotiation" class="xref">Section 4</a>):<a href="#section-5.1-5.6.4" class="pilcrow">¶</a></p>
+<a href="#negotiation" class="xref">Section 4</a>):<a href="#section-5.1-6.6.4" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 </dl>
