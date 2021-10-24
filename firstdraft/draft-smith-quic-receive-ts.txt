@@ -5,8 +5,8 @@
 TODO Working Group                                              C. Smith
 Internet-Draft                                          Magic Leap, Inc.
 Intended status: Informational                                  I. Swett
-Expires: 26 April 2022                                        Google LLC
-                                                         23 October 2021
+Expires: 27 April 2022                                        Google LLC
+                                                         24 October 2021
 
 
          QUIC Extension for Reporting Packet Receive Timestamps
@@ -15,8 +15,8 @@ Expires: 26 April 2022                                        Google LLC
 Abstract
 
    This document defines an extension to the QUIC transport protocol
-   which supports reporting packet receive timestamps using a new
-   ACK_RECEIVE_TIMESTAMPS frame type.
+   which supports reporting multiple packet receive timestamps using a
+   new ACK_RECEIVE_TIMESTAMPS frame type.
 
 Discussion Venues
 
@@ -44,7 +44,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 26 April 2022.
+   This Internet-Draft will expire on 27 April 2022.
 
 Copyright Notice
 
@@ -82,8 +82,8 @@ Table of Contents
    connection for transmitting reliable streams of application data.
 
    This document defines an extension to the QUIC transport protocol
-   which supports reporting packet receive timestamps using a new
-   ACK_RECEIVE_TIMESTAMPS frame type.
+   which supports reporting multiple packet receive timestamps using a
+   new ACK_RECEIVE_TIMESTAMPS frame type.
 
 2.  Motivation
 
