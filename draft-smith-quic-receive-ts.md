@@ -148,7 +148,7 @@ Timestamp Ranges:
 ## Timestamp Ranges {#ts-ranges}
 
 Each Timestamp Range describes a series of contiguous packet receive timestamps
-in descending packet number (and descending timestamp) order. Timestamp Ranges
+in descending sequential packet number (and descending timestamp) order. Timestamp Ranges
 consist of a Gap indicating the largest packet number in the range, followed by
 a list of Timestamp Deltas describing the relative receive timestamps for each
 contiguous packet in the Timestamp Range (descending).
