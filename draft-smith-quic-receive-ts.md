@@ -33,8 +33,8 @@ informative:
 --- abstract
 
 This document defines an extension to the QUIC transport protocol which supports
-reporting packet receive timestamps using a new ACK_RECEIVE_TIMESTAMPS frame
-type.
+reporting multiple packet receive timestamps using a new ACK_RECEIVE_TIMESTAMPS
+frame type.
 
 
 --- middle
@@ -45,8 +45,8 @@ The QUIC Transport Protocol {{!RFC9000}} provides a secure, multiplexed
 connection for transmitting reliable streams of application data.
 
 This document defines an extension to the QUIC transport protocol which supports
-reporting packet receive timestamps using a new ACK_RECEIVE_TIMESTAMPS frame
-type.
+reporting multiple packet receive timestamps using a new ACK_RECEIVE_TIMESTAMPS
+frame type.
 
 
 # Motivation
