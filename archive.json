@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2021-10-21T01:08:22.496852+00:00",
+  "timestamp": "2021-10-24T01:02:07.747894+00:00",
   "repo": "wcsmith/draft-quic-receive-ts",
   "labels": [
     {
@@ -63,19 +63,48 @@
       "labels": [],
       "body": "",
       "createdAt": "2021-09-29T18:17:01Z",
-      "updatedAt": "2021-10-02T00:28:14Z",
+      "updatedAt": "2021-10-23T22:47:11Z",
       "baseRepository": "wcsmith/draft-quic-receive-ts",
       "baseRefName": "main",
-      "baseRefOid": "93a9c8a447c0a1f6119bde3ee8b1df642d03dcab",
+      "baseRefOid": "594d208dfe440ade8877341d6a2423aea0d731c6",
       "headRepository": "wcsmith/draft-quic-receive-ts",
       "headRefName": "firstdraft",
-      "headRefOid": "7f8a4e452422de9e0e7b1e84260feba96313bd0f",
+      "headRefOid": "8c210daa360af5a8818de8889b624bbf2b8a25df",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
-      "reviews": []
+      "comments": [
+        {
+          "author": "wcsmith",
+          "authorAssociation": "OWNER",
+          "body": "Ready for review",
+          "createdAt": "2021-10-23T22:35:57Z",
+          "updatedAt": "2021-10-23T22:35:57Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGIUVps4u743O",
+          "commit": {
+            "abbreviatedOid": "801a062"
+          },
+          "author": "wcsmith",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-10-23T22:39:16Z",
+          "updatedAt": "2021-10-23T22:39:16Z",
+          "comments": [
+            {
+              "originalPosition": 165,
+              "body": "Does it make sense to drop the wrapping 32-bit epoch for the initial timestamp delta? The interaction with the exponent is a little weird; e.g. if you have exponent = 0, you'll dip into eight-byte deltas occasionally anyway (with the 2 bit varint addition). I noticed that Christian's timestamp doesn't do this, so wondering if you think it still makes sense now that we have varint and a timestamp exponent.",
+              "createdAt": "2021-10-23T22:39:16Z",
+              "updatedAt": "2021-10-23T22:39:16Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
