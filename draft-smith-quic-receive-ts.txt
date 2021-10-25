@@ -73,7 +73,9 @@ Table of Contents
      6.1.  Best-Effort Behavior
    7.  Security Considerations
    8.  IANA Considerations
-   9.  Normative References
+   9.  References
+     9.1.  Normative References
+     9.2.  Informative References
    Acknowledgments
    Authors' Addresses
 
@@ -88,7 +90,27 @@ Table of Contents
 
 2.  Motivation
 
-   TODO Describe motivation for receive timestamps
+   QUIC congestion control ([RFC9002]) supports sampling round-trip time
+   (RTT) by measuring the time from when a packet was sent to when it is
+   acknowledged.  However, more precise delay signals measured via
+   packet receive timestamps have the potential to improve the accuracy
+   of network bandwidth measurements and the effectiveness of congestion
+   control, especially for latency-critical applications such as real-
+   time video conferencing or game streaming.
+
+   Numerous existing algorithms and techniques leverage receive receive
+   timestamps to improve transport performance.  Examples include:
+
+   *  The WebRTC congestion control algorithm described in
+      [I-D.ietf-rmcat-gcc] uses the difference between packet inter-
+      departure and packet inter-arrival times as the input to its
+      delay-based controller.
+
+   *  The pathChirp ([RRBNC]) technique estimates available bandwidth by
+      measuring inter-arrival time of multiple packets.
+
+   Notably, these techniques require receive timestamps for more than
+   one packet per round-trip in order to best measure the network.
 
 3.  Conventions and Definitions
 
@@ -267,7 +289,9 @@ Table of Contents
 
    This document has no IANA actions.
 
-9.  Normative References
+9.  References
+
+9.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -282,6 +306,23 @@ Table of Contents
               Multiplexed and Secure Transport", RFC 9000,
               DOI 10.17487/RFC9000, May 2021,
               <https://datatracker.ietf.org/doc/html/rfc9000>.
+
+9.2.  Informative References
+
+   [I-D.ietf-rmcat-gcc]
+              Holmer, S., Lundin, H., Carlucci, G., Cicco, L. D., and S.
+              Mascolo, "A Google Congestion Control Algorithm for Real-
+              Time Communication", Work in Progress, Internet-Draft,
+              draft-ietf-rmcat-gcc-02, 8 July 2016,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-rmcat-
+              gcc-02>.
+
+   [RFC9002]  Iyengar, J., Ed. and I. Swett, Ed., "QUIC Loss Detection
+              and Congestion Control", RFC 9002, DOI 10.17487/RFC9002,
+              May 2021, <https://datatracker.ietf.org/doc/html/rfc9002>.
+
+   [RRBNC]    Cottrel, R.V.R.R.B.R.N.J.a.L., "pathChirp: Efficient
+              Available Bandwidth Estimation for Network Paths", 2003.
 
 Acknowledgments
 
