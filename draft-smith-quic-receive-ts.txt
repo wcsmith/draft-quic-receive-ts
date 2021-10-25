@@ -2,7 +2,7 @@
 
 
 
-TODO Working Group                                              C. Smith
+QUIC                                                            C. Smith
 Internet-Draft                                          Magic Leap, Inc.
 Intended status: Informational                                  I. Swett
 Expires: 28 April 2022                                        Google LLC
