@@ -5,8 +5,8 @@ docname: draft-smith-quic-receive-ts-latest
 category: info
 
 ipr: trust200902
-area: TODO
-workgroup: TODO Working Group
+area: Transport
+workgroup: QUIC
 keyword: Internet-Draft
 
 stand_alone: yes
