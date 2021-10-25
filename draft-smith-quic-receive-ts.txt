@@ -5,8 +5,8 @@
 TODO Working Group                                              C. Smith
 Internet-Draft                                          Magic Leap, Inc.
 Intended status: Informational                                  I. Swett
-Expires: 27 April 2022                                        Google LLC
-                                                         24 October 2021
+Expires: 28 April 2022                                        Google LLC
+                                                         25 October 2021
 
 
          QUIC Extension for Reporting Packet Receive Timestamps
@@ -27,7 +27,7 @@ Discussion Venues
    https://mailarchive.ietf.org/arch/browse/quic/.
 
    Source for this draft and an issue tracker can be found at
-   https://github.com/wcsmith/quic-receive-ts.
+   https://github.com/wcsmith/draft-quic-receive-ts.
 
 Status of This Memo
 
@@ -44,7 +44,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 April 2022.
+   This Internet-Draft will expire on 28 April 2022.
 
 Copyright Notice
 
