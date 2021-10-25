@@ -1166,6 +1166,11 @@ frame type.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
             <p id="section-toc.1-1.6.1"><a href="#section-6" class="xref">6</a>.  <a href="#name-discussion" class="xref">Discussion</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1">
+                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="xref">6.1</a>.  <a href="#name-best-effort-behavior" class="xref">Best-Effort Behavior</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
             <p id="section-toc.1-1.7.1"><a href="#section-7" class="xref">7</a>.  <a href="#name-security-considerations" class="xref">Security Considerations</a></p>
@@ -1371,6 +1376,8 @@ Timestamp Delta Count:  </dt>
           <dd style="margin-left: 1.5em" id="section-5.1-6.4">
             <p id="section-5.1-6.4.1">A variable-length integer indicating the number of Timestamp Deltas in the
 current Timestamp Range.<a href="#section-5.1-6.4.1" class="pilcrow">¶</a></p>
+<p id="section-5.1-6.4.2">The sum of Timestamp Delta Counts for all Timestamp Ranges in the frame <span class="bcp14">MUST</span>
+NOT exceed max_receive_timestamps_per_ack as specified in <a href="#negotiation" class="xref">Section 4</a>.<a href="#section-5.1-6.4.2" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
 <dt id="section-5.1-6.5">
@@ -1402,7 +1409,24 @@ received by the sender of the ACK_RECEIVE_TIMESTAMPS frame (see
       <h2 id="name-discussion">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-discussion" class="section-name selfRef">Discussion</a>
       </h2>
-<p id="section-6-1">TODO Discussion<a href="#section-6-1" class="pilcrow">¶</a></p>
+<div id="best-effort-behavior">
+<section id="section-6.1">
+        <h3 id="name-best-effort-behavior">
+<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-best-effort-behavior" class="section-name selfRef">Best-Effort Behavior</a>
+        </h3>
+<p id="section-6.1-1">Receive timestamps are sent on a best-effort basis and endpoints <span class="bcp14">MUST</span> gracefully
+handle scenarios where receive timestamp information for sent packets is not
+received. Examples of such scenarios are:<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-6.1-2.1">The packet containing the ACK_RECEIVE_TIMESTAMP frame is lost.<a href="#section-6.1-2.1" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-6.1-2.2">The sender truncates the number of timestamps sent in order to (a) avoid
+sending more than max_receive_timestamps_per_ack (<a href="#negotiation" class="xref">Section 4</a>); or (b) fit
+the ACK frame into a packet.<a href="#section-6.1-2.2" class="pilcrow">¶</a>
+</li>
+        </ul>
+</section>
+</div>
 </section>
 </div>
 <div id="security-considerations">

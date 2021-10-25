@@ -70,6 +70,7 @@ Table of Contents
    5.  ACK_RECEIVE_TIMESTAMPS Frame
      5.1.  Timestamp Ranges
    6.  Discussion
+     6.1.  Best-Effort Behavior
    7.  Security Considerations
    8.  IANA Considerations
    9.  Normative References
@@ -220,6 +221,10 @@ Table of Contents
    Timestamp Delta Count:  A variable-length integer indicating the
       number of Timestamp Deltas in the current Timestamp Range.
 
+      The sum of Timestamp Delta Counts for all Timestamp Ranges in the
+      frame MUST NOT exceed max_receive_timestamps_per_ack as specified
+      in Section 4.
+
    Timestamp Deltas:  Variable-length integers encoding the receive
       timestamp for contiguous packets in the Timestamp Range in
       descending packet number order as follows:
@@ -242,7 +247,17 @@ Table of Contents
 
 6.  Discussion
 
-   TODO Discussion
+6.1.  Best-Effort Behavior
+
+   Receive timestamps are sent on a best-effort basis and endpoints MUST
+   gracefully handle scenarios where receive timestamp information for
+   sent packets is not received.  Examples of such scenarios are:
+
+   *  The packet containing the ACK_RECEIVE_TIMESTAMP frame is lost.
+
+   *  The sender truncates the number of timestamps sent in order to (a)
+      avoid sending more than max_receive_timestamps_per_ack
+      (Section 4); or (b) fit the ACK frame into a packet.
 
 7.  Security Considerations
 
