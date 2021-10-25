@@ -29,6 +29,13 @@ normative:
 
 informative:
 
+  RRBNC:
+    title: "pathChirp: Efficient Available Bandwidth Estimation for Network Paths"
+    date: 2003
+    author:
+      name: "Ribeiro, V., Riedi, R., Baraniuk, R., Navratil, J., and L. Cottrel"
+    publication: "Passive and Active Monitoring Workshop"
+
 
 --- abstract
 
@@ -51,7 +58,25 @@ frame type.
 
 # Motivation
 
-TODO Describe motivation for receive timestamps
+QUIC congestion control ({{?RFC9002}}) supports sampling round-trip time (RTT)
+by measuring the time from when a packet was sent to when it is acknowledged.
+However, more precise delay signals measured via packet receive timestamps have
+the potential to improve the accuracy of network bandwidth measurements and the
+effectiveness of congestion control, especially for latency-critical
+applications such as real-time video conferencing or game streaming.
+
+Numerous existing algorithms and techniques leverage receive receive timestamps
+to improve transport performance. Examples include:
+
+- The WebRTC congestion control algorithm described in {{?I-D.ietf-rmcat-gcc}}
+  uses the difference between packet inter-departure and packet inter-arrival
+  times as the input to its delay-based controller.
+
+- The pathChirp ({{RRBNC}}) technique estimates available bandwidth by measuring
+  inter-arrival time of multiple packets.
+
+Notably, these techniques require receive timestamps for more than one packet
+per round-trip in order to best measure the network.
 
 
 # Conventions and Definitions
