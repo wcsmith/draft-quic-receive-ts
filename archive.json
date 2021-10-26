@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2021-10-24T01:02:07.747894+00:00",
+  "timestamp": "2021-10-26T00:59:01.172080+00:00",
   "repo": "wcsmith/draft-quic-receive-ts",
   "labels": [
     {
@@ -56,24 +56,26 @@
       "id": "PR_kwDOGIUVps4sd4RB",
       "title": "Add first draft of quic-receive-ts.",
       "url": "https://github.com/wcsmith/draft-quic-receive-ts/pull/1",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "wcsmith",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2021-09-29T18:17:01Z",
-      "updatedAt": "2021-10-23T22:47:11Z",
+      "updatedAt": "2021-10-24T21:00:18Z",
       "baseRepository": "wcsmith/draft-quic-receive-ts",
       "baseRefName": "main",
       "baseRefOid": "594d208dfe440ade8877341d6a2423aea0d731c6",
       "headRepository": "wcsmith/draft-quic-receive-ts",
       "headRefName": "firstdraft",
-      "headRefOid": "8c210daa360af5a8818de8889b624bbf2b8a25df",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "c35a7ae55655d6c5ae0aedd444f610b51e30e5a2",
+      "closedAt": "2021-10-24T21:00:18Z",
+      "mergedAt": "2021-10-24T21:00:18Z",
+      "mergedBy": "wcsmith",
+      "mergeCommit": {
+        "oid": "7c46f57af75d21bc087d19aa760922de40c5a018"
+      },
       "comments": [
         {
           "author": "wcsmith",
@@ -81,6 +83,13 @@
           "body": "Ready for review",
           "createdAt": "2021-10-23T22:35:57Z",
           "updatedAt": "2021-10-23T22:35:57Z"
+        },
+        {
+          "author": "wcsmith",
+          "authorAssociation": "OWNER",
+          "body": "> One small suggestion, but LG.\r\n> \r\n> You're right, my other comment was stale. I almost completed a review a few weeks ago and apparently never sent it :(\r\n\r\nSorry I also realized too late that I probably shouldn't have forced pushed an update to a PR :).",
+          "createdAt": "2021-10-24T20:59:08Z",
+          "updatedAt": "2021-10-24T20:59:08Z"
         }
       ],
       "reviews": [
@@ -101,6 +110,189 @@
               "body": "Does it make sense to drop the wrapping 32-bit epoch for the initial timestamp delta? The interaction with the exponent is a little weird; e.g. if you have exponent = 0, you'll dip into eight-byte deltas occasionally anyway (with the 2 bit varint addition). I noticed that Christian's timestamp doesn't do this, so wondering if you think it still makes sense now that we have varint and a timestamp exponent.",
               "createdAt": "2021-10-23T22:39:16Z",
               "updatedAt": "2021-10-23T22:39:16Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGIUVps4tunhv",
+          "commit": {
+            "abbreviatedOid": "91b46ba"
+          },
+          "author": "ianswett",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Some quick comments, but looks great.",
+          "createdAt": "2021-09-29T21:14:26Z",
+          "updatedAt": "2021-10-24T19:46:37Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "```suggestion\r\nsupport for reporting multiple packet receive timestamps in QUIC ACK frames.\r\n```",
+              "createdAt": "2021-09-29T21:14:26Z",
+              "updatedAt": "2021-10-24T19:46:37Z"
+            },
+            {
+              "originalPosition": 32,
+              "body": "As discussed, my suggestion would be to make this something like:\r\n - send_timestamp_exponent = varint\r\n - max_received_timestamps = varint",
+              "createdAt": "2021-09-29T21:16:06Z",
+              "updatedAt": "2021-10-24T19:46:37Z"
+            },
+            {
+              "originalPosition": 46,
+              "body": "```suggestion\r\n```",
+              "createdAt": "2021-09-29T21:16:52Z",
+              "updatedAt": "2021-10-24T19:46:38Z"
+            },
+            {
+              "originalPosition": 95,
+              "body": "I'm not sure I understand this format completely, could you add some more detail and/or more descriptive names?",
+              "createdAt": "2021-09-29T21:19:17Z",
+              "updatedAt": "2021-10-24T19:46:38Z"
+            },
+            {
+              "originalPosition": 165,
+              "body": "I'd be inclined to drop the wrapping.",
+              "createdAt": "2021-10-24T19:46:15Z",
+              "updatedAt": "2021-10-24T19:46:38Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGIUVps4u8Qgv",
+          "commit": {
+            "abbreviatedOid": "8c210da"
+          },
+          "author": "wcsmith",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-10-24T20:05:24Z",
+          "updatedAt": "2021-10-24T20:05:25Z",
+          "comments": [
+            {
+              "originalPosition": 32,
+              "body": "I think these were from a much earlier version (maybe you started this comment a while ago?). I am looking at: https://wcsmith.github.io/draft-quic-receive-ts/firstdraft/draft-smith-quic-receive-ts.html . Let me know if it doesn't appear updated.",
+              "createdAt": "2021-10-24T20:05:24Z",
+              "updatedAt": "2021-10-24T20:05:25Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGIUVps4u8Qg-",
+          "commit": {
+            "abbreviatedOid": "8c210da"
+          },
+          "author": "wcsmith",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-10-24T20:05:30Z",
+          "updatedAt": "2021-10-24T20:05:30Z",
+          "comments": [
+            {
+              "originalPosition": 46,
+              "body": "Same outdated",
+              "createdAt": "2021-10-24T20:05:30Z",
+              "updatedAt": "2021-10-24T20:05:31Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGIUVps4u8Qsp",
+          "commit": {
+            "abbreviatedOid": "dada0c2"
+          },
+          "author": "wcsmith",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-10-24T20:14:25Z",
+          "updatedAt": "2021-10-24T20:14:26Z",
+          "comments": [
+            {
+              "originalPosition": 95,
+              "body": "If this is for the current version: yes, I can definitely clarify. Can you check if you were commenting on the up-to-date version though? As I added descriptions for all fields, more explanation, etc.",
+              "createdAt": "2021-10-24T20:14:26Z",
+              "updatedAt": "2021-10-24T20:14:26Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGIUVps4u8Qx2",
+          "commit": {
+            "abbreviatedOid": "dada0c2"
+          },
+          "author": "ianswett",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "One small suggestion, but LG.\r\n\r\nYou're right, my other comment was stale.  I almost completed a review a few weeks ago and apparently never sent it :(",
+          "createdAt": "2021-10-24T20:18:26Z",
+          "updatedAt": "2021-10-24T20:20:11Z",
+          "comments": [
+            {
+              "originalPosition": 121,
+              "body": "It seems like these are in descending order, correct?  If so, I'd say that here.",
+              "createdAt": "2021-10-24T20:18:27Z",
+              "updatedAt": "2021-10-24T20:20:11Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGIUVps4u8Q0M",
+          "commit": {
+            "abbreviatedOid": "dada0c2"
+          },
+          "author": "ianswett",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2021-10-24T20:20:21Z",
+          "updatedAt": "2021-10-24T20:20:21Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOGIUVps4u8RHE",
+          "commit": {
+            "abbreviatedOid": "a4912aa"
+          },
+          "author": "ianswett",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Thanks for the extra text!",
+          "createdAt": "2021-10-24T20:35:30Z",
+          "updatedAt": "2021-10-24T20:37:08Z",
+          "comments": [
+            {
+              "originalPosition": 9,
+              "body": "```suggestion\r\nin descending sequential packet number (and descending timestamp) order. Timestamp Ranges\r\n```",
+              "createdAt": "2021-10-24T20:35:30Z",
+              "updatedAt": "2021-10-24T20:37:08Z"
+            },
+            {
+              "originalPosition": 14,
+              "body": "This LG for now, but I expect this design choice to get some discussion.",
+              "createdAt": "2021-10-24T20:36:57Z",
+              "updatedAt": "2021-10-24T20:37:08Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGIUVps4u8RLH",
+          "commit": {
+            "abbreviatedOid": "c35a7ae"
+          },
+          "author": "wcsmith",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-10-24T20:38:41Z",
+          "updatedAt": "2021-10-24T20:38:41Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "Ack. Totally open to discussion (this was just modeled on the current behavior).",
+              "createdAt": "2021-10-24T20:38:41Z",
+              "updatedAt": "2021-10-24T20:38:41Z"
             }
           ]
         }
