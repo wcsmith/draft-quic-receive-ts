@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2021-11-04T01:00:18.062833+00:00",
+  "timestamp": "2021-11-07T01:02:25.291764+00:00",
   "repo": "wcsmith/draft-quic-receive-ts",
   "labels": [
     {
@@ -49,7 +49,24 @@
       "color": "ffffff"
     }
   ],
-  "issues": [],
+  "issues": [
+    {
+      "number": 2,
+      "id": "I_kwDOGIUVps4-YZT7",
+      "title": "Should Timestamps have to be in order?",
+      "url": "https://github.com/wcsmith/draft-quic-receive-ts/issues/2",
+      "state": "OPEN",
+      "author": "ianswett",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Currently timestamps must decrease in value as the packet numbers decrease in value, so if a packet with a lower packet number is received after a packet with a higher packet number, that timestamp can't be expressed in the frame.\r\n\r\nFor existing CC algorithms which use timestamps, it's believed this is ok, but it'd be good to confirm that design decision.",
+      "createdAt": "2021-11-06T19:42:08Z",
+      "updatedAt": "2021-11-06T19:42:08Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
   "pulls": [
     {
       "number": 1,
