@@ -24,6 +24,27 @@ author:
     name: Ian Swett
     org: Google LLC
     email: ianswett@google.com
+ -
+    ins: J. Beshay
+    name: Joseph Beshay
+    org: Meta Platforms, Inc.
+    email: jbeshay@meta.com
+ -
+    ins: S. Jaiswal
+    name: Sharad Jaiswal
+    org: Meta Platforms, Inc.
+    email: sj77@meta.com
+ -
+    ins: I. Purushothaman
+    name: Ilango Purushothaman
+    org: Meta Platforms, Inc.
+    email: ipurush@meta.com
+ -
+    ins: B. Schlinker
+    name: Brandon Schlinker
+    org: Meta Platforms, Inc.
+    email: bschlinker@meta.com
+
 
 normative:
 
