@@ -3,7 +3,7 @@
 
 
 QUIC                                                            C. Smith
-Internet-Draft                                          Magic Leap, Inc.
+Internet-Draft                                                    NVIDIA
 Intended status: Informational                                  I. Swett
 Expires: 1 September 2025                                     Google LLC
                                                         28 February 2025
@@ -332,7 +332,7 @@ Acknowledgments
 Authors' Addresses
 
    Connor Smith
-   Magic Leap, Inc.
+   NVIDIA
    Email: connorsmith.ietf@gmail.com
 
 
