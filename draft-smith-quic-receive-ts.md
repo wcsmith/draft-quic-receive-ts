@@ -17,7 +17,7 @@ author:
  -
     ins: C. Smith
     name: Connor Smith
-    org: Magic Leap, Inc.
+    org: NVIDIA
     email: connorsmith.ietf@gmail.com
  -
     ins: I. Swett
