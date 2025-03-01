@@ -107,20 +107,18 @@ per round-trip in order to best measure the network.
 
 # Enabling Extensibility in the ACK frame {#extensibility}
 
-The QUIC transport protocol defines two different frame types for carrying
-delivery acknowledgements {{Section 19.3 of !RFC9000}}. The sending endpoint
+The QUIC transport protocol defines two different frame types for acknowledgements
+{{Section 19.3 of !RFC9000}}. The endpoint sending acknowledgements
 decides which type to use depending on whether it wants to report ECN counts.
-This approach works well with one set of optional fields. This document defines
-another set of optional fields to report receive timestamps. Using the current
-approach to optional fields in ACK frames would require adding 2 new frame
-types, for a total of 4, to support receive timestamps with and without ECN
-counts. The number of frames grows exponentially with the number of optional
-features the transport has to support. Instead, this document defines one new
-frame type
-(ACK_EXTENDED) that can carry multiple optional fields. This reduces the number
-of required new frames for this extention, and avoids potential exponential
-growth of the number of frame types for potential future extensions or
-extension updates.
+This approach works well with one set of optional fields, but grows exponentially
+with more sets of optional fields.
+
+This document defines a new set of optional fields to report receive timestamps.
+Using a new frame type for each variant of the ACK frame would require adding 2 new
+frame types, for a total of 4. Instead, this document defines one new frame type
+(ACK_EXTENDED), that can carry multiple optional sections, reducing
+the number of new frame types from 2 to 1, and avoids futre extensions causing
+an exponential growth in frame types.
 
 # ACK_EXTENDED Frame {#frame}
 
