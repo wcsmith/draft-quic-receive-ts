@@ -184,10 +184,9 @@ Timestamp Ranges:
 
 Each Timestamp Range describes a series of contiguous packet receive timestamps
 in descending sequential packet number (and descending timestamp) order.
-Timestamp Ranges
-consist of a Gap indicating the largest packet number in the range, followed by
-a list of Timestamp Deltas describing the relative receive timestamps for each
-contiguous packet in the Timestamp Range (descending).
+Timestamp Ranges consist of a Gap indicating the largest packet number in the
+range, followed by a list of Timestamp Deltas describing the relative receive
+timestamps for each contiguous packet in the Timestamp Range (descending).
 
 Note that reporting receive timestamps for packets received out of order is not
 supported. Specifically: for any packet number P for which a receive timestamp T
