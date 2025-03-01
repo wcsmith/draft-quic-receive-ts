@@ -120,6 +120,8 @@ frame types, for a total of 4. Instead, this document defines one new frame type
 the number of new frame types from 2 to 1, and avoids futre extensions causing
 an exponential growth in frame types.
 
+
+
 # ACK_EXTENDED Frame {#frame}
 
 Endpoints send ACK_EXTENDED (type=0xB1 temporary value) frames in place of--and
