@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2021-11-07T01:02:25.291764+00:00",
+  "timestamp": "2025-03-02T01:39:34.744194+00:00",
   "repo": "wcsmith/draft-quic-receive-ts",
   "labels": [
     {
@@ -24,14 +24,14 @@
       "color": "a2eeef"
     },
     {
-      "name": "help wanted",
-      "description": "Extra attention is needed",
-      "color": "008672"
-    },
-    {
       "name": "good first issue",
       "description": "Good for newcomers",
       "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
     },
     {
       "name": "invalid",
@@ -65,6 +65,37 @@
       "updatedAt": "2021-11-06T19:42:08Z",
       "closedAt": null,
       "comments": []
+    },
+    {
+      "number": 3,
+      "id": "I_kwDOGIUVps5PWaMm",
+      "title": "Is this draft aborted?",
+      "url": "https://github.com/wcsmith/draft-quic-receive-ts/issues/3",
+      "state": "OPEN",
+      "author": "MrJia1997",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Hi there, I wonder if this draft is aborted, since the current revision has expired. If yes, then what's the reason?",
+      "createdAt": "2022-08-08T03:29:30Z",
+      "updatedAt": "2022-08-08T16:37:30Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "ianswett",
+          "authorAssociation": "COLLABORATOR",
+          "body": "This is being used by a Google internal project, but it's not actively being worked on besides that.  Christian also has a timestamp draft that has not been adopted, and it's unclear to me what the working group wants to do about timestamps.\r\n\r\nIs this something you're using or would like to use?",
+          "createdAt": "2022-08-08T16:01:39Z",
+          "updatedAt": "2022-08-08T16:01:39Z"
+        },
+        {
+          "author": "MrJia1997",
+          "authorAssociation": "NONE",
+          "body": "Yeah. I'm trying to optimize CC algorithm for QUIC, and one-way delay measurement will enable me a better queueing and jitter detection. I've checked out Christian's draft too, but, IMHO, the encoding efficiency of TIMESTAMP frame doesn't look really good, since only one receive timestamp is carried per ack frame. Though handling reordered packets might be tough in this draft, it looks more promising for me to encode packet timestamps in a much more compact way.",
+          "createdAt": "2022-08-08T16:37:30Z",
+          "updatedAt": "2022-08-08T16:37:30Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -312,6 +343,155 @@
               "updatedAt": "2021-10-24T20:38:41Z"
             }
           ]
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "id": "PR_kwDOGIUVps6M30sq",
+      "title": "Expand the draft with a new ACK_EXTENDED frame that is more extensible and add new authors",
+      "url": "https://github.com/wcsmith/draft-quic-receive-ts/pull/4",
+      "state": "OPEN",
+      "author": "jbeshay",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The existing ACK_RECEIVE_TIMESTAMP cannot carry ECN counts. Rather than adding more frame types for combinations of ack features, this PR uses a new frame type ACK_EXTENDED that can carry multiple sets of optional fields; ECN fields and receive timestamps fields in this draft.\r\n\r\nThis also adds new authors who have been using and extending the design of the proposal in the draft.",
+      "createdAt": "2025-02-28T00:30:54Z",
+      "updatedAt": "2025-03-01T03:14:28Z",
+      "baseRepository": "wcsmith/draft-quic-receive-ts",
+      "baseRefName": "main",
+      "baseRefOid": "9f349a17af2b54adffd93cd6f6992e05186a5c96",
+      "headRepository": "jbeshay/draft-quic-receive-ts",
+      "headRefName": "ack_extended",
+      "headRefOid": "5b15dd9b222441c0db5ed4acb4feee1ccc86b2ef",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "jbeshay",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Rebased on top of template updates.",
+          "createdAt": "2025-02-28T22:39:17Z",
+          "updatedAt": "2025-02-28T22:39:17Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGIUVps6eETsr",
+          "commit": {
+            "abbreviatedOid": "5b15dd9"
+          },
+          "author": "ianswett",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "Mostly LG, though I'm not convinced this is a good way to go for extending the ACK frame.",
+          "createdAt": "2025-02-28T23:06:36Z",
+          "updatedAt": "2025-03-01T03:14:28Z",
+          "comments": [
+            {
+              "originalPosition": 17,
+              "body": "I'm fine with adding everyone for now, but this is a lot of authors, so if it gets adopted, I suspect some people might be moved to the acknowledgements.",
+              "createdAt": "2025-02-28T23:06:36Z",
+              "updatedAt": "2025-03-01T03:14:28Z"
+            },
+            {
+              "originalPosition": 177,
+              "body": "```suggestion\r\nExtended Ack Features: A variable-length integer whose bit-wise\r\n```",
+              "createdAt": "2025-02-28T23:12:35Z",
+              "updatedAt": "2025-03-01T03:14:28Z"
+            },
+            {
+              "originalPosition": 217,
+              "body": "```suggestion\r\n  receive ACK_EXTENDED frames with the specified set of features. The bit-wise\r\n```",
+              "createdAt": "2025-03-01T03:11:51Z",
+              "updatedAt": "2025-03-01T03:14:28Z"
+            },
+            {
+              "originalPosition": 221,
+              "body": "if we go this direction, we'll likely need an IANA registry for this, which is somewhat annoying.",
+              "createdAt": "2025-03-01T03:12:45Z",
+              "updatedAt": "2025-03-01T03:14:28Z"
+            },
+            {
+              "originalPosition": 277,
+              "body": "```suggestion\r\nendpoints and to make the field more compact.\r\n```",
+              "createdAt": "2025-03-01T03:13:59Z",
+              "updatedAt": "2025-03-01T03:14:28Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDOGIUVps6M_l0m",
+      "title": "Update Github template",
+      "url": "https://github.com/wcsmith/draft-quic-receive-ts/pull/5",
+      "state": "MERGED",
+      "author": "jbeshay",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Updates template using\r\n```\r\nmake update\r\nmake update-files\r\n```",
+      "createdAt": "2025-02-28T22:29:45Z",
+      "updatedAt": "2025-02-28T22:33:04Z",
+      "baseRepository": "wcsmith/draft-quic-receive-ts",
+      "baseRefName": "main",
+      "baseRefOid": "4c353af6ee2dbc9edbce73ec27ac241c386cad61",
+      "headRepository": "wcsmith/draft-quic-receive-ts",
+      "headRefName": "jb/update_template",
+      "headRefOid": "ffaedb2c715135a315c555e142e915184ea3de9f",
+      "closedAt": "2025-02-28T22:33:03Z",
+      "mergedAt": "2025-02-28T22:33:03Z",
+      "mergedBy": "jbeshay",
+      "mergeCommit": {
+        "oid": "9f349a17af2b54adffd93cd6f6992e05186a5c96"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 6,
+      "id": "PR_kwDOGIUVps6M_slU",
+      "title": "Update Connor Smith's org affiliation to NVIDIA.",
+      "url": "https://github.com/wcsmith/draft-quic-receive-ts/pull/6",
+      "state": "MERGED",
+      "author": "wcsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-02-28T22:56:04Z",
+      "updatedAt": "2025-02-28T23:28:46Z",
+      "baseRepository": "wcsmith/draft-quic-receive-ts",
+      "baseRefName": "main",
+      "baseRefOid": "9f349a17af2b54adffd93cd6f6992e05186a5c96",
+      "headRepository": "wcsmith/draft-quic-receive-ts",
+      "headRefName": "wcsmith/update-author",
+      "headRefOid": "3691219fd4b2d1959f9b94c8b5d7b51dc65ab472",
+      "closedAt": "2025-02-28T23:28:45Z",
+      "mergedAt": "2025-02-28T23:28:45Z",
+      "mergedBy": "wcsmith",
+      "mergeCommit": {
+        "oid": "9c78fbace87032d57e75e403675bd1f453a21009"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGIUVps6eESf4",
+          "commit": {
+            "abbreviatedOid": "3691219"
+          },
+          "author": "jbeshay",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-02-28T23:00:52Z",
+          "updatedAt": "2025-02-28T23:00:52Z",
+          "comments": []
         }
       ]
     }
