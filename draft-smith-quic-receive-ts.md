@@ -156,7 +156,7 @@ The fields Largest Acknowledged, ACK Delay, ACK Range Count, First ACK Range,
 and ACK Range are the same as for ACK (type=0x02) frames specified in {{Section
 19.3 of !RFC9000}}.
 
-The Extended Ack Features field is a variable-length integer whose bit-wise
+Extended Ack Features: A variable-length integer whose bit-wise
 value indicates which optional fields are included in the ACK. This document
 defines two sets of fields corresponding to the two least significant bits of
 the value:
@@ -256,7 +256,7 @@ three transport parameters ({{Section 7.2 of !RFC9000}}):
 extended_ack_features (0xff0a004 temporary value for draft use):
 
 : A variable-length integer indicating the sending endpoint would like to
-  receive ACK_EXTENDED frames with the specified set of   features. The bit-wise
+  receive ACK_EXTENDED frames with the specified set of features. The bit-wise
   value of the integer indicates the features the endpoint can accept in the
   ACK_EXTENDED frame. The value of this paramter is interpreted in the same way
   as the Extended Ack Features field in the ACK_EXTENDED frame, i.e.,
@@ -316,7 +316,7 @@ session.
 
 TODO: Discuss (here or below) why receive timestamps are reported relative to
 the basis, rather than in absolute time to avoid clock synchronization between
-endpoints.
+endpoints and to make the field more compact.
 
 
 # Discussion
