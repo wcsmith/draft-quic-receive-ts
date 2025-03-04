@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-02T01:39:34.744194+00:00",
+  "timestamp": "2025-03-04T01:36:38.868165+00:00",
   "repo": "wcsmith/draft-quic-receive-ts",
   "labels": [
     {
@@ -71,15 +71,15 @@
       "id": "I_kwDOGIUVps5PWaMm",
       "title": "Is this draft aborted?",
       "url": "https://github.com/wcsmith/draft-quic-receive-ts/issues/3",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "MrJia1997",
       "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "Hi there, I wonder if this draft is aborted, since the current revision has expired. If yes, then what's the reason?",
       "createdAt": "2022-08-08T03:29:30Z",
-      "updatedAt": "2022-08-08T16:37:30Z",
-      "closedAt": null,
+      "updatedAt": "2025-03-02T20:11:02Z",
+      "closedAt": "2025-03-02T20:11:02Z",
       "comments": [
         {
           "author": "ianswett",
@@ -94,8 +94,31 @@
           "body": "Yeah. I'm trying to optimize CC algorithm for QUIC, and one-way delay measurement will enable me a better queueing and jitter detection. I've checked out Christian's draft too, but, IMHO, the encoding efficiency of TIMESTAMP frame doesn't look really good, since only one receive timestamp is carried per ack frame. Though handling reordered packets might be tough in this draft, it looks more promising for me to encode packet timestamps in a much more compact way.",
           "createdAt": "2022-08-08T16:37:30Z",
           "updatedAt": "2022-08-08T16:37:30Z"
+        },
+        {
+          "author": "ianswett",
+          "authorAssociation": "COLLABORATOR",
+          "body": "This draft now has a new author, and there's renewed interest, so activity should resume and hopefully we'll get it adopted by the QUIC WG in the near future.",
+          "createdAt": "2025-03-02T20:10:44Z",
+          "updatedAt": "2025-03-02T20:10:44Z"
         }
       ]
+    },
+    {
+      "number": 7,
+      "id": "I_kwDOGIUVps6sYVnI",
+      "title": "Extended ACK frame with multiple optional fields vs. new ACK frame types for the different supported configurations?",
+      "url": "https://github.com/wcsmith/draft-quic-receive-ts/issues/7",
+      "state": "OPEN",
+      "author": "jbeshay",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Rather than adding two frame types to support receive timestamps with and without ECN counts, the latest iteration of the draft defines one frame type, ACK_EXTENDED, that can carry multiple optional sets of fields that correspond to different features.\n\nPro:\nOnly one frame is needed to support the different combinations of all supported ack-related features or versions of them. Without the extended ack frame, supporting different combinations of all the supported features/versions would require an exponentially increasing number of frames as new features are introduced. Or at least linearly, if each new feature/version introduces a frame that includes the union of all existing features.\n\nCon:\nThe ack extended frame contains a field whose bit-wise values indicate which features/versions of features are included in the frame. This requires a new IANA registry to track which bits maps to which features. If the number of ack-related features is small, the overhead of having an IANA registry will be higher than the additional frame types. There are only three sets of optional fields defined or proposed that I am aware of: ECN counts (rfc9000), receive timestamps (this draft), and timestamps for one way delay (https://datatracker.ietf.org/doc/draft-huitema-quic-ts/)\n\nDoes avoiding the potential of increasing frame types justify the IANA overhead? Do we expect to see more extensions that add ACK fields? \n\nDepending on the discussion, we can: \n1. Maintain the ACK_EXTENDED frame approach that can supports this and future extensions.\n2. Use separate ACK_RECEIVE_TIMESTAMPS and ACK_ECN_RECEIVETIMESTAMPS frames to carry the two additional combinations of features we currently need. \n2. Use one ACK_RECEIVE_TIMESTAMPS frame that can optionally carry the ECN counts and/or receive timestamps fields, without being extensible to new features, to avoid the IANA overhead.",
+      "createdAt": "2025-03-03T19:03:00Z",
+      "updatedAt": "2025-03-03T19:26:01Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
@@ -351,24 +374,26 @@
       "id": "PR_kwDOGIUVps6M30sq",
       "title": "Expand the draft with a new ACK_EXTENDED frame that is more extensible and add new authors",
       "url": "https://github.com/wcsmith/draft-quic-receive-ts/pull/4",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "jbeshay",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "The existing ACK_RECEIVE_TIMESTAMP cannot carry ECN counts. Rather than adding more frame types for combinations of ack features, this PR uses a new frame type ACK_EXTENDED that can carry multiple sets of optional fields; ECN fields and receive timestamps fields in this draft.\r\n\r\nThis also adds new authors who have been using and extending the design of the proposal in the draft.",
       "createdAt": "2025-02-28T00:30:54Z",
-      "updatedAt": "2025-03-01T03:14:28Z",
+      "updatedAt": "2025-03-03T19:19:01Z",
       "baseRepository": "wcsmith/draft-quic-receive-ts",
       "baseRefName": "main",
       "baseRefOid": "9f349a17af2b54adffd93cd6f6992e05186a5c96",
       "headRepository": "jbeshay/draft-quic-receive-ts",
       "headRefName": "ack_extended",
-      "headRefOid": "5b15dd9b222441c0db5ed4acb4feee1ccc86b2ef",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "36c4f7cc433f1b3b72f12798085424ec692277ce",
+      "closedAt": "2025-03-03T19:18:54Z",
+      "mergedAt": "2025-03-03T19:18:54Z",
+      "mergedBy": "jbeshay",
+      "mergeCommit": {
+        "oid": "17df80d4e8a589dc394f08679e6c6f025d44bd7f"
+      },
       "comments": [
         {
           "author": "jbeshay",
@@ -376,6 +401,13 @@
           "body": "Rebased on top of template updates.",
           "createdAt": "2025-02-28T22:39:17Z",
           "updatedAt": "2025-02-28T22:39:17Z"
+        },
+        {
+          "author": "jbeshay",
+          "authorAssociation": "COLLABORATOR",
+          "body": "As discussed offline, the added complexity of negotiating the supported features and the need for an IANA registry may not be justified given that we don't expect many ack-related extensions that would need to be used concurrently. \r\n\r\nOne way to avoid the IANA requirement is to have one frame that can optionally carry receive timestamp and/or ecn counts but does not extend to other features.\r\n\r\nI will merge this change and continue the discussion about the best way to support the combination of ack-related features in a separate github issue (https://github.com/wcsmith/draft-quic-receive-ts/issues/7).",
+          "createdAt": "2025-03-03T19:12:43Z",
+          "updatedAt": "2025-03-03T19:12:43Z"
         }
       ],
       "reviews": [
