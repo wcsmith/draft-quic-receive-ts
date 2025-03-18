@@ -73,8 +73,7 @@ The QUIC Transport Protocol {{!RFC9000}} provides a secure, multiplexed
 connection for transmitting reliable streams of application data.
 
 This document defines an extension to the QUIC transport protocol which supports
-reporting multiple packet receive timestamps using a new ACK_EXTENDED
-frame type.
+reporting multiple packet receive timestamps.
 
 
 # Motivation
@@ -105,23 +104,25 @@ per round-trip in order to best measure the network.
 {::boilerplate bcp14-tagged}
 
 
-# ACK_EXTENDED Frame {#frame}
+# ACK Frame Wire Format {#frame}
 
 Endpoints send ACK frames as they otherwise would, with 0 or more receive
-timestamps following the ACK ranges.
+timestamps immediately following the ACK ranges in the ACK Frame.
 
-Once the extension has been negotiated, the ACK format becomes:
+Once negotiated, the ACK format is:
 
 ~~~
 ACK Frame {
-  Type (i) = 0xB1
-  // Fields of the existing ACK (type=0x02) frame:
+  Type (i) = 0x02/0x03
+  // ACK fields from RFC9000.
   Largest Acknowledged (i),
   ACK Delay (i),
   ACK Range Count (i),
   First ACK Range (i),
   ACK Range (..) ...,
+  // Timestamps.
   Receive Timestamps (..)
+  // Optional ECN feedback, based on the frame type.
   [ECN Counts (..)],
 }
 ~~~
@@ -207,36 +208,29 @@ Timestamp Deltas:
 
   All Timestamp Delta values are decoded by mulitplying the value in the field
   by 2 to the power of the receive_timestamps_exponent transport parameter
-  received by the sender of the ACK_EXTENDED frame (see
-  {{negotiation}}):
+  received by the sender of the ACK frame (see {{negotiation}}):
 
 # Extension Negotiation {#negotiation}
 
 max_receive_timestamps_per_ack (0xff0a002 temporary value for draft use):
 
 : A variable-length integer indicating that the maximum number of receive
-  timestamps the sending endpoint would like to receive in an ACK_EXTENDED
-  frame.
+  timestamps the sending endpoint would like to receive in an ACK frame.
 
-  The sending endpoint MUST sent this transport parameter if sends the
-  extended_ack_features transport parameter with bit 1 set in its value. A peer
-  that receives this transport parameter but not an extended_ack_features
-  transport paramter with bit 1 set MUST ignore this transport parameter.
-
-  Each ACK_EXTENDED frame sent MUST NOT contain more than the
-  specified maximum number of receive timestamps, but MAY contain fewer or none.
+  Each ACK frame sent MUST NOT contain more than the specified maximum
+  number of receive timestamps.
 
 receive_timestamps_exponent (0xff0a003 temporary value for draft use):
 
 : A variable-length integer indicating the exponent to be used when encoding and
-  decoding timestamp delta fields in ACK_EXTENDED frames sent by the
+  decoding timestamp delta fields in ACK frames sent by the
   peer (see {{ts-ranges}}). If this value is absent, a default value of 0 is
   assumed (indicating microsecond precision). Values above 20 are invalid.
 
 
 ## Receive Timestamp Basis {#ts-basis}
 
-Endpoints which send ACK_EXTENDED frames must determine a value,
+Endpoints which negotiate the extension need to determine a value,
 receive_timestamp_basis, relative to which all receive timestamps for the
 session will be reported (see {{ts-ranges}}).
 
@@ -257,7 +251,7 @@ Receive timestamps are sent on a best-effort basis. Endpoints MUST gracefully
 handle scenarios where the receiver does not communicate receive timestamps for
 acknowledged packets. Examples of such scenarios are:
 
-- The packet containing the ACK frame is lost.
+- A packet containing an ACK frame is lost.
 
 - The sender truncates the number of timestamps sent in order to (a) avoid
   sending more than max_receive_timestamps_per_ack ({{negotiation}}); or (b) fit
