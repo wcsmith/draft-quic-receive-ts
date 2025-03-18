@@ -217,7 +217,7 @@ max_receive_timestamps_per_ack (0xff0a002 temporary value for draft use):
 : A variable-length integer indicating that the maximum number of receive
   timestamps the sending endpoint would like to receive in an ACK frame.
 
-  Each ACK frame sent MUST NOT contain more than the specified maximum
+  Each ACK frame sent MUST NOT contain more than the peer's maximum
   number of receive timestamps.
 
 receive_timestamps_exponent (0xff0a003 temporary value for draft use):
