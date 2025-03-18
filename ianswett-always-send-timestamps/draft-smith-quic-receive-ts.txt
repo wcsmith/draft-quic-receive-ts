@@ -232,8 +232,8 @@ Table of Contents
       number of receive timestamps the sending endpoint would like to
       receive in an ACK frame.
 
-      Each ACK frame sent MUST NOT contain more than the specified
-      maximum number of receive timestamps.
+      Each ACK frame sent MUST NOT contain more than the peer's maximum
+      number of receive timestamps.
 
    receive_timestamps_exponent (0xff0a003 temporary value for draft
    use):  A variable-length integer indicating the exponent to be used
