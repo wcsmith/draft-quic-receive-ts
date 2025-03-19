@@ -5,13 +5,13 @@
 QUIC                                                            C. Smith
 Internet-Draft                                                    NVIDIA
 Intended status: Informational                                  I. Swett
-Expires: 19 September 2025                                    Google LLC
+Expires: 20 September 2025                                    Google LLC
                                                                J. Beshay
                                                               S. Jaiswal
                                                         I. Purushothaman
                                                             B. Schlinker
                                                     Meta Platforms, Inc.
-                                                           18 March 2025
+                                                           19 March 2025
 
 
  QUIC Extended Acknowledgement for Reporting Packet Receive Timestamps
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 19 September 2025.
+   This Internet-Draft will expire on 20 September 2025.
 
 Copyright Notice
 
@@ -130,20 +130,19 @@ Table of Contents
    receive timestamps immediately following the ACK ranges in the ACK
    Frame.
 
-   Once negotiated, the ACK format is:
+   Once negotiated, the ACK format is identical to RFC9000, but with an
+   additional section for receive timestamps at the end:
 
    ACK Frame {
-     Type (i) = 0x02/0x03
-     // ACK fields from RFC9000.
+     Type (i) = 0x02..0x03,
      Largest Acknowledged (i),
      ACK Delay (i),
      ACK Range Count (i),
      First ACK Range (i),
      ACK Range (..) ...,
-     // Timestamps.
-     Receive Timestamps (..)
-     // Optional ECN feedback, based on the frame type.
      [ECN Counts (..)],
+     // Timestamp Extension, see {{ts-ranges}}
+     Receive Timestamps (..)
    }
 
                          Figure 1: ACK Frame Format
