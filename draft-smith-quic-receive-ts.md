@@ -109,21 +109,20 @@ per round-trip in order to best measure the network.
 Endpoints send ACK frames as they otherwise would, with 0 or more receive
 timestamps immediately following the ACK ranges in the ACK Frame.
 
-Once negotiated, the ACK format is:
+Once negotiated, the ACK format is identical to RFC9000, but with an
+additional section for receive timestamps at the end:
 
 ~~~
 ACK Frame {
-  Type (i) = 0x02/0x03
-  // ACK fields from RFC9000.
+  Type (i) = 0x02..0x03,
   Largest Acknowledged (i),
   ACK Delay (i),
   ACK Range Count (i),
   First ACK Range (i),
   ACK Range (..) ...,
-  // Timestamps.
-  Receive Timestamps (..)
-  // Optional ECN feedback, based on the frame type.
   [ECN Counts (..)],
+  // Timestamp Extension, see {{ts-ranges}}
+  Receive Timestamps (..)
 }
 ~~~
 {: #fig-frame title="ACK Frame Format"}
