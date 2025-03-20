@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-18T01:38:35.826912+00:00",
+  "timestamp": "2025-03-20T01:37:34.373674+00:00",
   "repo": "wcsmith/draft-quic-receive-ts",
   "labels": [
     {
@@ -62,9 +62,24 @@
       "labels": [],
       "body": "Currently timestamps must decrease in value as the packet numbers decrease in value, so if a packet with a lower packet number is received after a packet with a higher packet number, that timestamp can't be expressed in the frame.\r\n\r\nFor existing CC algorithms which use timestamps, it's believed this is ok, but it'd be good to confirm that design decision.",
       "createdAt": "2021-11-06T19:42:08Z",
-      "updatedAt": "2021-11-06T19:42:08Z",
+      "updatedAt": "2025-03-19T18:14:46Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "ianswett",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@jbeshay proposed a way to do this at IETF 118: https://datatracker.ietf.org/meeting/118/materials/slides-118-quic-ack-timestamps-00.pdf\n\nSo far, there's substantial support for this, so I think it's worth writing a PR.",
+          "createdAt": "2025-03-19T08:51:09Z",
+          "updatedAt": "2025-03-19T08:51:09Z"
+        },
+        {
+          "author": "jbeshay",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Yes, @sharadjaiswal gave that presentation and he had added it to the mvfst implementation. We'll work on a PR to update the draft soon. ",
+          "createdAt": "2025-03-19T18:14:44Z",
+          "updatedAt": "2025-03-19T18:14:44Z"
+        }
+      ]
     },
     {
       "number": 3,
@@ -524,6 +539,139 @@
           "createdAt": "2025-02-28T23:00:52Z",
           "updatedAt": "2025-02-28T23:00:52Z",
           "comments": []
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "id": "PR_kwDOGIUVps6PKC-L",
+      "title": "Always send timestamps once negotiated",
+      "url": "https://github.com/wcsmith/draft-quic-receive-ts/pull/8",
+      "state": "OPEN",
+      "author": "ianswett",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This approach does not require any new frame types and if for some reason the timestamp extension is negotiated and never used, only wastes one byte per ACK frame.\r\n\r\nCloses #7",
+      "createdAt": "2025-03-18T18:24:12Z",
+      "updatedAt": "2025-03-19T06:35:53Z",
+      "baseRepository": "wcsmith/draft-quic-receive-ts",
+      "baseRefName": "main",
+      "baseRefOid": "17df80d4e8a589dc394f08679e6c6f025d44bd7f",
+      "headRepository": "wcsmith/draft-quic-receive-ts",
+      "headRefName": "ianswett-always-send-timestamps",
+      "headRefOid": "a6656aa948f172aca8eac154bc3975228d93cf8e",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGIUVps6grvpO",
+          "commit": {
+            "abbreviatedOid": "752adb9"
+          },
+          "author": "jbeshay",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-18T18:31:41Z",
+          "updatedAt": "2025-03-18T18:32:38Z",
+          "comments": [
+            {
+              "originalPosition": 48,
+              "body": "We'd need to define this for ACK and ACK_ECN separately for their different frame types.",
+              "createdAt": "2025-03-18T18:31:42Z",
+              "updatedAt": "2025-03-18T18:32:38Z"
+            },
+            {
+              "originalPosition": 59,
+              "body": "For the ACK_ECN frame, to maintain the existing field order, I think it'd be better to have ReceiveTimestamps at the end of the frame.",
+              "createdAt": "2025-03-18T18:32:33Z",
+              "updatedAt": "2025-03-18T18:32:38Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGIUVps6gr7y1",
+          "commit": {
+            "abbreviatedOid": "1eafb78"
+          },
+          "author": "ianswett",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-18T18:46:46Z",
+          "updatedAt": "2025-03-18T18:46:46Z",
+          "comments": [
+            {
+              "originalPosition": 48,
+              "body": "I was trying to model RFC9000, but yes we should ensure that's clear.",
+              "createdAt": "2025-03-18T18:46:46Z",
+              "updatedAt": "2025-03-18T18:46:46Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGIUVps6gr-xR",
+          "commit": {
+            "abbreviatedOid": "752adb9"
+          },
+          "author": "ianswett",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-18T18:49:28Z",
+          "updatedAt": "2025-03-18T18:49:29Z",
+          "comments": [
+            {
+              "originalPosition": 59,
+              "body": "I'm fine with that as well.",
+              "createdAt": "2025-03-18T18:49:28Z",
+              "updatedAt": "2025-03-18T18:49:29Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGIUVps6gwi0-",
+          "commit": {
+            "abbreviatedOid": "752adb9"
+          },
+          "author": "ianswett",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-19T06:35:44Z",
+          "updatedAt": "2025-03-19T06:35:44Z",
+          "comments": [
+            {
+              "originalPosition": 48,
+              "body": "I exactly copied from RFC9000 now.  I'll note that RFC9000 doesn't actually use the name ACK_ECN, and instead both codepoints are called ACK.",
+              "createdAt": "2025-03-19T06:35:44Z",
+              "updatedAt": "2025-03-19T06:35:44Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGIUVps6gwi-Q",
+          "commit": {
+            "abbreviatedOid": "752adb9"
+          },
+          "author": "ianswett",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-19T06:35:53Z",
+          "updatedAt": "2025-03-19T06:35:53Z",
+          "comments": [
+            {
+              "originalPosition": 59,
+              "body": "Done",
+              "createdAt": "2025-03-19T06:35:53Z",
+              "updatedAt": "2025-03-19T06:35:53Z"
+            }
+          ]
         }
       ]
     }
