@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-23T01:43:57.618133+00:00",
+  "timestamp": "2025-03-25T01:39:56.739697+00:00",
   "repo": "wcsmith/draft-quic-receive-ts",
   "labels": [
     {
@@ -131,9 +131,17 @@
       "labels": [],
       "body": "Rather than adding two frame types to support receive timestamps with and without ECN counts, the latest iteration of the draft defines one frame type, ACK_EXTENDED, that can carry multiple optional sets of fields that correspond to different features.\n\nPro:\nOnly one frame is needed to support the different combinations of all supported ack-related features or versions of them. Without the extended ack frame, supporting different combinations of all the supported features/versions would require an exponentially increasing number of frames as new features are introduced. Or at least linearly, if each new feature/version introduces a frame that includes the union of all existing features.\n\nCon:\nThe ack extended frame contains a field whose bit-wise values indicate which features/versions of features are included in the frame. This requires a new IANA registry to track which bits maps to which features. If the number of ack-related features is small, the overhead of having an IANA registry will be higher than the additional frame types. There are only three sets of optional fields defined or proposed that I am aware of: ECN counts (rfc9000), receive timestamps (this draft), and timestamps for one way delay (https://datatracker.ietf.org/doc/draft-huitema-quic-ts/)\n\nDoes avoiding the potential of increasing frame types justify the IANA overhead? Do we expect to see more extensions that add ACK fields? \n\nDepending on the discussion, we can: \n1. Maintain the ACK_EXTENDED frame approach that can supports this and future extensions.\n2. Use separate ACK_RECEIVE_TIMESTAMPS and ACK_ECN_RECEIVETIMESTAMPS frames to carry the two additional combinations of features we currently need. \n2. Use one ACK_RECEIVE_TIMESTAMPS frame that can optionally carry the ECN counts and/or receive timestamps fields, without being extensible to new features, to avoid the IANA overhead.",
       "createdAt": "2025-03-03T19:03:00Z",
-      "updatedAt": "2025-03-03T19:26:01Z",
+      "updatedAt": "2025-03-24T22:28:18Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "martinduke",
+          "authorAssociation": "NONE",
+          "body": "Use different frame types, as I said at the mic in Bangkok.\n\nTimestamps make the ACK quite a bit more verbose, so I think the price of using a 2B frame type is relatively small, if we're at all concerned about using so many frame types < 63. Though I'd be fine with a 1B frame type as well.",
+          "createdAt": "2025-03-24T22:28:17Z",
+          "updatedAt": "2025-03-24T22:28:17Z"
+        }
+      ]
     }
   ],
   "pulls": [
