@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-27T01:38:55.691305+00:00",
+  "timestamp": "2025-03-30T01:46:00.943387+00:00",
   "repo": "wcsmith/draft-quic-receive-ts",
   "labels": [
     {
@@ -62,7 +62,7 @@
       "labels": [],
       "body": "Currently timestamps must decrease in value as the packet numbers decrease in value, so if a packet with a lower packet number is received after a packet with a higher packet number, that timestamp can't be expressed in the frame.\r\n\r\nFor existing CC algorithms which use timestamps, it's believed this is ok, but it'd be good to confirm that design decision.",
       "createdAt": "2021-11-06T19:42:08Z",
-      "updatedAt": "2025-03-19T18:14:46Z",
+      "updatedAt": "2025-03-28T17:15:13Z",
       "closedAt": null,
       "comments": [
         {
@@ -78,6 +78,13 @@
           "body": "Yes, @sharadjaiswal gave that presentation and he had added it to the mvfst implementation. We'll work on a PR to update the draft soon. ",
           "createdAt": "2025-03-19T18:14:44Z",
           "updatedAt": "2025-03-19T18:14:44Z"
+        },
+        {
+          "author": "chris-box",
+          "authorAssociation": "NONE",
+          "body": "Thumbs up for the above. I'd like to see this happen due to the routine layer 2 reordering described by https://gwhitecl.github.io/draft-white-intarea-reordering/draft-white-intarea-reordering.html. Widespread adoption of support for out-of-order timestamps is then an enabler for layer 2s to be less aggressive with imposing transmission delays while they put packets back in the original sequence.",
+          "createdAt": "2025-03-28T17:15:12Z",
+          "updatedAt": "2025-03-28T17:15:12Z"
         }
       ]
     },
