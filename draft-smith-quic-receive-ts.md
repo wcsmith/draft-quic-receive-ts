@@ -312,11 +312,12 @@ session will be reported (see {{ts-ranges}}).
 
 The value of receive_timestamp_basis MUST be less than the smallest receive
 timestamp reported, and MUST remain constant for the entire duration of the
-session.
+session. The receive_timestamp_basis is a local value that is not communicated
+to the peer.
 
-TODO: Discuss (here or below) why receive timestamps are reported relative to
-the basis, rather than in absolute time to avoid clock synchronization between
-endpoints and to make the field more compact.
+Receive timestamps are reported relative to the basis, rather than in absolute
+time to avoid requiring clock synchronization between endpoints and to make
+the frame more compact.
 
 
 # Discussion
