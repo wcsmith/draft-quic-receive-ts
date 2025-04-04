@@ -100,6 +100,8 @@ to improve transport performance. Examples include:
 Notably, these techniques require receive timestamps for more than one packet
 per round-trip in order to best measure the network.
 
+Additionally, receive timestamps can provide valuable network telemetry, even
+if they are not used by the congestion controller.
 
 # Conventions and Definitions
 
