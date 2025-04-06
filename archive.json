@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-30T01:46:00.943387+00:00",
+  "timestamp": "2025-04-06T01:44:55.642918+00:00",
   "repo": "wcsmith/draft-quic-receive-ts",
   "labels": [
     {
@@ -149,6 +149,38 @@
           "updatedAt": "2025-03-24T22:28:17Z"
         }
       ]
+    },
+    {
+      "number": 9,
+      "id": "I_kwDOGIUVps6xMrj0",
+      "title": "Write Security Considerations",
+      "url": "https://github.com/wcsmith/draft-quic-receive-ts/issues/9",
+      "state": "OPEN",
+      "author": "ianswett",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Currently a TODO\n\nCould a peer exploit a bug in the peer's congestion controller?",
+      "createdAt": "2025-04-04T16:35:50Z",
+      "updatedAt": "2025-04-04T16:35:50Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 12,
+      "id": "I_kwDOGIUVps6xM7ay",
+      "title": "Ensure format is compatible with MP-QUIC",
+      "url": "https://github.com/wcsmith/draft-quic-receive-ts/issues/12",
+      "state": "OPEN",
+      "author": "ianswett",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Could also non-normatively reference the RFC and specifically detail what the framing is when this extension is used with MP-QUIC.",
+      "createdAt": "2025-04-04T17:06:56Z",
+      "updatedAt": "2025-04-04T17:06:56Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
@@ -689,6 +721,58 @@
           ]
         }
       ]
+    },
+    {
+      "number": 10,
+      "id": "PR_kwDOGIUVps6RcBHf",
+      "title": "Why timestamps are relative to a basis?",
+      "url": "https://github.com/wcsmith/draft-quic-receive-ts/pull/10",
+      "state": "OPEN",
+      "author": "ianswett",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Fixes a TODO",
+      "createdAt": "2025-04-04T16:57:31Z",
+      "updatedAt": "2025-04-04T17:04:43Z",
+      "baseRepository": "wcsmith/draft-quic-receive-ts",
+      "baseRefName": "main",
+      "baseRefOid": "17df80d4e8a589dc394f08679e6c6f025d44bd7f",
+      "headRepository": "wcsmith/draft-quic-receive-ts",
+      "headRefName": "ianswett-timestamp-basis",
+      "headRefOid": "ad98241f7b80d886111e634d9be506c4362a656c",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 11,
+      "id": "PR_kwDOGIUVps6RcFFZ",
+      "title": "Useful for Network telemetry too",
+      "url": "https://github.com/wcsmith/draft-quic-receive-ts/pull/11",
+      "state": "OPEN",
+      "author": "ianswett",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Reflects a few of the comments at the most recent IETF QUIC session.",
+      "createdAt": "2025-04-04T17:04:19Z",
+      "updatedAt": "2025-04-04T17:04:55Z",
+      "baseRepository": "wcsmith/draft-quic-receive-ts",
+      "baseRefName": "main",
+      "baseRefOid": "17df80d4e8a589dc394f08679e6c6f025d44bd7f",
+      "headRepository": "wcsmith/draft-quic-receive-ts",
+      "headRefName": "ianswett-telemetry",
+      "headRefOid": "8c3b28ea666eaa355ab841f324bd6e4e41a2c14a",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
