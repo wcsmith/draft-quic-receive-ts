@@ -5,13 +5,13 @@
 QUIC                                                            C. Smith
 Internet-Draft                                                    NVIDIA
 Intended status: Informational                                  I. Swett
-Expires: 4 September 2025                                     Google LLC
+Expires: 9 October 2025                                       Google LLC
                                                                J. Beshay
                                                               S. Jaiswal
                                                         I. Purushothaman
                                                             B. Schlinker
                                                     Meta Platforms, Inc.
-                                                            3 March 2025
+                                                            7 April 2025
 
 
  QUIC Extended Acknowledgement for Reporting Packet Receive Timestamps
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 September 2025.
+   This Internet-Draft will expire on 9 October 2025.
 
 Copyright Notice
 
@@ -328,11 +328,12 @@ Table of Contents
 
    The value of receive_timestamp_basis MUST be less than the smallest
    receive timestamp reported, and MUST remain constant for the entire
-   duration of the session.
+   duration of the session.  The receive_timestamp_basis is a local
+   value that is not communicated to the peer.
 
-   TODO: Discuss (here or below) why receive timestamps are reported
-   relative to the basis, rather than in absolute time to avoid clock
-   synchronization between endpoints and to make the field more compact.
+   Receive timestamps are reported relative to the basis, rather than in
+   absolute time to avoid requiring clock synchronization between
+   endpoints and to make the frame more compact.
 
 7.  Discussion
 
