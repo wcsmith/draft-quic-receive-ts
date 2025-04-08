@@ -109,16 +109,16 @@ if they are not used by the congestion controller.
 
 # Enabling Extensibility in the ACK frame {#extensibility}
 
-The QUIC transport protocol defines two different frame types for acknowledgements
-{{Section 19.3 of !RFC9000}}. The endpoint sending acknowledgements
-decides which type to use depending on whether it wants to report ECN counts.
-This approach works well with one set of optional fields, but grows exponentially
-with more sets of optional fields.
+The QUIC transport protocol defines two different frame types for
+acknowledgements {{Section 19.3 of !RFC9000}}. The endpoint sending
+acknowledgements decides which type to use depending on whether it wants
+to report ECN counts. This approach works well with one set of optional fields,
+but grow exponentially with more sets of optional fields.
 
 This document defines a new set of optional fields to report receive timestamps.
-Using a new frame type for each variant of the ACK frame would require adding 2 new
-frame types, for a total of 4. Instead, this document defines one new frame type
-(ACK_EXTENDED), that can carry multiple optional sections, reducing
+Using a new frame type for each variant of the ACK frame would require adding 2
+new frame types, for a total of 4. Instead, this document defines one new frame
+type (ACK_EXTENDED), that can carry multiple optional sections, reducing
 the number of new frame types from 2 to 1, and avoids futre extensions causing
 an exponential growth in frame types.
 
@@ -169,7 +169,29 @@ When Extended Ack Features has bit 0 set, the frame will include ECN Counts as
 defined in {{Section 19.3.2 of !RFC9000}}.
 
 When Extended Ack Feature has bit 1 set, the frame will include the following
-additional fields for the receive timestmaps:
+additional fields for the receive timestmaps.
+
+~~~
+Receive Timestamps {
+  Latest Received Packet Number (i),
+  Latest Received Packet Time Delta (i),
+  Timestamp Range Count (i),
+  Timestamp Range (..) ...
+}
+~~~
+{: #fig-receive-timestamps title="Receive Timestamps Fields"}
+
+
+Latest Received Packet Number:
+
+: A variable-length integer that indicates the sequence number of the most
+recently received packet.
+
+Latest Received Packet Time Delta:
+
+: A variable-length integer that represents the time delta of the latest
+received packet, expressed relative to the receive_timestamp_basis described
+below (see {{ts-basis}}).
 
 Timestamp Range Count:
 
@@ -190,11 +212,12 @@ Timestamp Ranges consist of a Gap indicating the largest packet number in the
 range, followed by a list of Timestamp Deltas describing the relative receive
 timestamps for each contiguous packet in the Timestamp Range (descending).
 
-Note that reporting receive timestamps for packets received out of order is not
-supported. Specifically: for any packet number P for which a receive timestamp T
-is reported, all reports for packet numbers less than P must have timestamps
-less than or equal to T; and all reports for packet numbers greater than P must
-have timestamps greater than or equal to T.
+The frame format allows for reporting receive timestamps for packets received
+out of order using the Latest Received Packet Number and Latest Received Packet
+Time Delta fields. These are the reference values for calculating the gaps
+and timestamps for the subsequent ranges. When packets are received in order,
+the Latest Received Packet Number will be the same as the Largest Acknowledged
+field in the ACK.
 
 Timestamp Ranges are structured as shown in {{fig-ts-range}}.
 
@@ -214,9 +237,9 @@ Gap:
 : A variable-length integer indicating the largest packet number in the
   Timestamp Range as follows:
 
-  For the first Timestamp Range: Gap is the difference between (a) the Largest
-  Acknowledged packet number in the frame and (b) the largest packet in the
-  current (first) Timestamp Range.
+  For the first Timestamp Range: Gap is the difference between (a) the latest
+  received packet number in the Receive Timestamps section in the frame and (b)
+  the largest packet in the current (first) Timestamp Range.
 
   For subsequent Timestamp Ranges: Gap is the difference between (a) the packet
   number two lower than the smallest packet number in the previous Timestamp
