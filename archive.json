@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-06T01:44:55.642918+00:00",
+  "timestamp": "2025-04-08T01:40:30.777668+00:00",
   "repo": "wcsmith/draft-quic-receive-ts",
   "labels": [
     {
@@ -727,52 +727,84 @@
       "id": "PR_kwDOGIUVps6RcBHf",
       "title": "Why timestamps are relative to a basis?",
       "url": "https://github.com/wcsmith/draft-quic-receive-ts/pull/10",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "ianswett",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Fixes a TODO",
       "createdAt": "2025-04-04T16:57:31Z",
-      "updatedAt": "2025-04-04T17:04:43Z",
+      "updatedAt": "2025-04-07T18:43:35Z",
       "baseRepository": "wcsmith/draft-quic-receive-ts",
       "baseRefName": "main",
       "baseRefOid": "17df80d4e8a589dc394f08679e6c6f025d44bd7f",
       "headRepository": "wcsmith/draft-quic-receive-ts",
       "headRefName": "ianswett-timestamp-basis",
       "headRefOid": "ad98241f7b80d886111e634d9be506c4362a656c",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-04-07T18:43:33Z",
+      "mergedAt": "2025-04-07T18:43:33Z",
+      "mergedBy": "ianswett",
+      "mergeCommit": {
+        "oid": "4a80821b0a72e046851cb0dcec40fa804af6cd3a"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOGIUVps6jwszU",
+          "commit": {
+            "abbreviatedOid": "ad98241"
+          },
+          "author": "jbeshay",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-04-07T16:36:53Z",
+          "updatedAt": "2025-04-07T16:36:53Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 11,
       "id": "PR_kwDOGIUVps6RcFFZ",
       "title": "Useful for Network telemetry too",
       "url": "https://github.com/wcsmith/draft-quic-receive-ts/pull/11",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "ianswett",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Reflects a few of the comments at the most recent IETF QUIC session.",
       "createdAt": "2025-04-04T17:04:19Z",
-      "updatedAt": "2025-04-04T17:04:55Z",
+      "updatedAt": "2025-04-07T18:43:52Z",
       "baseRepository": "wcsmith/draft-quic-receive-ts",
       "baseRefName": "main",
       "baseRefOid": "17df80d4e8a589dc394f08679e6c6f025d44bd7f",
       "headRepository": "wcsmith/draft-quic-receive-ts",
       "headRefName": "ianswett-telemetry",
       "headRefOid": "8c3b28ea666eaa355ab841f324bd6e4e41a2c14a",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-04-07T18:43:50Z",
+      "mergedAt": "2025-04-07T18:43:50Z",
+      "mergedBy": "ianswett",
+      "mergeCommit": {
+        "oid": "84e2f0d3af7841f72e2270f8ee0e3dd19dff7ff7"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOGIUVps6jwsj0",
+          "commit": {
+            "abbreviatedOid": "8c3b28e"
+          },
+          "author": "jbeshay",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-04-07T16:36:29Z",
+          "updatedAt": "2025-04-07T16:36:29Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
