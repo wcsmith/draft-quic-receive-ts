@@ -113,7 +113,7 @@ The QUIC transport protocol defines two different frame types for
 acknowledgements {{Section 19.3 of !RFC9000}}. The endpoint sending
 acknowledgements decides which type to use depending on whether it wants
 to report ECN counts. This approach works well with one set of optional fields,
-but grow exponentially with more sets of optional fields.
+but grows exponentially with more sets of optional fields.
 
 This document defines a new set of optional fields to report receive timestamps.
 Using a new frame type for each variant of the ACK frame would require adding 2
