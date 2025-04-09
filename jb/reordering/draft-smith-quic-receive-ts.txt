@@ -5,13 +5,13 @@
 QUIC                                                            C. Smith
 Internet-Draft                                                    NVIDIA
 Intended status: Informational                                  I. Swett
-Expires: 10 October 2025                                      Google LLC
+Expires: 11 October 2025                                      Google LLC
                                                                J. Beshay
                                                               S. Jaiswal
                                                         I. Purushothaman
                                                             B. Schlinker
                                                     Meta Platforms, Inc.
-                                                            8 April 2025
+                                                            9 April 2025
 
 
  QUIC Extended Acknowledgement for Reporting Packet Receive Timestamps
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 10 October 2025.
+   This Internet-Draft will expire on 11 October 2025.
 
 Copyright Notice
 
@@ -135,7 +135,7 @@ Table of Contents
    acknowledgements Section 19.3 of [RFC9000].  The endpoint sending
    acknowledgements decides which type to use depending on whether it
    wants to report ECN counts.  This approach works well with one set of
-   optional fields, but grow exponentially with more sets of optional
+   optional fields, but grows exponentially with more sets of optional
    fields.
 
    This document defines a new set of optional fields to report receive
