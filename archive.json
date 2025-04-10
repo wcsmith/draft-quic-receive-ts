@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-08T01:40:30.777668+00:00",
+  "timestamp": "2025-04-10T01:40:22.133962+00:00",
   "repo": "wcsmith/draft-quic-receive-ts",
   "labels": [
     {
@@ -138,7 +138,7 @@
       "labels": [],
       "body": "Rather than adding two frame types to support receive timestamps with and without ECN counts, the latest iteration of the draft defines one frame type, ACK_EXTENDED, that can carry multiple optional sets of fields that correspond to different features.\n\nPro:\nOnly one frame is needed to support the different combinations of all supported ack-related features or versions of them. Without the extended ack frame, supporting different combinations of all the supported features/versions would require an exponentially increasing number of frames as new features are introduced. Or at least linearly, if each new feature/version introduces a frame that includes the union of all existing features.\n\nCon:\nThe ack extended frame contains a field whose bit-wise values indicate which features/versions of features are included in the frame. This requires a new IANA registry to track which bits maps to which features. If the number of ack-related features is small, the overhead of having an IANA registry will be higher than the additional frame types. There are only three sets of optional fields defined or proposed that I am aware of: ECN counts (rfc9000), receive timestamps (this draft), and timestamps for one way delay (https://datatracker.ietf.org/doc/draft-huitema-quic-ts/)\n\nDoes avoiding the potential of increasing frame types justify the IANA overhead? Do we expect to see more extensions that add ACK fields? \n\nDepending on the discussion, we can: \n1. Maintain the ACK_EXTENDED frame approach that can supports this and future extensions.\n2. Use separate ACK_RECEIVE_TIMESTAMPS and ACK_ECN_RECEIVETIMESTAMPS frames to carry the two additional combinations of features we currently need. \n2. Use one ACK_RECEIVE_TIMESTAMPS frame that can optionally carry the ECN counts and/or receive timestamps fields, without being extensible to new features, to avoid the IANA overhead.",
       "createdAt": "2025-03-03T19:03:00Z",
-      "updatedAt": "2025-03-24T22:28:18Z",
+      "updatedAt": "2025-04-08T22:17:04Z",
       "closedAt": null,
       "comments": [
         {
@@ -147,6 +147,13 @@
           "body": "Use different frame types, as I said at the mic in Bangkok.\n\nTimestamps make the ACK quite a bit more verbose, so I think the price of using a 2B frame type is relatively small, if we're at all concerned about using so many frame types < 63. Though I'd be fine with a 1B frame type as well.",
           "createdAt": "2025-03-24T22:28:17Z",
           "updatedAt": "2025-03-24T22:28:17Z"
+        },
+        {
+          "author": "jbeshay",
+          "authorAssociation": "COLLABORATOR",
+          "body": "This is intertwined with https://github.com/wcsmith/draft-quic-receive-ts/issues/12 as well.\n\nUsing new frame types for ACK_RECEIVE_TIMESTAMPS will avoid the complexity of an extensible ACK but would require explicitly defining PATH_ACK_RECEIVE_TIMESTAMPS frames for MP-QUIC.",
+          "createdAt": "2025-04-08T22:16:39Z",
+          "updatedAt": "2025-04-08T22:17:03Z"
         }
       ]
     },
@@ -179,6 +186,22 @@
       "body": "Could also non-normatively reference the RFC and specifically detail what the framing is when this extension is used with MP-QUIC.",
       "createdAt": "2025-04-04T17:06:56Z",
       "updatedAt": "2025-04-04T17:06:56Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 14,
+      "id": "I_kwDOGIUVps6xzfC1",
+      "title": "Caution against making the ACK frame 'too large'",
+      "url": "https://github.com/wcsmith/draft-quic-receive-ts/issues/14",
+      "state": "OPEN",
+      "author": "ianswett",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "For example, one might want to ensure the addition of an ACK frame doesn't cause a whole extra packet to be sent, so it might be good to send fewer than the max allowed number of timestamps in that case?",
+      "createdAt": "2025-04-09T14:45:34Z",
+      "updatedAt": "2025-04-09T14:45:34Z",
       "closedAt": null,
       "comments": []
     }
@@ -803,6 +826,93 @@
           "createdAt": "2025-04-07T16:36:29Z",
           "updatedAt": "2025-04-07T16:36:29Z",
           "comments": []
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "id": "PR_kwDOGIUVps6R2soo",
+      "title": "Update frame format to support receive timestamps for out of order packets",
+      "url": "https://github.com/wcsmith/draft-quic-receive-ts/pull/13",
+      "state": "OPEN",
+      "author": "jbeshay",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Addresses https://github.com/wcsmith/draft-quic-receive-ts/issues/2",
+      "createdAt": "2025-04-08T22:02:44Z",
+      "updatedAt": "2025-04-09T15:42:53Z",
+      "baseRepository": "wcsmith/draft-quic-receive-ts",
+      "baseRefName": "main",
+      "baseRefOid": "84e2f0d3af7841f72e2270f8ee0e3dd19dff7ff7",
+      "headRepository": "wcsmith/draft-quic-receive-ts",
+      "headRefName": "jb/reordering",
+      "headRefOid": "5d194a9008d3ae421e77b3a9b6c454e29a5fa04a",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "jbeshay",
+          "authorAssociation": "COLLABORATOR",
+          "body": "cc @sharadjaiswal",
+          "createdAt": "2025-04-08T22:03:54Z",
+          "updatedAt": "2025-04-08T22:03:54Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGIUVps6kJXAT",
+          "commit": {
+            "abbreviatedOid": "97d0e39"
+          },
+          "author": "ianswett",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-09T15:33:38Z",
+          "updatedAt": "2025-04-09T15:33:38Z",
+          "comments": [
+            {
+              "originalPosition": 13,
+              "body": "```suggestion\r\nbut grows exponentially with more sets of optional fields.\r\n```",
+              "createdAt": "2025-04-09T15:33:38Z",
+              "updatedAt": "2025-04-09T15:33:38Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGIUVps6kJZDI",
+          "commit": {
+            "abbreviatedOid": "5d194a9"
+          },
+          "author": "ianswett",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "I'm having a difficult time figuring out how adding the first two fields enables reporting out of order receive timestamps, but maybe I need to think about it more?  Or maybe an example would help.",
+          "createdAt": "2025-04-09T15:35:28Z",
+          "updatedAt": "2025-04-09T15:42:53Z",
+          "comments": [
+            {
+              "originalPosition": 46,
+              "body": "I would think this should be relative to the largest acked?",
+              "createdAt": "2025-04-09T15:35:28Z",
+              "updatedAt": "2025-04-09T15:42:53Z"
+            },
+            {
+              "originalPosition": 54,
+              "body": "Putting this after the first two fields basically means you always report at least one timestamp.  I think that's a reasonable design, but maybe worth pointing out?",
+              "createdAt": "2025-04-09T15:37:23Z",
+              "updatedAt": "2025-04-09T15:42:53Z"
+            },
+            {
+              "originalPosition": 65,
+              "body": "```suggestion\r\nThe frame allows for reporting receive timestamps for packets received\r\n```",
+              "createdAt": "2025-04-09T15:38:11Z",
+              "updatedAt": "2025-04-09T15:42:53Z"
+            }
+          ]
         }
       ]
     }
