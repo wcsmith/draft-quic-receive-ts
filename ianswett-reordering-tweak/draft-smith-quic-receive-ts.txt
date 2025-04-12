@@ -5,13 +5,13 @@
 QUIC                                                            C. Smith
 Internet-Draft                                                    NVIDIA
 Intended status: Informational                                  I. Swett
-Expires: 12 October 2025                                      Google LLC
+Expires: 14 October 2025                                      Google LLC
                                                                J. Beshay
                                                               S. Jaiswal
                                                         I. Purushothaman
                                                             B. Schlinker
                                                     Meta Platforms, Inc.
-                                                           10 April 2025
+                                                           12 April 2025
 
 
  QUIC Extended Acknowledgement for Reporting Packet Receive Timestamps
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 12 October 2025.
+   This Internet-Draft will expire on 14 October 2025.
 
 Copyright Notice
 
@@ -205,9 +205,9 @@ Table of Contents
    Acknowledged indicating the largest packet number in the range,
    followed by a list of Timestamp Deltas describing the relative
    receive timestamps for each contiguous packet in the Timestamp Range
-   (descending).  Though packets within a range are in descending packet
-   number and timestamp order, the ranges do not have to be in
-   descending packet number order.
+   (descending).  Packets within a range are in descending packet number
+   and timestamp order.  Ranges are in descending timestamp order but do
+   not have to be in descending packet number order.
 
    Timestamp Ranges are structured as shown in Figure 2.
 
