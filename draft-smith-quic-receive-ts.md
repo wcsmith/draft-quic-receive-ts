@@ -189,9 +189,8 @@ in descending sequential packet number (and descending timestamp) order.
 Timestamp Ranges consist of a Delta Largest Acknowledged indicating the
 largest packet number in the range, followed by a list of Timestamp Deltas
 describing the relative receive timestamps for each contiguous packet in the
-Timestamp Range (descending). Though packets within a range are in descending
-packet number and timestamp order, the ranges do not have to be in descending
-packet number order.
+Timestamp Range (descending). Packets within a range are in descending
+packet number and timestamp order. Ranges are in descending timestamp order but do not have to be in descending packet number order.
 
 Timestamp Ranges are structured as shown in {{fig-ts-range}}.
 
