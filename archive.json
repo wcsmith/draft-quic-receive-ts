@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-10T01:40:22.133962+00:00",
+  "timestamp": "2025-04-13T03:07:18.238804+00:00",
   "repo": "wcsmith/draft-quic-receive-ts",
   "labels": [
     {
@@ -55,15 +55,15 @@
       "id": "I_kwDOGIUVps4-YZT7",
       "title": "Should Timestamps have to be in order?",
       "url": "https://github.com/wcsmith/draft-quic-receive-ts/issues/2",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "ianswett",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Currently timestamps must decrease in value as the packet numbers decrease in value, so if a packet with a lower packet number is received after a packet with a higher packet number, that timestamp can't be expressed in the frame.\r\n\r\nFor existing CC algorithms which use timestamps, it's believed this is ok, but it'd be good to confirm that design decision.",
       "createdAt": "2021-11-06T19:42:08Z",
-      "updatedAt": "2025-03-28T17:15:13Z",
-      "closedAt": null,
+      "updatedAt": "2025-04-12T17:00:47Z",
+      "closedAt": "2025-04-12T17:00:46Z",
       "comments": [
         {
           "author": "ianswett",
@@ -85,6 +85,13 @@
           "body": "Thumbs up for the above. I'd like to see this happen due to the routine layer 2 reordering described by https://gwhitecl.github.io/draft-white-intarea-reordering/draft-white-intarea-reordering.html. Widespread adoption of support for out-of-order timestamps is then an enabler for layer 2s to be less aggressive with imposing transmission delays while they put packets back in the original sequence.",
           "createdAt": "2025-03-28T17:15:12Z",
           "updatedAt": "2025-03-28T17:15:12Z"
+        },
+        {
+          "author": "ianswett",
+          "authorAssociation": "COLLABORATOR",
+          "body": "This was fixed by #15 ",
+          "createdAt": "2025-04-12T17:00:46Z",
+          "updatedAt": "2025-04-12T17:00:46Z"
         }
       ]
     },
@@ -834,21 +841,21 @@
       "id": "PR_kwDOGIUVps6R2soo",
       "title": "Update frame format to support receive timestamps for out of order packets",
       "url": "https://github.com/wcsmith/draft-quic-receive-ts/pull/13",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "jbeshay",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Addresses https://github.com/wcsmith/draft-quic-receive-ts/issues/2",
       "createdAt": "2025-04-08T22:02:44Z",
-      "updatedAt": "2025-04-09T15:42:53Z",
+      "updatedAt": "2025-04-12T17:00:10Z",
       "baseRepository": "wcsmith/draft-quic-receive-ts",
       "baseRefName": "main",
       "baseRefOid": "84e2f0d3af7841f72e2270f8ee0e3dd19dff7ff7",
       "headRepository": "wcsmith/draft-quic-receive-ts",
       "headRefName": "jb/reordering",
       "headRefOid": "5d194a9008d3ae421e77b3a9b6c454e29a5fa04a",
-      "closedAt": null,
+      "closedAt": "2025-04-12T17:00:10Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
@@ -859,6 +866,13 @@
           "body": "cc @sharadjaiswal",
           "createdAt": "2025-04-08T22:03:54Z",
           "updatedAt": "2025-04-08T22:03:54Z"
+        },
+        {
+          "author": "ianswett",
+          "authorAssociation": "COLLABORATOR",
+          "body": "As we discussed on yesterday's call, I think it'd be better if we can express any type of reordering.  I believe the most efficient way to do so is each group of timestamps has a packet number delta relative to largest_acked and then all timestamps are in monotonicly decreasing order.  Basically this serializes the receive timestamps in reverse order of how the packets were received.  Give we expect the acknowledged packets to be relatively close to largest_acked, the packet number delta should almost always be a single byte.",
+          "createdAt": "2025-04-10T18:07:08Z",
+          "updatedAt": "2025-04-10T18:07:08Z"
         }
       ],
       "reviews": [
@@ -911,6 +925,101 @@
               "body": "```suggestion\r\nThe frame allows for reporting receive timestamps for packets received\r\n```",
               "createdAt": "2025-04-09T15:38:11Z",
               "updatedAt": "2025-04-09T15:42:53Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "id": "PR_kwDOGIUVps6SJRWM",
+      "title": "Allow ranges to be out of packet number order",
+      "url": "https://github.com/wcsmith/draft-quic-receive-ts/pull/15",
+      "state": "MERGED",
+      "author": "ianswett",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Enables expressing packet reordering.\r\n\r\nFixes #13",
+      "createdAt": "2025-04-10T18:20:31Z",
+      "updatedAt": "2025-04-12T17:00:10Z",
+      "baseRepository": "wcsmith/draft-quic-receive-ts",
+      "baseRefName": "main",
+      "baseRefOid": "84e2f0d3af7841f72e2270f8ee0e3dd19dff7ff7",
+      "headRepository": "wcsmith/draft-quic-receive-ts",
+      "headRefName": "ianswett-reordering-tweak",
+      "headRefOid": "b00ac59a8155dd04058026e11a4f36f5ad1a6007",
+      "closedAt": "2025-04-12T17:00:09Z",
+      "mergedAt": "2025-04-12T17:00:09Z",
+      "mergedBy": "ianswett",
+      "mergeCommit": {
+        "oid": "7e32bdedd0540400588e3cdc377e658dd57e192d"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGIUVps6kZqqI",
+          "commit": {
+            "abbreviatedOid": "54e1c10"
+          },
+          "author": "jbeshay",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-10T19:46:27Z",
+          "updatedAt": "2025-04-10T19:46:28Z",
+          "comments": [
+            {
+              "originalPosition": 25,
+              "body": "This solves the problem of representing out of order packet numbers but it doesn't not solve representing the timestamps. The timestamp delta basis in each range cannot be the largest acknowledged timestamp because that would be negative for out of order packets.\r\n\r\nI think what we need is similar to this but with fields for latest_received_packet number and timestamp that would act as the basis for both the packet number gaps and the timestamp delta. @sharadjaiswal and I will update https://github.com/wcsmith/draft-quic-receive-ts/pull/13 with that shortly.",
+              "createdAt": "2025-04-10T19:46:27Z",
+              "updatedAt": "2025-04-10T19:46:28Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGIUVps6kaY-6",
+          "commit": {
+            "abbreviatedOid": "54e1c10"
+          },
+          "author": "ianswett",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-10T20:53:36Z",
+          "updatedAt": "2025-04-10T20:53:37Z",
+          "comments": [
+            {
+              "originalPosition": 25,
+              "body": "I think it works, but maybe I'm missing something?",
+              "createdAt": "2025-04-10T20:53:37Z",
+              "updatedAt": "2025-04-10T20:53:37Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGIUVps6kbONx",
+          "commit": {
+            "abbreviatedOid": "54e1c10"
+          },
+          "author": "jbeshay",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "This looks good. I can follow up with an example in a subsequent PR so it's easier to understand the description.",
+          "createdAt": "2025-04-10T22:25:25Z",
+          "updatedAt": "2025-04-10T22:27:21Z",
+          "comments": [
+            {
+              "originalPosition": 18,
+              "body": "This clarifies my earlier confusion.\r\n\r\n```suggestion\r\nTimestamp Range (descending). Packets within a range are in descending\r\npacket number and timestamp order. Ranges are in descending timestamp order but do not have to be in descending packet number order.\r\n```",
+              "createdAt": "2025-04-10T22:25:25Z",
+              "updatedAt": "2025-04-10T22:27:21Z"
+            },
+            {
+              "originalPosition": 25,
+              "body": "You're right. We worked through an example and it does work. ",
+              "createdAt": "2025-04-10T22:25:45Z",
+              "updatedAt": "2025-04-10T22:27:21Z"
             }
           ]
         }
