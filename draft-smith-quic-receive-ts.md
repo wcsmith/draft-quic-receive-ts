@@ -133,8 +133,19 @@ ACK Frame {
 {: #fig-frame title="ACK Frame Format"}
 
 The fields Largest Acknowledged, ACK Delay, ACK Range Count, First ACK Range,
-and ACK Range are the same as for ACK (type=0x02) frames specified in {{Section
-19.3 of !RFC9000}}.
+ACK Range and ECN Counts are the same as for ACK (type=0x02..0x03) frames
+specified in {{Section 19.3 of !RFC9000}}.
+
+The format of the Receive Timestamps field is shown in
+{{fig-receive-timestamps}}.
+
+~~~
+Receive Timestamps {
+  Timestamp Range Count (i),
+  Timestamp Range (..) ...
+}
+~~~
+{: #fig-receive-timestamps title="Receive Timestamps Fields"}
 
 Timestamp Range Count:
 
@@ -257,7 +268,8 @@ acknowledged packets. Examples of such scenarios are:
 To illustrate the usage of the Receive Timestamps fields, consider a peer
 that sent 14 packets with numbers 87 to 100.
 
-Assume the receiver receives packets 87 to 91 and 96 to 100 at the following timestamps relative to the basis:
+Assume the receiver receives packets 87 to 91 and 96 to 100 at the following
+timestamps relative to the basis:
 
 | Packet Number    | Relative Timestamp |
 | ---------------- | ------------------ |
@@ -291,7 +303,8 @@ Timestamp Range 2:
   Timestamp Deltas: 20, 10, 10, 5, 5
 ~~~
 
-After that assume that the receiver receives packets 92 to 95 out-of-order at the following timestamps relative to the basis:
+After that assume that the receiver receives packets 92 to 95 out-of-order at
+the following timestamps relative to the basis:
 
 | Packet Number    | Relative Timestamp |
 | ---------------- | ------------------ |
@@ -324,7 +337,9 @@ Timestamp Range 3:
   Timestamp Deltas: 20, 10, 10, 5, 5
 ~~~
 
-In this particular scenario, the receiver MAY also choose to report the first timestamp range only since the timestamps for the other two ranges have already been reported.
+In this particular scenario, the receiver MAY also choose to report the first
+timestamp range only since the timestamps for the other two ranges have already
+been reported.
 
 # Security Considerations
 
