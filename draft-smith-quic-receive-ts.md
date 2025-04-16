@@ -110,12 +110,13 @@ if they are not used by the congestion controller.
 # ACK_RECEIVE_TIMESTAMPS Frame {#frame}
 
 The QUIC transport protocol defines the ACK frame for acknowledgements
-{{Section 19.3 of !RFC9000}} with two frame types. The endpoint sending acknowledgements
-chooses the value of frame type field depending on whether it wants to report ECN counts.
+{{Section 19.3 of !RFC9000}} with two frame types. The endpoint sending
+acknowledgements chooses the value of frame type field depending on whether
+it wants to report ECN counts.
 
-This extension defines a new frame, ACK_RECEIVE_TIMESTAMPS, which has all the fields from the
-regular ACK frame with new fields for the packet receive timestamps.
-Endpoints send ACK_RECEIVE_TIMESTAMPS frames in place of--and in the
+This extension defines a new frame, ACK_RECEIVE_TIMESTAMPS, which has all the
+fields from the regular ACK frame with new fields for the packet receive
+timestamps Endpoints send ACK_RECEIVE_TIMESTAMPS frames in place of--and in the
 same manner as--regular ACK frames as described in {{Section 13.2 of !RFC9000}}.
 
 
@@ -136,11 +137,12 @@ ACK_RECEIVE_TIMESTAMPS Frame {
 ~~~
 {: #fig-frame title="ACK_RECEIVE_TIMESTAMPS Frame Format"}
 
-The fields Largest Acknowledged, ACK Delay, ACK Range Count, First ACK Range, ACK Range and ECN Counts
- are the same as for ACK (type=0x02..0x03) frames specified in {{Section
-19.3 of !RFC9000}}.
+The fields Largest Acknowledged, ACK Delay, ACK Range Count, First ACK Range,
+ACK Range and ECN Counts are the same as for ACK (type=0x02..0x03) frames
+specified in {{Section 19.3 of !RFC9000}}.
 
-The format of the Receive Timestamps field is shown in {{fig-receive-timestamps}}.
+The format of the Receive Timestamps field is shown in
+{{fig-receive-timestamps}}.
 
 ~~~
 Receive Timestamps {
@@ -228,8 +230,8 @@ three transport parameters ({{Section 7.2 of !RFC9000}}):
 max_receive_timestamps_per_ack (0xff0a002 temporary value for draft use):
 
 : A variable-length integer indicating that the maximum number of receive
-  timestamps the sending endpoint would like to receive in an ACK_RECEIVE_TIMESTAMPS
-  frame.
+  timestamps the sending endpoint would like to receive in an
+  ACK_RECEIVE_TIMESTAMPS frame.
 
   Each ACK_RECEIVE_TIMESTAMPS frame sent MUST NOT contain more than the
   specified maximum number of receive timestamps, but MAY contain fewer or none.
@@ -297,10 +299,11 @@ PATH_ACK_RECEIVE_TIMESTAMPS Frame {
 
 # Examples
 
-To illustrate the usage of the ACK_RECEIVE_TIMESTAMPS frame, consider a peer that sent
-14 packets with numbers 87 to 100.
+To illustrate the usage of the ACK_RECEIVE_TIMESTAMPS frame, consider a peer
+that sent 14 packets with numbers 87 to 100.
 
-Assume the receiver receives packets 87 to 91 and 96 to 100 at the following timestamps relative to the basis:
+Assume the receiver receives packets 87 to 91 and 96 to 100 at the following
+timestamps relative to the basis:
 
 | Packet Number    | Relative Timestamp |
 | ---------------- | ------------------ |
@@ -315,7 +318,8 @@ Assume the receiver receives packets 87 to 91 and 96 to 100 at the following tim
 | 99               | 370                |
 | 100              | 380                |
 
-When it's time to acknowledge these packets, the receiver will send an ACK_RECEIVE_TIMESTAMPS frame with two ranges, as follows:
+When it's time to acknowledge these packets, the receiver will send an
+ACK_RECEIVE_TIMESTAMPS frame with two ranges, as follows:
 
 ~~~
 Largest Acknowledged: 100
@@ -333,7 +337,8 @@ Timestamp Range 2:
   Timestamp Deltas: 20, 10, 10, 5, 5
 ~~~
 
-After that assume that the receiver receives packets 92 to 95 out-of-order at the following timestamps relative to the basis:
+After that assume that the receiver receives packets 92 to 95 out-of-order at
+the following timestamps relative to the basis:
 
 | Packet Number    | Relative Timestamp |
 | ---------------- | ------------------ |
@@ -342,7 +347,8 @@ After that assume that the receiver receives packets 92 to 95 out-of-order at th
 | 94               | 394                |
 | 95               | 395                |
 
-The receiver MAY send a new ACK_RECEIVE_TIMESTAMPS with all of the timestamps, as follows:
+The receiver MAY send a new ACK_RECEIVE_TIMESTAMPS with all of the timestamps,
+as follows:
 
 ~~~
 Largest Acknowledged: 100
@@ -365,7 +371,9 @@ Timestamp Range 2:
   Timestamp Deltas: 20, 10, 10, 5, 5
 ~~~
 
-In this particular scenario, the receiver MAY also choose to report the first timestamp range only since the timestamps for the other two ranges have already been reported.
+In this particular scenario, the receiver MAY also choose to report the first
+timestamp range only since the timestamps for the other two ranges have already
+been reported.
 
 
 
