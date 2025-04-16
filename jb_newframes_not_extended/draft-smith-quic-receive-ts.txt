@@ -139,7 +139,7 @@ Table of Contents
 
    This extension defines a new frame, ACK_RECEIVE_TIMESTAMPS, which has
    all the fields from the regular ACK frame with new fields for the
-   packet receive timestamps.  Endpoints send ACK_RECEIVE_TIMESTAMPS
+   packet receive timestamps Endpoints send ACK_RECEIVE_TIMESTAMPS
    frames in place of--and in the same manner as--regular ACK frames as
    described in Section 13.2 of [RFC9000].
 

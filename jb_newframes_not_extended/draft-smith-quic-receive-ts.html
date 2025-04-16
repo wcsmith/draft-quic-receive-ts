@@ -1294,11 +1294,12 @@ appear in all capitals, as shown here.<a href="#section-3-1" class="pilcrow">¶<
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-ack_receive_timestamps-fram" class="section-name selfRef">ACK_RECEIVE_TIMESTAMPS Frame</a>
       </h2>
 <p id="section-4-1">The QUIC transport protocol defines the ACK frame for acknowledgements
-<span><a href="https://rfc-editor.org/rfc/rfc9000#section-19.3" class="relref">Section 19.3</a> of [<a href="#RFC9000" class="cite xref">RFC9000</a>]</span> with two frame types. The endpoint sending acknowledgements
-chooses the value of frame type field depending on whether it wants to report ECN counts.<a href="#section-4-1" class="pilcrow">¶</a></p>
-<p id="section-4-2">This extension defines a new frame, ACK_RECEIVE_TIMESTAMPS, which has all the fields from the
-regular ACK frame with new fields for the packet receive timestamps.
-Endpoints send ACK_RECEIVE_TIMESTAMPS frames in place of--and in the
+<span><a href="https://rfc-editor.org/rfc/rfc9000#section-19.3" class="relref">Section 19.3</a> of [<a href="#RFC9000" class="cite xref">RFC9000</a>]</span> with two frame types. The endpoint sending
+acknowledgements chooses the value of frame type field depending on whether
+it wants to report ECN counts.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-2">This extension defines a new frame, ACK_RECEIVE_TIMESTAMPS, which has all the
+fields from the regular ACK frame with new fields for the packet receive
+timestamps Endpoints send ACK_RECEIVE_TIMESTAMPS frames in place of--and in the
 same manner as--regular ACK frames as described in <span><a href="https://rfc-editor.org/rfc/rfc9000#section-13.2" class="relref">Section 13.2</a> of [<a href="#RFC9000" class="cite xref">RFC9000</a>]</span>.<a href="#section-4-2" class="pilcrow">¶</a></p>
 <p id="section-4-3">ACK_RECEIVE_TIMESTAMPS frames are formatted as shown in <a href="#fig-frame" class="auto internal xref">Figure 1</a>.<a href="#section-4-3" class="pilcrow">¶</a></p>
 <span id="name-ack_receive_timestamps-frame"></span><div id="fig-frame">
@@ -1322,9 +1323,11 @@ ACK_RECEIVE_TIMESTAMPS Frame {
 <a href="#name-ack_receive_timestamps-frame" class="selfRef">ACK_RECEIVE_TIMESTAMPS Frame Format</a>
         </figcaption></figure>
 </div>
-<p id="section-4-5">The fields Largest Acknowledged, ACK Delay, ACK Range Count, First ACK Range, ACK Range and ECN Counts
- are the same as for ACK (type=0x02..0x03) frames specified in <span><a href="https://rfc-editor.org/rfc/rfc9000#section-19.3" class="relref">Section 19.3</a> of [<a href="#RFC9000" class="cite xref">RFC9000</a>]</span>.<a href="#section-4-5" class="pilcrow">¶</a></p>
-<p id="section-4-6">The format of the Receive Timestamps field is shown in <a href="#fig-receive-timestamps" class="auto internal xref">Figure 2</a>.<a href="#section-4-6" class="pilcrow">¶</a></p>
+<p id="section-4-5">The fields Largest Acknowledged, ACK Delay, ACK Range Count, First ACK Range,
+ACK Range and ECN Counts are the same as for ACK (type=0x02..0x03) frames
+specified in <span><a href="https://rfc-editor.org/rfc/rfc9000#section-19.3" class="relref">Section 19.3</a> of [<a href="#RFC9000" class="cite xref">RFC9000</a>]</span>.<a href="#section-4-5" class="pilcrow">¶</a></p>
+<p id="section-4-6">The format of the Receive Timestamps field is shown in
+<a href="#fig-receive-timestamps" class="auto internal xref">Figure 2</a>.<a href="#section-4-6" class="pilcrow">¶</a></p>
 <span id="name-receive-timestamps-fields"></span><div id="fig-receive-timestamps">
 <figure id="figure-2">
         <div class="alignLeft art-text artwork" id="section-4-7.1">
@@ -1433,8 +1436,8 @@ three transport parameters (<span><a href="https://rfc-editor.org/rfc/rfc9000#se
         <dt id="section-5-2.1">max_receive_timestamps_per_ack (0xff0a002 temporary value for draft use):</dt>
         <dd style="margin-left: 1.5em" id="section-5-2.2">
           <p id="section-5-2.2.1">A variable-length integer indicating that the maximum number of receive
-timestamps the sending endpoint would like to receive in an ACK_RECEIVE_TIMESTAMPS
-frame.<a href="#section-5-2.2.1" class="pilcrow">¶</a></p>
+timestamps the sending endpoint would like to receive in an
+ACK_RECEIVE_TIMESTAMPS frame.<a href="#section-5-2.2.1" class="pilcrow">¶</a></p>
 <p id="section-5-2.2.2">Each ACK_RECEIVE_TIMESTAMPS frame sent <span class="bcp14">MUST NOT</span> contain more than the
 specified maximum number of receive timestamps, but <span class="bcp14">MAY</span> contain fewer or none.<a href="#section-5-2.2.2" class="pilcrow">¶</a></p>
 </dd>
@@ -1532,9 +1535,10 @@ PATH_ACK_RECEIVE_TIMESTAMPS Frame {
       <h2 id="name-examples">
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-examples" class="section-name selfRef">Examples</a>
       </h2>
-<p id="section-7-1">To illustrate the usage of the ACK_RECEIVE_TIMESTAMPS frame, consider a peer that sent
-14 packets with numbers 87 to 100.<a href="#section-7-1" class="pilcrow">¶</a></p>
-<p id="section-7-2">Assume the receiver receives packets 87 to 91 and 96 to 100 at the following timestamps relative to the basis:<a href="#section-7-2" class="pilcrow">¶</a></p>
+<p id="section-7-1">To illustrate the usage of the ACK_RECEIVE_TIMESTAMPS frame, consider a peer
+that sent 14 packets with numbers 87 to 100.<a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-7-2">Assume the receiver receives packets 87 to 91 and 96 to 100 at the following
+timestamps relative to the basis:<a href="#section-7-2" class="pilcrow">¶</a></p>
 <table class="center" id="table-1">
         <caption><a href="#table-1" class="selfRef">Table 1</a></caption>
 <thead>
@@ -1586,7 +1590,8 @@ PATH_ACK_RECEIVE_TIMESTAMPS Frame {
           </tr>
         </tbody>
       </table>
-<p id="section-7-4">When it's time to acknowledge these packets, the receiver will send an ACK_RECEIVE_TIMESTAMPS frame with two ranges, as follows:<a href="#section-7-4" class="pilcrow">¶</a></p>
+<p id="section-7-4">When it's time to acknowledge these packets, the receiver will send an
+ACK_RECEIVE_TIMESTAMPS frame with two ranges, as follows:<a href="#section-7-4" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-7-5">
 <pre>
 Largest Acknowledged: 100
@@ -1604,7 +1609,8 @@ Timestamp Range 2:
   Timestamp Deltas: 20, 10, 10, 5, 5
 </pre><a href="#section-7-5" class="pilcrow">¶</a>
 </div>
-<p id="section-7-6">After that assume that the receiver receives packets 92 to 95 out-of-order at the following timestamps relative to the basis:<a href="#section-7-6" class="pilcrow">¶</a></p>
+<p id="section-7-6">After that assume that the receiver receives packets 92 to 95 out-of-order at
+the following timestamps relative to the basis:<a href="#section-7-6" class="pilcrow">¶</a></p>
 <table class="center" id="table-2">
         <caption><a href="#table-2" class="selfRef">Table 2</a></caption>
 <thead>
@@ -1632,7 +1638,8 @@ Timestamp Range 2:
           </tr>
         </tbody>
       </table>
-<p id="section-7-8">The receiver <span class="bcp14">MAY</span> send a new ACK_RECEIVE_TIMESTAMPS with all of the timestamps, as follows:<a href="#section-7-8" class="pilcrow">¶</a></p>
+<p id="section-7-8">The receiver <span class="bcp14">MAY</span> send a new ACK_RECEIVE_TIMESTAMPS with all of the timestamps,
+as follows:<a href="#section-7-8" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-7-9">
 <pre>
 Largest Acknowledged: 100
@@ -1655,7 +1662,9 @@ Timestamp Range 2:
   Timestamp Deltas: 20, 10, 10, 5, 5
 </pre><a href="#section-7-9" class="pilcrow">¶</a>
 </div>
-<p id="section-7-10">In this particular scenario, the receiver <span class="bcp14">MAY</span> also choose to report the first timestamp range only since the timestamps for the other two ranges have already been reported.<a href="#section-7-10" class="pilcrow">¶</a></p>
+<p id="section-7-10">In this particular scenario, the receiver <span class="bcp14">MAY</span> also choose to report the first
+timestamp range only since the timestamps for the other two ranges have already
+been reported.<a href="#section-7-10" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security-considerations">
