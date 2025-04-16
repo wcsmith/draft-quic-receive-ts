@@ -272,6 +272,31 @@ received. Examples of such scenarios are:
   sending more than max_receive_timestamps_per_ack ({{negotiation}}); or (b) fit
   the ACK frame into a packet.
 
+
+## Usage with the Multipath Extension for QUIC
+
+The Multipath extension for QUIC ({{?I-D.ietf-quic-multipath}}) defines the
+PATH_ACK frame which contains a path identifier besides the regular ACK frame
+fields. An endpoint that supports both extensions can use another frame type
+PATH_ACK_RECEIVE_TIMESTAMPS to send both the path identifier and the
+receive timestamps.
+
+~~~
+PATH_ACK_RECEIVE_TIMESTAMPS Frame {
+  Type (i) = TBD-00..TBD-01
+  Path Identifier (i),
+  Largest Acknowledged (i),
+  ACK Delay (i),
+  ACK Range Count (i),
+  First ACK Range (i),
+  ACK Range (..) ...,
+  Receive Timestamps (..)
+  [ECN Counts (..)],
+}
+~~~
+{: #fig-mpquic-frame title="PATH_ACK_RECEIVE_TIMESTAMPS Frame Format"}
+
+
 # Security Considerations
 
 TODO Security
