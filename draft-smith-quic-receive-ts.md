@@ -238,7 +238,6 @@ Receive timestamps are reported relative to the basis, rather than in absolute
 time to avoid requiring clock synchronization between endpoints and to make
 the frame more compact.
 
-
 # Discussion
 
 ## Best-Effort Behavior
@@ -253,6 +252,79 @@ acknowledged packets. Examples of such scenarios are:
   sending more than max_receive_timestamps_per_ack ({{negotiation}}); or (b) fit
   the ACK frame into a packet.
 
+# Examples
+
+To illustrate the usage of the Receive Timestamps fields, consider a peer
+that sent 14 packets with numbers 87 to 100.
+
+Assume the receiver receives packets 87 to 91 and 96 to 100 at the following timestamps relative to the basis:
+
+| Packet Number    | Relative Timestamp |
+| ---------------- | ------------------ |
+| 87               | 300                |
+| 88               | 305                |
+| 89               | 310                |
+| 90               | 320                |
+| 91               | 330                |
+| 96               | 350                |
+| 97               | 355                |
+| 98               | 360                |
+| 99               | 370                |
+| 100              | 380                |
+
+When it's time to acknowledge these packets, the receiver will send an
+ACK frame with two ranges, as follows:
+
+~~~
+Largest Acknowledged: 100
+...
+Timestamp Ranges Count: 2
+
+Timestamp Range 1:
+  Delta Largest Acknowledged: 0 // Starting at packet 100
+  Timestamp Delta Count: 5
+  Timestamps Deltas: 380, 10, 10, 5, 5
+
+Timestamp Range 2:
+  Delta Largest Acknowledged: 9 // Starting at packet 91
+  Timestamp Delta Count: 5
+  Timestamp Deltas: 20, 10, 10, 5, 5
+~~~
+
+After that assume that the receiver receives packets 92 to 95 out-of-order at the following timestamps relative to the basis:
+
+| Packet Number    | Relative Timestamp |
+| ---------------- | ------------------ |
+| 92               | 390                |
+| 93               | 392                |
+| 94               | 394                |
+| 95               | 395                |
+
+The receiver MAY send a new ACK frame with all of the timestamps,
+as follows:
+
+~~~
+Largest Acknowledged: 100
+...
+Timestamp Ranges Count: 3
+
+Timestamp Range 1:
+  Delta Largest Acknowledged: 5 // Starting at packet 95
+  Timestamp Delta Count: 4
+  Timestamps Deltas: 395, 1, 2, 2
+
+Timestamp Range 2:
+  Delta Largest Acknowledged: 0 // Starting at packet 100
+  Timestamp Delta Count: 5
+  Timestamps Deltas: 10, 10, 10, 5, 5
+
+Timestamp Range 3:
+  Delta Largest Acknowledged: 9 // Starting at packet 91
+  Timestamp Delta Count: 5
+  Timestamp Deltas: 20, 10, 10, 5, 5
+~~~
+
+In this particular scenario, the receiver MAY also choose to report the first timestamp range only since the timestamps for the other two ranges have already been reported.
 
 # Security Considerations
 
