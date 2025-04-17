@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-13T03:07:18.238804+00:00",
+  "timestamp": "2025-04-17T01:41:48.850748+00:00",
   "repo": "wcsmith/draft-quic-receive-ts",
   "labels": [
     {
@@ -631,7 +631,7 @@
       "labels": [],
       "body": "This approach does not require any new frame types and if for some reason the timestamp extension is negotiated and never used, only wastes one byte per ACK frame.\r\n\r\nCloses #7",
       "createdAt": "2025-03-18T18:24:12Z",
-      "updatedAt": "2025-03-19T06:35:53Z",
+      "updatedAt": "2025-04-16T23:31:38Z",
       "baseRepository": "wcsmith/draft-quic-receive-ts",
       "baseRefName": "main",
       "baseRefOid": "17df80d4e8a589dc394f08679e6c6f025d44bd7f",
@@ -642,7 +642,15 @@
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "jbeshay",
+          "authorAssociation": "COLLABORATOR",
+          "body": "If we're not going with the extended acks, I prefer using a separate frame. \r\n\r\nAdding new fields to the end of the existing ACKs is only practical for one extension. Any other extension that wants to use the same approach will have to refer to the receive timestamps fields in order to define the order in which the fields from the different extensions must appear in the ACK if both extensions are enabled. Which is the essence of the problem the extended ack tried to solve.",
+          "createdAt": "2025-04-16T23:31:37Z",
+          "updatedAt": "2025-04-16T23:31:37Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOGIUVps6grvpO",
@@ -1020,6 +1028,82 @@
               "body": "You're right. We worked through an example and it does work. ",
               "createdAt": "2025-04-10T22:25:45Z",
               "updatedAt": "2025-04-10T22:27:21Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "id": "PR_kwDOGIUVps6S6T8L",
+      "title": "Go back to separate frame types instead of extended ack",
+      "url": "https://github.com/wcsmith/draft-quic-receive-ts/pull/16",
+      "state": "OPEN",
+      "author": "jbeshay",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "- Revert back to separate frame type for ACK_RECEIVE_TIMESTAMPS\r\n- Add note on using this extension along with the multipath extension\r\n- Add an example to illustrate the frame format and its support for reordering\r\n\r\nAddresses https://github.com/wcsmith/draft-quic-receive-ts/issues/7 and  https://github.com/wcsmith/draft-quic-receive-ts/issues/12",
+      "createdAt": "2025-04-16T23:26:13Z",
+      "updatedAt": "2025-04-17T01:26:38Z",
+      "baseRepository": "wcsmith/draft-quic-receive-ts",
+      "baseRefName": "main",
+      "baseRefOid": "7e32bdedd0540400588e3cdc377e658dd57e192d",
+      "headRepository": "wcsmith/draft-quic-receive-ts",
+      "headRefName": "jb_newframes_not_extended",
+      "headRefOid": "5aa1df8b35c83ab3d311eb544c5b986bfd8966ef",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "ianswett",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I also think it's easier to just always include the receive timestamp section in 1-RTT packets once negotiated.  If you asked for timestamps, you'd typically expect to receive at least 1, so there would be no byte overhead for always including it.",
+          "createdAt": "2025-04-16T23:45:07Z",
+          "updatedAt": "2025-04-16T23:45:07Z"
+        },
+        {
+          "author": "jbeshay",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The problem I mentioned on https://github.com/wcsmith/draft-quic-receive-ts/pull/8 still stands though. Enabling multiple extensions in the same ACK requires some sort of coordination. In case of MPQUIC and this extension, MPQUIC adds the new PathID field before the LargestAcked packet number, and receive timestamps adds its fields at the end of the frame.\r\n\r\nThis approach is limited by anchor points in the existing ACK frame. No two extensions can use the same anchor point to add their fields, otherwise their order would be ambiguous if used together.",
+          "createdAt": "2025-04-16T23:51:42Z",
+          "updatedAt": "2025-04-16T23:51:42Z"
+        },
+        {
+          "author": "ianswett",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> The problem I mentioned on #8 still stands though. Enabling multiple extensions in the same ACK requires some sort of coordination. In case of MPQUIC and this extension, MPQUIC adds the new PathID field before the LargestAcked packet number, and receive timestamps adds its fields at the end of the frame.\r\n> \r\n> This approach is limited by anchor points in the existing ACK frame. No two extensions can use the same anchor point to add their fields, otherwise their order would be ambiguous if used together.\r\n\r\nBut the coordination can be trivial given the relatively small number of changes to the ACK frame.  For example, we could say that extensions that are negotiated be in RFC# order.",
+          "createdAt": "2025-04-17T00:59:40Z",
+          "updatedAt": "2025-04-17T00:59:40Z"
+        },
+        {
+          "author": "jbeshay",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> But the coordination can be trivial given the relatively small number of changes to the ACK frame. For example, we could say that extensions that are negotiated be in RFC# order.\r\n\r\nThat works. Let's update https://github.com/wcsmith/draft-quic-receive-ts/pull/8 with some text about this idea and I will rebase my MP QUIC note and the example on top of it.",
+          "createdAt": "2025-04-17T01:26:37Z",
+          "updatedAt": "2025-04-17T01:26:37Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGIUVps6lWdUt",
+          "commit": {
+            "abbreviatedOid": "5aa1df8"
+          },
+          "author": "ianswett",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "If you're doing Multipath, aren't you always sort of doing it and keeping the existing ACK frame seems odd?  I guess I can leave that as feedback on MP-QUIC",
+          "createdAt": "2025-04-16T23:39:08Z",
+          "updatedAt": "2025-04-16T23:41:02Z",
+          "comments": [
+            {
+              "originalPosition": 221,
+              "body": "I liked this PR until I read this section.  I guess this is more of a comment on MPQUIC, but why not just always include the Path Identifier in 1-RTT ACKs if you've negotiated the extension?",
+              "createdAt": "2025-04-16T23:39:08Z",
+              "updatedAt": "2025-04-16T23:41:02Z"
             }
           ]
         }
