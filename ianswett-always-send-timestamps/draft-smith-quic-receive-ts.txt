@@ -5,13 +5,13 @@
 QUIC                                                            C. Smith
 Internet-Draft                                                    NVIDIA
 Intended status: Informational                                  I. Swett
-Expires: 20 September 2025                                    Google LLC
+Expires: 22 October 2025                                      Google LLC
                                                                J. Beshay
                                                               S. Jaiswal
                                                         I. Purushothaman
                                                             B. Schlinker
                                                     Meta Platforms, Inc.
-                                                           19 March 2025
+                                                           20 April 2025
 
 
  QUIC Extended Acknowledgement for Reporting Packet Receive Timestamps
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 September 2025.
+   This Internet-Draft will expire on 22 October 2025.
 
 Copyright Notice
 
@@ -126,9 +126,12 @@ Table of Contents
 
 4.  ACK Frame Wire Format
 
-   Endpoints send ACK frames as they otherwise would, with 0 or more
-   receive timestamps immediately following the ACK ranges in the ACK
-   Frame.
+   Endpoints send ACK frames in 1-RTT packets as they otherwise would,
+   with 0 or more receive timestamps following the Ack Ranges and
+   optional ECN Counts.  Receive timestamps MUST NOT be sent in Initial
+   or Handshake packets, because the peer would not know to use the
+   extended wire format.  ACK frames are never sent in 0-RTT packets, so
+   there is no change to 0-RTT.
 
    Once negotiated, the ACK format is identical to RFC9000, but with an
    additional section for receive timestamps at the end:
