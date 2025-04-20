@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-17T01:41:48.850748+00:00",
+  "timestamp": "2025-04-20T01:47:36.032881+00:00",
   "repo": "wcsmith/draft-quic-receive-ts",
   "labels": [
     {
@@ -631,7 +631,7 @@
       "labels": [],
       "body": "This approach does not require any new frame types and if for some reason the timestamp extension is negotiated and never used, only wastes one byte per ACK frame.\r\n\r\nCloses #7",
       "createdAt": "2025-03-18T18:24:12Z",
-      "updatedAt": "2025-04-16T23:31:38Z",
+      "updatedAt": "2025-04-19T22:01:48Z",
       "baseRepository": "wcsmith/draft-quic-receive-ts",
       "baseRefName": "main",
       "baseRefOid": "17df80d4e8a589dc394f08679e6c6f025d44bd7f",
@@ -757,6 +757,19 @@
               "updatedAt": "2025-03-19T06:35:53Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOGIUVps6ltPXf",
+          "commit": {
+            "abbreviatedOid": "a6656aa"
+          },
+          "author": "martinthomson",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "I don't see how this would be negotiated safely.  How can one endpoint be sure that the extra field is present or not?  Especially for ACK frames in Initial or Handshake?",
+          "createdAt": "2025-04-19T22:01:48Z",
+          "updatedAt": "2025-04-19T22:01:48Z",
+          "comments": []
         }
       ]
     },
