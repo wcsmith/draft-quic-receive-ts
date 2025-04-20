@@ -106,8 +106,11 @@ per round-trip in order to best measure the network.
 
 # ACK Frame Wire Format {#frame}
 
-Endpoints send ACK frames as they otherwise would, with 0 or more receive
-timestamps immediately following the ACK ranges in the ACK Frame.
+Endpoints send ACK frames in 1-RTT packets as they otherwise would, with 0
+or more receive timestamps following the Ack Ranges and optional ECN Counts.
+Receive timestamps MUST NOT be sent in Initial or Handshake packets, because
+the peer would not know to use the extended wire format. ACK frames are never
+sent in 0-RTT packets, so there is no change to 0-RTT.
 
 Once negotiated, the ACK format is identical to RFC9000, but with an
 additional section for receive timestamps at the end:
