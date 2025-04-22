@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-20T01:47:36.032881+00:00",
+  "timestamp": "2025-04-22T01:42:29.223409+00:00",
   "repo": "wcsmith/draft-quic-receive-ts",
   "labels": [
     {
@@ -631,13 +631,13 @@
       "labels": [],
       "body": "This approach does not require any new frame types and if for some reason the timestamp extension is negotiated and never used, only wastes one byte per ACK frame.\r\n\r\nCloses #7",
       "createdAt": "2025-03-18T18:24:12Z",
-      "updatedAt": "2025-04-19T22:01:48Z",
+      "updatedAt": "2025-04-21T23:45:11Z",
       "baseRepository": "wcsmith/draft-quic-receive-ts",
       "baseRefName": "main",
       "baseRefOid": "17df80d4e8a589dc394f08679e6c6f025d44bd7f",
       "headRepository": "wcsmith/draft-quic-receive-ts",
       "headRefName": "ianswett-always-send-timestamps",
-      "headRefOid": "a6656aa948f172aca8eac154bc3975228d93cf8e",
+      "headRefOid": "a1c17599d358c343ea10a2cf277ba0981ec02262",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -649,6 +649,27 @@
           "body": "If we're not going with the extended acks, I prefer using a separate frame. \r\n\r\nAdding new fields to the end of the existing ACKs is only practical for one extension. Any other extension that wants to use the same approach will have to refer to the receive timestamps fields in order to define the order in which the fields from the different extensions must appear in the ACK if both extensions are enabled. Which is the essence of the problem the extended ack tried to solve.",
           "createdAt": "2025-04-16T23:31:37Z",
           "updatedAt": "2025-04-16T23:31:37Z"
+        },
+        {
+          "author": "ianswett",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> I don't see how this would be negotiated safely. How can one endpoint be sure that the extra field is present or not? Especially for ACK frames in Initial or Handshake?\r\n\r\nThe intent is that this is only sent in 1-RTT (it's useless in 0-RTT packets I believe?) packets, so I'll try to clarify that.  As with any extension that uses a new frame codepoint or changes an existing frame, it's definitely not safe in Initial or Handshake packets.",
+          "createdAt": "2025-04-20T23:08:29Z",
+          "updatedAt": "2025-04-20T23:08:29Z"
+        },
+        {
+          "author": "ianswett",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I updated the PR to address Martin's concern.  Please interpret the commit comment as 1-RTT only, not 0-RTT only.",
+          "createdAt": "2025-04-20T23:19:13Z",
+          "updatedAt": "2025-04-20T23:19:13Z"
+        },
+        {
+          "author": "mjoras",
+          "authorAssociation": "NONE",
+          "body": "@jbeshay @ianswett can we merge this PR, cut a new draft, and then we'll highlight that fact on the adoption call to make it clear we are proposing adopting with the change?",
+          "createdAt": "2025-04-21T23:45:09Z",
+          "updatedAt": "2025-04-21T23:45:09Z"
         }
       ],
       "reviews": [
