@@ -279,8 +279,8 @@ Table of Contents
 
 7.  Examples
 
-   To illustrate the usage of the ACK_RECEIVE_TIMESTAMPS frame, consider
-   a peer that sent 14 packets with numbers 87 to 100.
+   To illustrate the usage of the Receive Timestamps fields, consider a
+   peer that sent 14 packets with numbers 87 to 100.
 
    Assume the receiver receives packets 87 to 91 and 96 to 100 at the
    following timestamps relative to the basis:
@@ -312,7 +312,7 @@ Table of Contents
                                  Table 1
 
    When it's time to acknowledge these packets, the receiver will send
-   an ACK_RECEIVE_TIMESTAMPS frame with two ranges, as follows:
+   an ACK frame with two ranges, as follows:
 
    Largest Acknowledged: 100
    ...
@@ -345,8 +345,8 @@ Table of Contents
 
                                  Table 2
 
-   The receiver MAY send a new ACK_RECEIVE_TIMESTAMPS with all of the
-   timestamps, as follows:
+   The receiver MAY send a new ACK frame with all of the timestamps, as
+   follows:
 
    Largest Acknowledged: 100
    ...

@@ -1490,7 +1490,7 @@ the ACK frame into a packet.<a href="#section-6.1-2.2.1" class="pilcrow">¶</a><
       <h2 id="name-examples">
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-examples" class="section-name selfRef">Examples</a>
       </h2>
-<p id="section-7-1">To illustrate the usage of the ACK_RECEIVE_TIMESTAMPS frame, consider a peer
+<p id="section-7-1">To illustrate the usage of the Receive Timestamps fields, consider a peer
 that sent 14 packets with numbers 87 to 100.<a href="#section-7-1" class="pilcrow">¶</a></p>
 <p id="section-7-2">Assume the receiver receives packets 87 to 91 and 96 to 100 at the following
 timestamps relative to the basis:<a href="#section-7-2" class="pilcrow">¶</a></p>
@@ -1546,7 +1546,7 @@ timestamps relative to the basis:<a href="#section-7-2" class="pilcrow">¶</a></
         </tbody>
       </table>
 <p id="section-7-4">When it's time to acknowledge these packets, the receiver will send an
-ACK_RECEIVE_TIMESTAMPS frame with two ranges, as follows:<a href="#section-7-4" class="pilcrow">¶</a></p>
+ACK frame with two ranges, as follows:<a href="#section-7-4" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-7-5">
 <pre>
 Largest Acknowledged: 100
@@ -1593,7 +1593,7 @@ the following timestamps relative to the basis:<a href="#section-7-6" class="pil
           </tr>
         </tbody>
       </table>
-<p id="section-7-8">The receiver <span class="bcp14">MAY</span> send a new ACK_RECEIVE_TIMESTAMPS with all of the timestamps,
+<p id="section-7-8">The receiver <span class="bcp14">MAY</span> send a new ACK frame with all of the timestamps,
 as follows:<a href="#section-7-8" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-7-9">
 <pre>
