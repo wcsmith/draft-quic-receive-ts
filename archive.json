@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-22T01:42:29.223409+00:00",
+  "timestamp": "2025-04-24T01:43:12.472274+00:00",
   "repo": "wcsmith/draft-quic-receive-ts",
   "labels": [
     {
@@ -138,15 +138,15 @@
       "id": "I_kwDOGIUVps6sYVnI",
       "title": "Extended ACK frame with multiple optional fields vs. new ACK frame types for the different supported configurations?",
       "url": "https://github.com/wcsmith/draft-quic-receive-ts/issues/7",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "jbeshay",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Rather than adding two frame types to support receive timestamps with and without ECN counts, the latest iteration of the draft defines one frame type, ACK_EXTENDED, that can carry multiple optional sets of fields that correspond to different features.\n\nPro:\nOnly one frame is needed to support the different combinations of all supported ack-related features or versions of them. Without the extended ack frame, supporting different combinations of all the supported features/versions would require an exponentially increasing number of frames as new features are introduced. Or at least linearly, if each new feature/version introduces a frame that includes the union of all existing features.\n\nCon:\nThe ack extended frame contains a field whose bit-wise values indicate which features/versions of features are included in the frame. This requires a new IANA registry to track which bits maps to which features. If the number of ack-related features is small, the overhead of having an IANA registry will be higher than the additional frame types. There are only three sets of optional fields defined or proposed that I am aware of: ECN counts (rfc9000), receive timestamps (this draft), and timestamps for one way delay (https://datatracker.ietf.org/doc/draft-huitema-quic-ts/)\n\nDoes avoiding the potential of increasing frame types justify the IANA overhead? Do we expect to see more extensions that add ACK fields? \n\nDepending on the discussion, we can: \n1. Maintain the ACK_EXTENDED frame approach that can supports this and future extensions.\n2. Use separate ACK_RECEIVE_TIMESTAMPS and ACK_ECN_RECEIVETIMESTAMPS frames to carry the two additional combinations of features we currently need. \n2. Use one ACK_RECEIVE_TIMESTAMPS frame that can optionally carry the ECN counts and/or receive timestamps fields, without being extensible to new features, to avoid the IANA overhead.",
       "createdAt": "2025-03-03T19:03:00Z",
-      "updatedAt": "2025-04-08T22:17:04Z",
-      "closedAt": null,
+      "updatedAt": "2025-04-22T19:35:12Z",
+      "closedAt": "2025-04-22T19:35:12Z",
       "comments": [
         {
           "author": "martinduke",
@@ -624,24 +624,26 @@
       "id": "PR_kwDOGIUVps6PKC-L",
       "title": "Always send timestamps once negotiated",
       "url": "https://github.com/wcsmith/draft-quic-receive-ts/pull/8",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "ianswett",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "This approach does not require any new frame types and if for some reason the timestamp extension is negotiated and never used, only wastes one byte per ACK frame.\r\n\r\nCloses #7",
       "createdAt": "2025-03-18T18:24:12Z",
-      "updatedAt": "2025-04-21T23:45:11Z",
+      "updatedAt": "2025-04-22T19:49:35Z",
       "baseRepository": "wcsmith/draft-quic-receive-ts",
       "baseRefName": "main",
       "baseRefOid": "17df80d4e8a589dc394f08679e6c6f025d44bd7f",
       "headRepository": "wcsmith/draft-quic-receive-ts",
       "headRefName": "ianswett-always-send-timestamps",
       "headRefOid": "a1c17599d358c343ea10a2cf277ba0981ec02262",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-04-22T19:35:11Z",
+      "mergedAt": "2025-04-22T19:35:11Z",
+      "mergedBy": "ianswett",
+      "mergeCommit": {
+        "oid": "10354dbbb1edc6e2a37c7befc142f7ec35c84e89"
+      },
       "comments": [
         {
           "author": "jbeshay",
@@ -670,6 +672,13 @@
           "body": "@jbeshay @ianswett can we merge this PR, cut a new draft, and then we'll highlight that fact on the adoption call to make it clear we are proposing adopting with the change?",
           "createdAt": "2025-04-21T23:45:09Z",
           "updatedAt": "2025-04-21T23:45:09Z"
+        },
+        {
+          "author": "ianswett",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> @jbeshay @ianswett can we merge this PR, cut a new draft, and then we'll highlight that fact on the adoption call to make it clear we are proposing adopting with the change?\r\n\r\nMerged and published a new draft: https://datatracker.ietf.org/doc/draft-smith-quic-receive-ts/",
+          "createdAt": "2025-04-22T19:49:34Z",
+          "updatedAt": "2025-04-22T19:49:34Z"
         }
       ],
       "reviews": [
@@ -790,6 +799,19 @@
           "body": "I don't see how this would be negotiated safely.  How can one endpoint be sure that the extra field is present or not?  Especially for ACK frames in Initial or Handshake?",
           "createdAt": "2025-04-19T22:01:48Z",
           "updatedAt": "2025-04-19T22:01:48Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOGIUVps6l-b8h",
+          "commit": {
+            "abbreviatedOid": "a1c1759"
+          },
+          "author": "jbeshay",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-04-22T16:00:23Z",
+          "updatedAt": "2025-04-22T16:00:23Z",
           "comments": []
         }
       ]
@@ -1072,21 +1094,21 @@
       "id": "PR_kwDOGIUVps6S6T8L",
       "title": "Go back to separate frame types instead of extended ack",
       "url": "https://github.com/wcsmith/draft-quic-receive-ts/pull/16",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "jbeshay",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "- Revert back to separate frame type for ACK_RECEIVE_TIMESTAMPS\r\n- Add note on using this extension along with the multipath extension\r\n- Add an example to illustrate the frame format and its support for reordering\r\n\r\nAddresses https://github.com/wcsmith/draft-quic-receive-ts/issues/7 and  https://github.com/wcsmith/draft-quic-receive-ts/issues/12",
       "createdAt": "2025-04-16T23:26:13Z",
-      "updatedAt": "2025-04-17T01:26:38Z",
+      "updatedAt": "2025-04-22T21:57:43Z",
       "baseRepository": "wcsmith/draft-quic-receive-ts",
       "baseRefName": "main",
       "baseRefOid": "7e32bdedd0540400588e3cdc377e658dd57e192d",
       "headRepository": "wcsmith/draft-quic-receive-ts",
       "headRefName": "jb_newframes_not_extended",
       "headRefOid": "5aa1df8b35c83ab3d311eb544c5b986bfd8966ef",
-      "closedAt": null,
+      "closedAt": "2025-04-22T21:52:36Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
@@ -1118,6 +1140,13 @@
           "body": "> But the coordination can be trivial given the relatively small number of changes to the ACK frame. For example, we could say that extensions that are negotiated be in RFC# order.\r\n\r\nThat works. Let's update https://github.com/wcsmith/draft-quic-receive-ts/pull/8 with some text about this idea and I will rebase my MP QUIC note and the example on top of it.",
           "createdAt": "2025-04-17T01:26:37Z",
           "updatedAt": "2025-04-17T01:26:37Z"
+        },
+        {
+          "author": "jbeshay",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Abandon in favor of https://github.com/wcsmith/draft-quic-receive-ts/pull/8 and https://github.com/wcsmith/draft-quic-receive-ts/pull/18",
+          "createdAt": "2025-04-22T21:52:36Z",
+          "updatedAt": "2025-04-22T21:52:36Z"
         }
       ],
       "reviews": [
@@ -1140,6 +1169,86 @@
               "updatedAt": "2025-04-16T23:41:02Z"
             }
           ]
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "id": "PR_kwDOGIUVps6TfMla",
+      "title": "Propose how multiple ACK Frame extensions coexist",
+      "url": "https://github.com/wcsmith/draft-quic-receive-ts/pull/17",
+      "state": "OPEN",
+      "author": "ianswett",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Based on comments on the QUIC mailing list.",
+      "createdAt": "2025-04-22T19:58:51Z",
+      "updatedAt": "2025-04-22T20:33:53Z",
+      "baseRepository": "wcsmith/draft-quic-receive-ts",
+      "baseRefName": "main",
+      "baseRefOid": "10354dbbb1edc6e2a37c7befc142f7ec35c84e89",
+      "headRepository": "wcsmith/draft-quic-receive-ts",
+      "headRefName": "ianswett-multiple-extensions",
+      "headRefOid": "6e6a99e011ff0b2dfdcfee120e2b34e506a54909",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGIUVps6mBFrY",
+          "commit": {
+            "abbreviatedOid": "6e6a99e"
+          },
+          "author": "jbeshay",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "lgtm thanks for adding this",
+          "createdAt": "2025-04-22T20:33:52Z",
+          "updatedAt": "2025-04-22T20:33:52Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "id": "PR_kwDOGIUVps6Tf85O",
+      "title": "Add an example to illustrate the frame format and its support for reordering",
+      "url": "https://github.com/wcsmith/draft-quic-receive-ts/pull/18",
+      "state": "OPEN",
+      "author": "jbeshay",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "- Add an example to illustrate the frame format and its support for reordering\r\n- Define Receive Timestamps which was missing",
+      "createdAt": "2025-04-22T21:52:10Z",
+      "updatedAt": "2025-04-23T02:21:05Z",
+      "baseRepository": "wcsmith/draft-quic-receive-ts",
+      "baseRefName": "main",
+      "baseRefOid": "10354dbbb1edc6e2a37c7befc142f7ec35c84e89",
+      "headRepository": "wcsmith/draft-quic-receive-ts",
+      "headRefName": "jb_add_example",
+      "headRefOid": "9aa13ab8a3dbba88e4ec35417757ecc92bbdfaa2",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGIUVps6mC6ZK",
+          "commit": {
+            "abbreviatedOid": "9aa13ab"
+          },
+          "author": "ianswett",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "This looks great, but I'm hesitant to put normative language in examples.  I think the normative language you're adding seems reasonable, but I think it's better in the main doc.",
+          "createdAt": "2025-04-23T02:21:05Z",
+          "updatedAt": "2025-04-23T02:21:05Z",
+          "comments": []
         }
       ]
     }
