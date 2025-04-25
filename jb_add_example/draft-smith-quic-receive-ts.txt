@@ -230,10 +230,11 @@ Table of Contents
       transport parameter received by the sender of the ACK frame (see
       Section 5):
 
-   When the receiver receives packets out-of-order, it MAY report them
-   in Timestamp Ranges in a separate ACK frame.  It MAY also report them
-   with other packets, starting with the most recently received packet
-   regardless of the packet number order (see Section 7 for examples).
+   When the receiver receives packets out-of-order, it SHOULD report
+   them with other packets in a single ACK frame, starting with the most
+   recently received packet regardless of the packet number order.  See
+   Section 7 for examples of reporting timestamps of out-of-order
+   packets.
 
 5.  Extension Negotiation
 

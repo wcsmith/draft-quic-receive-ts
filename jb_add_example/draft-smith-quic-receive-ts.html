@@ -1412,10 +1412,10 @@ received by the sender of the ACK frame (see <a href="#negotiation" class="auto 
 </dd>
         <dd class="break"></dd>
 </dl>
-<p id="section-4.1-6">When the receiver receives packets out-of-order, it <span class="bcp14">MAY</span> report
-them in Timestamp Ranges in a separate ACK frame. It <span class="bcp14">MAY</span> also report them with
-other packets, starting with the most recently received packet regardless of
-the packet number order (see <a href="#examples" class="auto internal xref">Section 7</a> for examples).<a href="#section-4.1-6" class="pilcrow">¶</a></p>
+<p id="section-4.1-6">When the receiver receives packets out-of-order, it <span class="bcp14">SHOULD</span> report them with
+other packets in a single ACK frame, starting with the most recently received
+packet regardless of the packet number order. See <a href="#examples" class="auto internal xref">Section 7</a> for examples of
+reporting timestamps of out-of-order packets.<a href="#section-4.1-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
