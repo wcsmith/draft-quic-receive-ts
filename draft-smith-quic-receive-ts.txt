@@ -5,13 +5,13 @@
 QUIC                                                            C. Smith
 Internet-Draft                                                    NVIDIA
 Intended status: Informational                                  I. Swett
-Expires: 24 October 2025                                      Google LLC
+Expires: 27 October 2025                                      Google LLC
                                                                J. Beshay
                                                               S. Jaiswal
                                                         I. Purushothaman
                                                             B. Schlinker
                                                     Meta Platforms, Inc.
-                                                           22 April 2025
+                                                           25 April 2025
 
 
  QUIC Extended Acknowledgement for Reporting Packet Receive Timestamps
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 October 2025.
+   This Internet-Draft will expire on 27 October 2025.
 
 Copyright Notice
 
@@ -76,11 +76,12 @@ Table of Contents
      5.1.  Receive Timestamp Basis
    6.  Discussion
      6.1.  Best-Effort Behavior
-   7.  Security Considerations
-   8.  IANA Considerations
-   9.  References
-     9.1.  Normative References
-     9.2.  Informative References
+   7.  Examples
+   8.  Security Considerations
+   9.  IANA Considerations
+   10. References
+     10.1.  Normative References
+     10.2.  Informative References
    Acknowledgments
    Authors' Addresses
 
@@ -154,8 +155,17 @@ Table of Contents
                          Figure 1: ACK Frame Format
 
    The fields Largest Acknowledged, ACK Delay, ACK Range Count, First
-   ACK Range, and ACK Range are the same as for ACK (type=0x02) frames
-   specified in Section 19.3 of [RFC9000].
+   ACK Range, ACK Range and ECN Counts are the same as for ACK
+   (type=0x02..0x03) frames specified in Section 19.3 of [RFC9000].
+
+   The format of the Receive Timestamps field is shown in Figure 2.
+
+   Receive Timestamps {
+     Timestamp Range Count (i),
+     Timestamp Range (..) ...
+   }
+
+                    Figure 2: Receive Timestamps Fields
 
    Timestamp Range Count:  A variable-length integer specifying the
       number of Timestamp Range fields in the frame.
@@ -175,7 +185,7 @@ Table of Contents
    and timestamp order.  Ranges are in descending timestamp order but do
    not have to be in descending packet number order.
 
-   Timestamp Ranges are structured as shown in Figure 2.
+   Timestamp Ranges are structured as shown in Figure 3.
 
    Timestamp Range {
      Delta Largest Acknowledged (i),
@@ -183,7 +193,7 @@ Table of Contents
      Timestamp Delta (i) ...,
    }
 
-                      Figure 2: Timestamp Range Format
+                      Figure 3: Timestamp Range Format
 
    The fields that form each Timestamp Range are:
 
@@ -219,6 +229,12 @@ Table of Contents
       the field by 2 to the power of the receive_timestamps_exponent
       transport parameter received by the sender of the ACK frame (see
       Section 5):
+
+   When the receiver receives packets out-of-order, it SHOULD report
+   them with other packets in a single ACK frame, starting with the most
+   recently received packet regardless of the packet number order.  See
+   Section 7 for examples of reporting timestamps of out-of-order
+   packets.
 
 5.  Extension Negotiation
 
@@ -267,17 +283,111 @@ Table of Contents
       avoid sending more than max_receive_timestamps_per_ack
       (Section 5); or (b) fit the ACK frame into a packet.
 
-7.  Security Considerations
+7.  Examples
+
+   To illustrate the usage of the Receive Timestamps fields, consider a
+   peer that sent 14 packets with numbers 87 to 100.
+
+   Assume the receiver receives packets 87 to 91 and 96 to 100 at the
+   following timestamps relative to the basis:
+
+                  +===============+====================+
+                  | Packet Number | Relative Timestamp |
+                  +===============+====================+
+                  | 87            | 300                |
+                  +---------------+--------------------+
+                  | 88            | 305                |
+                  +---------------+--------------------+
+                  | 89            | 310                |
+                  +---------------+--------------------+
+                  | 90            | 320                |
+                  +---------------+--------------------+
+                  | 91            | 330                |
+                  +---------------+--------------------+
+                  | 96            | 350                |
+                  +---------------+--------------------+
+                  | 97            | 355                |
+                  +---------------+--------------------+
+                  | 98            | 360                |
+                  +---------------+--------------------+
+                  | 99            | 370                |
+                  +---------------+--------------------+
+                  | 100           | 380                |
+                  +---------------+--------------------+
+
+                                 Table 1
+
+   When it's time to acknowledge these packets, the receiver will send
+   an ACK frame with two ranges, as follows:
+
+   Largest Acknowledged: 100
+   ...
+   Timestamp Ranges Count: 2
+
+   Timestamp Range 1:
+     Delta Largest Acknowledged: 0 // Starting at packet 100
+     Timestamp Delta Count: 5
+     Timestamps Deltas: 380, 10, 10, 5, 5
+
+   Timestamp Range 2:
+     Delta Largest Acknowledged: 9 // Starting at packet 91
+     Timestamp Delta Count: 5
+     Timestamp Deltas: 20, 10, 10, 5, 5
+
+   After that assume that the receiver receives packets 92 to 95 out-of-
+   order at the following timestamps relative to the basis:
+
+                  +===============+====================+
+                  | Packet Number | Relative Timestamp |
+                  +===============+====================+
+                  | 92            | 390                |
+                  +---------------+--------------------+
+                  | 93            | 392                |
+                  +---------------+--------------------+
+                  | 94            | 394                |
+                  +---------------+--------------------+
+                  | 95            | 395                |
+                  +---------------+--------------------+
+
+                                 Table 2
+
+   The receiver can send a new ACK frame with all of the timestamps, as
+   follows:
+
+   Largest Acknowledged: 100
+   ...
+   Timestamp Ranges Count: 3
+
+   Timestamp Range 1:
+     Delta Largest Acknowledged: 5 // Starting at packet 95
+     Timestamp Delta Count: 4
+     Timestamps Deltas: 395, 1, 2, 2
+
+   Timestamp Range 2:
+     Delta Largest Acknowledged: 0 // Starting at packet 100
+     Timestamp Delta Count: 5
+     Timestamps Deltas: 10, 10, 10, 5, 5
+
+   Timestamp Range 3:
+     Delta Largest Acknowledged: 9 // Starting at packet 91
+     Timestamp Delta Count: 5
+     Timestamp Deltas: 20, 10, 10, 5, 5
+
+   In this particular scenario, the receiver can also choose to report
+   the first timestamp range only since the timestamps for the other two
+   ranges have already been reported.
+
+8.  Security Considerations
 
    TODO Security
 
-8.  IANA Considerations
+9.  IANA Considerations
 
    This document has no IANA actions.
 
-9.  References
+10.  References
 
-9.1.  Normative References
+10.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -293,7 +403,7 @@ Table of Contents
               DOI 10.17487/RFC9000, May 2021,
               <https://www.rfc-editor.org/rfc/rfc9000>.
 
-9.2.  Informative References
+10.2.  Informative References
 
    [I-D.ietf-rmcat-gcc]
               Holmer, S., Lundin, H., Carlucci, G., De Cicco, L., and S.
