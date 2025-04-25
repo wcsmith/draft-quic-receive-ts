@@ -216,6 +216,11 @@ Timestamp Deltas:
   by 2 to the power of the receive_timestamps_exponent transport parameter
   received by the sender of the ACK frame (see {{negotiation}}):
 
+When the receiver receives packets out-of-order, it SHOULD report them with
+other packets in a single ACK frame, starting with the most recently received
+packet regardless of the packet number order. See {{examples}} for examples of
+reporting timestamps of out-of-order packets.
+
 # Extension Negotiation {#negotiation}
 
 max_receive_timestamps_per_ack (0xff0a002 temporary value for draft use):
@@ -263,7 +268,7 @@ acknowledged packets. Examples of such scenarios are:
   sending more than max_receive_timestamps_per_ack ({{negotiation}}); or (b) fit
   the ACK frame into a packet.
 
-# Examples
+# Examples {#examples}
 
 To illustrate the usage of the Receive Timestamps fields, consider a peer
 that sent 14 packets with numbers 87 to 100.
@@ -313,7 +318,7 @@ the following timestamps relative to the basis:
 | 94               | 394                |
 | 95               | 395                |
 
-The receiver MAY send a new ACK frame with all of the timestamps,
+The receiver can send a new ACK frame with all of the timestamps,
 as follows:
 
 ~~~
@@ -337,7 +342,7 @@ Timestamp Range 3:
   Timestamp Deltas: 20, 10, 10, 5, 5
 ~~~
 
-In this particular scenario, the receiver MAY also choose to report the first
+In this particular scenario, the receiver can also choose to report the first
 timestamp range only since the timestamps for the other two ranges have already
 been reported.
 
