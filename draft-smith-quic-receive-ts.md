@@ -133,8 +133,19 @@ ACK Frame {
 {: #fig-frame title="ACK Frame Format"}
 
 The fields Largest Acknowledged, ACK Delay, ACK Range Count, First ACK Range,
-and ACK Range are the same as for ACK (type=0x02) frames specified in {{Section
-19.3 of !RFC9000}}.
+ACK Range and ECN Counts are the same as for ACK (type=0x02..0x03) frames
+specified in {{Section 19.3 of !RFC9000}}.
+
+The format of the Receive Timestamps field is shown in
+{{fig-receive-timestamps}}.
+
+~~~
+Receive Timestamps {
+  Timestamp Range Count (i),
+  Timestamp Range (..) ...
+}
+~~~
+{: #fig-receive-timestamps title="Receive Timestamps Fields"}
 
 Timestamp Range Count:
 
@@ -205,6 +216,11 @@ Timestamp Deltas:
   by 2 to the power of the receive_timestamps_exponent transport parameter
   received by the sender of the ACK frame (see {{negotiation}}):
 
+When the receiver receives packets out-of-order, it SHOULD report them with
+other packets in a single ACK frame, starting with the most recently received
+packet regardless of the packet number order. See {{examples}} for examples of
+reporting timestamps of out-of-order packets.
+
 # Extension Negotiation {#negotiation}
 
 max_receive_timestamps_per_ack (0xff0a002 temporary value for draft use):
@@ -238,7 +254,6 @@ Receive timestamps are reported relative to the basis, rather than in absolute
 time to avoid requiring clock synchronization between endpoints and to make
 the frame more compact.
 
-
 # Discussion
 
 ## Best-Effort Behavior
@@ -253,6 +268,83 @@ acknowledged packets. Examples of such scenarios are:
   sending more than max_receive_timestamps_per_ack ({{negotiation}}); or (b) fit
   the ACK frame into a packet.
 
+# Examples {#examples}
+
+To illustrate the usage of the Receive Timestamps fields, consider a peer
+that sent 14 packets with numbers 87 to 100.
+
+Assume the receiver receives packets 87 to 91 and 96 to 100 at the following
+timestamps relative to the basis:
+
+| Packet Number    | Relative Timestamp |
+| ---------------- | ------------------ |
+| 87               | 300                |
+| 88               | 305                |
+| 89               | 310                |
+| 90               | 320                |
+| 91               | 330                |
+| 96               | 350                |
+| 97               | 355                |
+| 98               | 360                |
+| 99               | 370                |
+| 100              | 380                |
+
+When it's time to acknowledge these packets, the receiver will send an
+ACK frame with two ranges, as follows:
+
+~~~
+Largest Acknowledged: 100
+...
+Timestamp Ranges Count: 2
+
+Timestamp Range 1:
+  Delta Largest Acknowledged: 0 // Starting at packet 100
+  Timestamp Delta Count: 5
+  Timestamps Deltas: 380, 10, 10, 5, 5
+
+Timestamp Range 2:
+  Delta Largest Acknowledged: 9 // Starting at packet 91
+  Timestamp Delta Count: 5
+  Timestamp Deltas: 20, 10, 10, 5, 5
+~~~
+
+After that assume that the receiver receives packets 92 to 95 out-of-order at
+the following timestamps relative to the basis:
+
+| Packet Number    | Relative Timestamp |
+| ---------------- | ------------------ |
+| 92               | 390                |
+| 93               | 392                |
+| 94               | 394                |
+| 95               | 395                |
+
+The receiver can send a new ACK frame with all of the timestamps,
+as follows:
+
+~~~
+Largest Acknowledged: 100
+...
+Timestamp Ranges Count: 3
+
+Timestamp Range 1:
+  Delta Largest Acknowledged: 5 // Starting at packet 95
+  Timestamp Delta Count: 4
+  Timestamps Deltas: 395, 1, 2, 2
+
+Timestamp Range 2:
+  Delta Largest Acknowledged: 0 // Starting at packet 100
+  Timestamp Delta Count: 5
+  Timestamps Deltas: 10, 10, 10, 5, 5
+
+Timestamp Range 3:
+  Delta Largest Acknowledged: 9 // Starting at packet 91
+  Timestamp Delta Count: 5
+  Timestamp Deltas: 20, 10, 10, 5, 5
+~~~
+
+In this particular scenario, the receiver can also choose to report the first
+timestamp range only since the timestamps for the other two ranges have already
+been reported.
 
 # Security Considerations
 
