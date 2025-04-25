@@ -5,13 +5,13 @@
 QUIC                                                            C. Smith
 Internet-Draft                                                    NVIDIA
 Intended status: Informational                                  I. Swett
-Expires: 24 October 2025                                      Google LLC
+Expires: 27 October 2025                                      Google LLC
                                                                J. Beshay
                                                               S. Jaiswal
                                                         I. Purushothaman
                                                             B. Schlinker
                                                     Meta Platforms, Inc.
-                                                           22 April 2025
+                                                           25 April 2025
 
 
  QUIC Extended Acknowledgement for Reporting Packet Receive Timestamps
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 October 2025.
+   This Internet-Draft will expire on 27 October 2025.
 
 Copyright Notice
 
@@ -230,6 +230,11 @@ Table of Contents
       transport parameter received by the sender of the ACK frame (see
       Section 5):
 
+   When the receiver receives packets out-of-order, it MAY report them
+   in Timestamp Ranges in a separate ACK frame.  It MAY also report them
+   with other packets, starting with the most recently received packet
+   regardless of the packet number order (see Section 7 for examples).
+
 5.  Extension Negotiation
 
    max_receive_timestamps_per_ack (0xff0a002 temporary value for
@@ -345,7 +350,7 @@ Table of Contents
 
                                  Table 2
 
-   The receiver MAY send a new ACK frame with all of the timestamps, as
+   The receiver can send a new ACK frame with all of the timestamps, as
    follows:
 
    Largest Acknowledged: 100
@@ -367,7 +372,7 @@ Table of Contents
      Timestamp Delta Count: 5
      Timestamp Deltas: 20, 10, 10, 5, 5
 
-   In this particular scenario, the receiver MAY also choose to report
+   In this particular scenario, the receiver can also choose to report
    the first timestamp range only since the timestamps for the other two
    ranges have already been reported.
 
