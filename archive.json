@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-24T01:43:12.472274+00:00",
+  "timestamp": "2025-04-27T01:48:08.794463+00:00",
   "repo": "wcsmith/draft-quic-receive-ts",
   "labels": [
     {
@@ -192,9 +192,17 @@
       "labels": [],
       "body": "Could also non-normatively reference the RFC and specifically detail what the framing is when this extension is used with MP-QUIC.",
       "createdAt": "2025-04-04T17:06:56Z",
-      "updatedAt": "2025-04-04T17:06:56Z",
+      "updatedAt": "2025-04-25T22:36:44Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "ianswett",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I believe this is mostly fixed, but maybe we should add an explicit reference to MP-QUIC?",
+          "createdAt": "2025-04-25T22:36:44Z",
+          "updatedAt": "2025-04-25T22:36:44Z"
+        }
+      ]
     },
     {
       "number": 14,
@@ -1184,7 +1192,7 @@
       "labels": [],
       "body": "Based on comments on the QUIC mailing list.",
       "createdAt": "2025-04-22T19:58:51Z",
-      "updatedAt": "2025-04-22T20:33:53Z",
+      "updatedAt": "2025-04-24T08:15:12Z",
       "baseRepository": "wcsmith/draft-quic-receive-ts",
       "baseRefName": "main",
       "baseRefOid": "10354dbbb1edc6e2a37c7befc142f7ec35c84e89",
@@ -1209,6 +1217,46 @@
           "createdAt": "2025-04-22T20:33:52Z",
           "updatedAt": "2025-04-22T20:33:52Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOGIUVps6mSiBK",
+          "commit": {
+            "abbreviatedOid": "6e6a99e"
+          },
+          "author": "larseggert",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-24T06:32:45Z",
+          "updatedAt": "2025-04-24T06:32:46Z",
+          "comments": [
+            {
+              "originalPosition": 19,
+              "body": "\"Order by RFC number\" makes it a bit difficult to implement things during the I-D phase, but I guess the I-Ds could specify a (temporary) order.",
+              "createdAt": "2025-04-24T06:32:46Z",
+              "updatedAt": "2025-04-24T06:32:46Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGIUVps6mTrjc",
+          "commit": {
+            "abbreviatedOid": "6e6a99e"
+          },
+          "author": "ianswett",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-24T08:15:12Z",
+          "updatedAt": "2025-04-24T08:15:12Z",
+          "comments": [
+            {
+              "originalPosition": 19,
+              "body": "We could do it by draft adoption, but I figured that was more difficult to track and risked blocking faster moving drafts on slower moving ones.\r\n\r\nI think this is of the right shape, but happy to discuss it in more detail in Madrid",
+              "createdAt": "2025-04-24T08:15:12Z",
+              "updatedAt": "2025-04-24T08:15:12Z"
+            }
+          ]
         }
       ]
     },
@@ -1217,25 +1265,35 @@
       "id": "PR_kwDOGIUVps6Tf85O",
       "title": "Add an example to illustrate the frame format and its support for reordering",
       "url": "https://github.com/wcsmith/draft-quic-receive-ts/pull/18",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "jbeshay",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "- Add an example to illustrate the frame format and its support for reordering\r\n- Define Receive Timestamps which was missing",
       "createdAt": "2025-04-22T21:52:10Z",
-      "updatedAt": "2025-04-23T02:21:05Z",
+      "updatedAt": "2025-04-25T17:31:14Z",
       "baseRepository": "wcsmith/draft-quic-receive-ts",
       "baseRefName": "main",
       "baseRefOid": "10354dbbb1edc6e2a37c7befc142f7ec35c84e89",
       "headRepository": "wcsmith/draft-quic-receive-ts",
       "headRefName": "jb_add_example",
-      "headRefOid": "9aa13ab8a3dbba88e4ec35417757ecc92bbdfaa2",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
-      "comments": [],
+      "headRefOid": "c78ca776b9d7d0ce00b9fc0572f0fd79a3161d25",
+      "closedAt": "2025-04-25T17:31:13Z",
+      "mergedAt": "2025-04-25T17:31:13Z",
+      "mergedBy": "jbeshay",
+      "mergeCommit": {
+        "oid": "c9f780cf69b83ffef0bd0f88406c43d3869de1e3"
+      },
+      "comments": [
+        {
+          "author": "jbeshay",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@ianswett PTAL I moved the normative language out of the examples as we discussed offline. \r\n\r\n",
+          "createdAt": "2025-04-25T17:10:02Z",
+          "updatedAt": "2025-04-25T17:10:02Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOGIUVps6mC6ZK",
@@ -1248,6 +1306,59 @@
           "body": "This looks great, but I'm hesitant to put normative language in examples.  I think the normative language you're adding seems reasonable, but I think it's better in the main doc.",
           "createdAt": "2025-04-23T02:21:05Z",
           "updatedAt": "2025-04-23T02:21:05Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOGIUVps6mlVWN",
+          "commit": {
+            "abbreviatedOid": "3d816e2"
+          },
+          "author": "ianswett",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LG, but I'd like to encourage receivers to use the ability to report receive timestamps of out-of-order packets now that it's enabled by the wire format.",
+          "createdAt": "2025-04-25T17:13:50Z",
+          "updatedAt": "2025-04-25T17:14:54Z",
+          "comments": [
+            {
+              "originalPosition": 27,
+              "body": "I think I'd rather \"It SHOULD report them in a single ACK frame.\"?  At least for most congestion controllers, it's a bit easier to have as much data at once.  And it's a bit smaller on the wire",
+              "createdAt": "2025-04-25T17:13:50Z",
+              "updatedAt": "2025-04-25T17:14:54Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGIUVps6mlXI-",
+          "commit": {
+            "abbreviatedOid": "3d816e2"
+          },
+          "author": "jbeshay",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-25T17:17:50Z",
+          "updatedAt": "2025-04-25T17:17:50Z",
+          "comments": [
+            {
+              "originalPosition": 27,
+              "body": "Makes sense. I will make that change before merging.",
+              "createdAt": "2025-04-25T17:17:50Z",
+              "updatedAt": "2025-04-25T17:17:56Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGIUVps6mldPe",
+          "commit": {
+            "abbreviatedOid": "c78ca77"
+          },
+          "author": "ianswett",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Thanks for the update, LG",
+          "createdAt": "2025-04-25T17:30:00Z",
+          "updatedAt": "2025-04-25T17:30:00Z",
           "comments": []
         }
       ]
