@@ -50,6 +50,8 @@ normative:
 
 informative:
 
+  MP-QUIC: I-D.ietf-quic-multipath
+
   RRBNC:
     title: "pathChirp: Efficient Available Bandwidth Estimation for Network
 Paths"
@@ -104,7 +106,6 @@ if they are not used by the congestion controller.
 # Conventions and Definitions
 
 {::boilerplate bcp14-tagged}
-
 
 # ACK Frame Wire Format {#frame}
 
@@ -238,6 +239,14 @@ receive_timestamps_exponent (0xff0a003 temporary value for draft use):
   peer (see {{ts-ranges}}). If this value is absent, a default value of 0 is
   assumed (indicating microsecond precision). Values above 20 are invalid.
 
+## Multiple Extensions to the ACK Frame
+
+Multiple extensions can alter the ACK Frame or define new codepoints for
+variations on the ACK frame, such as {{?MP-QUIC}}.  Each extension defines
+how it co-exists with past extensions.  If multiple extensions add more
+information to the ACK Frame, as this receive timestamp extension does,
+the additional extensions are appended at the end of the ACK Frame in the
+order of their RFC number, unless otherwise specified.
 
 ## Receive Timestamp Basis {#ts-basis}
 
