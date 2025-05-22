@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-27T01:48:08.794463+00:00",
+  "timestamp": "2025-05-22T01:46:31.549543+00:00",
   "repo": "wcsmith/draft-quic-receive-ts",
   "labels": [
     {
@@ -217,6 +217,22 @@
       "body": "For example, one might want to ensure the addition of an ACK frame doesn't cause a whole extra packet to be sent, so it might be good to send fewer than the max allowed number of timestamps in that case?",
       "createdAt": "2025-04-09T14:45:34Z",
       "updatedAt": "2025-04-09T14:45:34Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 19,
+      "id": "I_kwDOGIUVps63ozkn",
+      "title": "Decide how multiple ACK Frame extensions coexist",
+      "url": "https://github.com/wcsmith/draft-quic-receive-ts/issues/19",
+      "state": "OPEN",
+      "author": "ianswett",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "#17 proposes an approach for how the extensions might exist, but it might not be specific enough and/or handle all the cases we want.\n\nThis is a placeholder issue to ensure the WG has a more complete conversation about this question once the draft it adopted.",
+      "createdAt": "2025-05-21T17:16:05Z",
+      "updatedAt": "2025-05-21T17:16:05Z",
       "closedAt": null,
       "comments": []
     }
@@ -1185,25 +1201,35 @@
       "id": "PR_kwDOGIUVps6TfMla",
       "title": "Propose how multiple ACK Frame extensions coexist",
       "url": "https://github.com/wcsmith/draft-quic-receive-ts/pull/17",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "ianswett",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Based on comments on the QUIC mailing list.",
       "createdAt": "2025-04-22T19:58:51Z",
-      "updatedAt": "2025-04-24T08:15:12Z",
+      "updatedAt": "2025-05-21T17:16:34Z",
       "baseRepository": "wcsmith/draft-quic-receive-ts",
       "baseRefName": "main",
       "baseRefOid": "10354dbbb1edc6e2a37c7befc142f7ec35c84e89",
       "headRepository": "wcsmith/draft-quic-receive-ts",
       "headRefName": "ianswett-multiple-extensions",
-      "headRefOid": "6e6a99e011ff0b2dfdcfee120e2b34e506a54909",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
-      "comments": [],
+      "headRefOid": "829e845d740218d439377ed1fa3697a5fb9df2a8",
+      "closedAt": "2025-05-21T17:16:32Z",
+      "mergedAt": "2025-05-21T17:16:32Z",
+      "mergedBy": "ianswett",
+      "mergeCommit": {
+        "oid": "0a8fef7d0092957da41774e80d7f95a63d287308"
+      },
+      "comments": [
+        {
+          "author": "ianswett",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Landing this for now.  I opened #19 as a place for further discussion.",
+          "createdAt": "2025-05-21T17:16:30Z",
+          "updatedAt": "2025-05-21T17:16:30Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOGIUVps6mBFrY",
