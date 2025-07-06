@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-05-22T01:46:31.549543+00:00",
+  "timestamp": "2025-07-06T01:59:33.440397+00:00",
   "repo": "wcsmith/draft-quic-receive-ts",
   "labels": [
     {
@@ -212,13 +212,23 @@
       "state": "OPEN",
       "author": "ianswett",
       "authorAssociation": "COLLABORATOR",
-      "assignees": [],
+      "assignees": [
+        "ianswett"
+      ],
       "labels": [],
       "body": "For example, one might want to ensure the addition of an ACK frame doesn't cause a whole extra packet to be sent, so it might be good to send fewer than the max allowed number of timestamps in that case?",
       "createdAt": "2025-04-09T14:45:34Z",
-      "updatedAt": "2025-04-09T14:45:34Z",
+      "updatedAt": "2025-07-03T20:16:17Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "ianswett",
+          "authorAssociation": "COLLABORATOR",
+          "body": "There's mention of this in the Discussion section:\nhttps://github.com/wcsmith/draft-quic-receive-ts/blob/main/draft-smith-quic-receive-ts.md#best-effort-behavior",
+          "createdAt": "2025-07-03T20:16:17Z",
+          "updatedAt": "2025-07-03T20:16:17Z"
+        }
+      ]
     },
     {
       "number": 19,
