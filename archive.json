@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-07-06T01:59:33.440397+00:00",
+  "timestamp": "2025-07-08T01:52:05.603922+00:00",
   "repo": "wcsmith/draft-quic-receive-ts",
   "labels": [
     {
@@ -1398,6 +1398,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 20,
+      "id": "PR_kwDOGIUVps6dzYCF",
+      "title": "Update authors/editors/acknowledgment",
+      "url": "https://github.com/wcsmith/draft-quic-receive-ts/pull/20",
+      "state": "OPEN",
+      "author": "jbeshay",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-07-07T17:46:06Z",
+      "updatedAt": "2025-07-07T17:46:06Z",
+      "baseRepository": "wcsmith/draft-quic-receive-ts",
+      "baseRefName": "main",
+      "baseRefOid": "0a8fef7d0092957da41774e80d7f95a63d287308",
+      "headRepository": "wcsmith/draft-quic-receive-ts",
+      "headRefName": "jb_authors",
+      "headRefOid": "4bf157751cee4c09b96df98a41a95f2898a6b6c5",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
