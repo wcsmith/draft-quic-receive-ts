@@ -20,30 +20,23 @@ author:
     org: NVIDIA
     email: connorsmith.ietf@gmail.com
  -
+    role: editor
     ins: I. Swett
     name: Ian Swett
     org: Google LLC
     email: ianswett@google.com
  -
+    role: editor
     ins: J. Beshay
     name: Joseph Beshay
     org: Meta Platforms, Inc.
     email: jbeshay@meta.com
  -
+    role: editor
     ins: S. Jaiswal
     name: Sharad Jaiswal
     org: Meta Platforms, Inc.
     email: sj77@meta.com
- -
-    ins: I. Purushothaman
-    name: Ilango Purushothaman
-    org: Meta Platforms, Inc.
-    email: ipurush@meta.com
- -
-    ins: B. Schlinker
-    name: Brandon Schlinker
-    org: Meta Platforms, Inc.
-    email: bschlinker@meta.com
 
 
 normative:
@@ -370,4 +363,5 @@ This document has no IANA actions.
 # Acknowledgments
 {:numbered="false"}
 
-TODO acknowledge.
+The editors would like to thank Ilango Purushothaman and Brandon Schlinker
+for their contributions to the design of this QUIC extension.
