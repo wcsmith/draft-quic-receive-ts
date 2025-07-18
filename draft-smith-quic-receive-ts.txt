@@ -4,14 +4,12 @@
 
 QUIC                                                            C. Smith
 Internet-Draft                                                    NVIDIA
-Intended status: Informational                                  I. Swett
-Expires: 22 November 2025                                     Google LLC
-                                                               J. Beshay
-                                                              S. Jaiswal
-                                                        I. Purushothaman
-                                                            B. Schlinker
+Intended status: Informational                             I. Swett, Ed.
+Expires: 19 January 2026                                      Google LLC
+                                                          J. Beshay, Ed.
+                                                         S. Jaiswal, Ed.
                                                     Meta Platforms, Inc.
-                                                             21 May 2025
+                                                            18 July 2025
 
 
  QUIC Extended Acknowledgement for Reporting Packet Receive Timestamps
@@ -49,7 +47,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 November 2025.
+   This Internet-Draft will expire on 19 January 2026.
 
 Copyright Notice
 
@@ -426,9 +424,9 @@ Table of Contents
 
    [MP-QUIC]  Liu, Y., Ma, Y., De Coninck, Q., Bonaventure, O., Huitema,
               C., and M. Kühlewind, "Multipath Extension for QUIC", Work
-              in Progress, Internet-Draft, draft-ietf-quic-multipath-14,
-              23 April 2025, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-quic-multipath-14>.
+              in Progress, Internet-Draft, draft-ietf-quic-multipath-15,
+              7 July 2025, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-quic-multipath-15>.
 
    [RFC9002]  Iyengar, J., Ed. and I. Swett, Ed., "QUIC Loss Detection
               and Congestion Control", RFC 9002, DOI 10.17487/RFC9002,
@@ -440,7 +438,9 @@ Table of Contents
 
 Acknowledgments
 
-   TODO acknowledge.
+   The editors would like to thank Ilango Purushothaman and Brandon
+   Schlinker for their contributions to the design of this QUIC
+   extension.
 
 Authors' Addresses
 
@@ -449,26 +449,16 @@ Authors' Addresses
    Email: connorsmith.ietf@gmail.com
 
 
-   Ian Swett
+   Ian Swett (editor)
    Google LLC
    Email: ianswett@google.com
 
 
-   Joseph Beshay
+   Joseph Beshay (editor)
    Meta Platforms, Inc.
    Email: jbeshay@meta.com
 
 
-   Sharad Jaiswal
+   Sharad Jaiswal (editor)
    Meta Platforms, Inc.
    Email: sj77@meta.com
-
-
-   Ilango Purushothaman
-   Meta Platforms, Inc.
-   Email: ipurush@meta.com
-
-
-   Brandon Schlinker
-   Meta Platforms, Inc.
-   Email: bschlinker@meta.com
