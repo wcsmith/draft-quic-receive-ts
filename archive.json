@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-07-20T02:06:05.396013+00:00",
+  "timestamp": "2025-07-24T01:57:50.117096+00:00",
   "repo": "wcsmith/draft-quic-receive-ts",
   "labels": [
     {
@@ -243,6 +243,22 @@
       "body": "#17 proposes an approach for how the extensions might exist, but it might not be specific enough and/or handle all the cases we want.\n\nThis is a placeholder issue to ensure the WG has a more complete conversation about this question once the draft it adopted.",
       "createdAt": "2025-05-21T17:16:05Z",
       "updatedAt": "2025-05-21T17:16:05Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 21,
+      "id": "I_kwDOGIUVps7CIiqF",
+      "title": "When truncating reported timestamps, should we specify whether to favor more recent timestamps or larger PN?",
+      "url": "https://github.com/wcsmith/draft-quic-receive-ts/issues/21",
+      "state": "OPEN",
+      "author": "ianswett",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Currently, the text says:\n\n> max_receive_timestamps_per_ack (0xff0a002 temporary value for draft use):\n> \n> : A variable-length integer indicating that the maximum number of receive timestamps the sending endpoint would like to receive in an ACK frame.\n> \n> Each ACK frame sent MUST NOT contain more than the peer's maximum number of receive timestamps.\n\nAnd\n\n>The sum of Timestamp Delta Counts for all Timestamp Ranges in the frame MUST NOT exceed max_receive_timestamps_per_ack as specified in {{negotiation}}.\n\nWhen truncating the set of reported timestamps, it doesn't say anything about which ones to drop.  Two obvious strategies are to keep the most recent or the largest packet numbers.  If we're going to recommend anything, I'm inclined towards reporting the most recently received packets, but I'm curious what others thoughts are?",
+      "createdAt": "2025-07-23T16:33:55Z",
+      "updatedAt": "2025-07-23T16:33:55Z",
       "closedAt": null,
       "comments": []
     }
