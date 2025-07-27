@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-07-24T01:57:50.117096+00:00",
+  "timestamp": "2025-07-27T02:07:00.753477+00:00",
   "repo": "wcsmith/draft-quic-receive-ts",
   "labels": [
     {
@@ -242,9 +242,17 @@
       "labels": [],
       "body": "#17 proposes an approach for how the extensions might exist, but it might not be specific enough and/or handle all the cases we want.\n\nThis is a placeholder issue to ensure the WG has a more complete conversation about this question once the draft it adopted.",
       "createdAt": "2025-05-21T17:16:05Z",
-      "updatedAt": "2025-05-21T17:16:05Z",
+      "updatedAt": "2025-07-24T17:33:13Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "ianswett",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Most of the feedback at today's session was around saying less and not specifying anything like RFC# as an approach.",
+          "createdAt": "2025-07-24T17:33:13Z",
+          "updatedAt": "2025-07-24T17:33:13Z"
+        }
+      ]
     },
     {
       "number": 21,
@@ -261,6 +269,46 @@
       "updatedAt": "2025-07-23T16:33:55Z",
       "closedAt": null,
       "comments": []
+    },
+    {
+      "number": 22,
+      "id": "I_kwDOGIUVps7CTzrR",
+      "title": "Don't call it MP-QUIC",
+      "url": "https://github.com/wcsmith/draft-quic-receive-ts/issues/22",
+      "state": "OPEN",
+      "author": "ianswett",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Christian suggested calling it QUIC-Multipath or something else, because MP-QUIC is a misnomer.",
+      "createdAt": "2025-07-24T13:47:46Z",
+      "updatedAt": "2025-07-24T13:47:46Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 23,
+      "id": "I_kwDOGIUVps7CT0CI",
+      "title": "Make this extension independent from the ACK_FRAME",
+      "url": "https://github.com/wcsmith/draft-quic-receive-ts/issues/23",
+      "state": "OPEN",
+      "author": "mirjak",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Timestamp information can be send independent of the ACK_FRAME by defining a new frame that does not ack packets and therefore does not carry the ack range information but only one packet number and a timestamp. For congestion control timestamp information and ack ranges that are used to detect loss which triggers a congestion window reduction are independent input and therefore there is no benefit in bundling them in the same frame. Actually not bundling makes it possible to send timestamp information more often than ACK frames which can be beneficial for the congestion control.\n\nThis would also would make the extensibility model easier when dependencies on other frames are avoided.",
+      "createdAt": "2025-07-24T13:48:14Z",
+      "updatedAt": "2025-07-24T14:32:01Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "ianswett",
+          "authorAssociation": "COLLABORATOR",
+          "body": "We've discussed this in the past, and just like ECN marking, it's typically better to get the timestamp information at the same time that packets are newly acknowledged.\n\nTimestamps actually become more valuable when sending fewer ACKs, since they provide delay information that is otherwise lost.\n\nThe existing congestion controllers that use receive timestamps consume them at the same time as they are notified of newly acked packets, which is why this design was chosen. \n\nAs we discussed today, I don't think there's a real extensibility problem here.  It's easy to specify how this extension works with the existing ACK frame and MP-QUIC.",
+          "createdAt": "2025-07-24T14:32:01Z",
+          "updatedAt": "2025-07-24T14:32:01Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -1234,7 +1282,7 @@
       "labels": [],
       "body": "Based on comments on the QUIC mailing list.",
       "createdAt": "2025-04-22T19:58:51Z",
-      "updatedAt": "2025-05-21T17:16:34Z",
+      "updatedAt": "2025-07-24T10:00:26Z",
       "baseRepository": "wcsmith/draft-quic-receive-ts",
       "baseRefName": "main",
       "baseRefOid": "10354dbbb1edc6e2a37c7befc142f7ec35c84e89",
@@ -1307,6 +1355,26 @@
               "body": "We could do it by draft adoption, but I figured that was more difficult to track and risked blocking faster moving drafts on slower moving ones.\r\n\r\nI think this is of the right shape, but happy to discuss it in more detail in Madrid",
               "createdAt": "2025-04-24T08:15:12Z",
               "updatedAt": "2025-04-24T08:15:12Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGIUVps612jh4",
+          "commit": {
+            "abbreviatedOid": "6e6a99e"
+          },
+          "author": "JonathanLennox",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-07-24T10:00:26Z",
+          "updatedAt": "2025-07-24T10:00:26Z",
+          "comments": [
+            {
+              "originalPosition": 19,
+              "body": "\"Order by RFC number\" also makes publishing a -bis awfully confusing.  This seems like a bad idea to me.",
+              "createdAt": "2025-07-24T10:00:26Z",
+              "updatedAt": "2025-07-24T10:00:26Z"
             }
           ]
         }
@@ -1453,6 +1521,46 @@
           "body": "",
           "createdAt": "2025-07-18T18:33:58Z",
           "updatedAt": "2025-07-18T18:33:58Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 24,
+      "id": "PR_kwDOGIUVps6gd18E",
+      "title": "rename multipath reference",
+      "url": "https://github.com/wcsmith/draft-quic-receive-ts/pull/24",
+      "state": "OPEN",
+      "author": "mirjak",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "as noted by christian in the ietf-123 meeting\r\n\r\nFixes #22 ",
+      "createdAt": "2025-07-24T14:21:16Z",
+      "updatedAt": "2025-07-24T14:23:41Z",
+      "baseRepository": "wcsmith/draft-quic-receive-ts",
+      "baseRefName": "main",
+      "baseRefOid": "7c02cd3b502a8bd2c30584a5441e0d7c979e23ce",
+      "headRepository": "mirjak/draft-quic-receive-ts",
+      "headRefName": "patch-1",
+      "headRefOid": "694ea2880e4b6a8d71bee12412e9a49b8deb4868",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGIUVps616GZ7",
+          "commit": {
+            "abbreviatedOid": "694ea28"
+          },
+          "author": "ianswett",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-07-24T14:23:41Z",
+          "updatedAt": "2025-07-24T14:23:41Z",
           "comments": []
         }
       ]
