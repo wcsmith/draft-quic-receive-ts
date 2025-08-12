@@ -43,7 +43,7 @@ normative:
 
 informative:
 
-  MP-QUIC: I-D.ietf-quic-multipath
+  MULTIPATH: I-D.ietf-quic-multipath
 
   RRBNC:
     title: "pathChirp: Efficient Available Bandwidth Estimation for Network
@@ -235,7 +235,7 @@ receive_timestamps_exponent (0xff0a003 temporary value for draft use):
 ## Multiple Extensions to the ACK Frame
 
 Multiple extensions can alter the ACK Frame or define new codepoints for
-variations on the ACK frame, such as {{?MP-QUIC}}.  Each extension defines
+variations on the ACK frame, such as {{?MULTIPATH}}.  Each extension defines
 how it co-exists with past extensions.  If multiple extensions add more
 information to the ACK Frame, as this receive timestamp extension does,
 the additional extensions are appended at the end of the ACK Frame in the
