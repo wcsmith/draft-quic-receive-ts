@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-07-27T02:07:00.753477+00:00",
+  "timestamp": "2025-08-14T01:52:18.651504+00:00",
   "repo": "wcsmith/draft-quic-receive-ts",
   "labels": [
     {
@@ -275,15 +275,15 @@
       "id": "I_kwDOGIUVps7CTzrR",
       "title": "Don't call it MP-QUIC",
       "url": "https://github.com/wcsmith/draft-quic-receive-ts/issues/22",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "ianswett",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Christian suggested calling it QUIC-Multipath or something else, because MP-QUIC is a misnomer.",
       "createdAt": "2025-07-24T13:47:46Z",
-      "updatedAt": "2025-07-24T13:47:46Z",
-      "closedAt": null,
+      "updatedAt": "2025-08-12T16:21:20Z",
+      "closedAt": "2025-08-12T16:21:20Z",
       "comments": []
     },
     {
@@ -1530,24 +1530,26 @@
       "id": "PR_kwDOGIUVps6gd18E",
       "title": "rename multipath reference",
       "url": "https://github.com/wcsmith/draft-quic-receive-ts/pull/24",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "mirjak",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "as noted by christian in the ietf-123 meeting\r\n\r\nFixes #22 ",
       "createdAt": "2025-07-24T14:21:16Z",
-      "updatedAt": "2025-07-24T14:23:41Z",
+      "updatedAt": "2025-08-12T16:21:19Z",
       "baseRepository": "wcsmith/draft-quic-receive-ts",
       "baseRefName": "main",
       "baseRefOid": "7c02cd3b502a8bd2c30584a5441e0d7c979e23ce",
       "headRepository": "mirjak/draft-quic-receive-ts",
       "headRefName": "patch-1",
       "headRefOid": "694ea2880e4b6a8d71bee12412e9a49b8deb4868",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-08-12T16:21:19Z",
+      "mergedAt": "2025-08-12T16:21:19Z",
+      "mergedBy": "jbeshay",
+      "mergeCommit": {
+        "oid": "7a57990c3356b5b436864492be1c01357236576e"
+      },
       "comments": [],
       "reviews": [
         {
